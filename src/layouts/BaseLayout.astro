@@ -108,12 +108,19 @@ const structuredData = {
     <script>
       let pageController: AbortController | undefined;
       let revealObserver: IntersectionObserver | undefined;
+      let sectionObserver: IntersectionObserver | undefined;
+      let metricObserver: IntersectionObserver | undefined;
 
       function initializePage() {
         pageController?.abort();
         revealObserver?.disconnect();
+        sectionObserver?.disconnect();
+        metricObserver?.disconnect();
         pageController = new AbortController();
         const { signal } = pageController;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        document.documentElement.dataset.motion = reducedMotion ? 'reduced' : 'enhanced';
 
         const header = document.querySelector<HTMLElement>('[data-site-header]');
         const updateHeader = () => {
@@ -205,11 +212,7 @@ const structuredData = {
         });
 
         document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
-          if (
-            !window.matchMedia('(pointer: fine)').matches ||
-            window.matchMedia('(prefers-reduced-motion: reduce)').matches
-          )
-            return;
+          if (!finePointer || reducedMotion) return;
           card.addEventListener(
             'pointermove',
             (event) => {
@@ -219,6 +222,49 @@ const structuredData = {
             },
             { signal },
           );
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((element) => {
+          if (!finePointer || reducedMotion) return;
+          const reset = () => {
+            element.style.setProperty('--tilt-x', '0deg');
+            element.style.setProperty('--tilt-y', '0deg');
+          };
+          element.addEventListener(
+            'pointermove',
+            (event) => {
+              const rect = element.getBoundingClientRect();
+              const x = (event.clientX - rect.left) / rect.width - 0.5;
+              const y = (event.clientY - rect.top) / rect.height - 0.5;
+              element.style.setProperty('--tilt-x', `${(-y * 1.4).toFixed(2)}deg`);
+              element.style.setProperty('--tilt-y', `${(x * 1.8).toFixed(2)}deg`);
+            },
+            { signal },
+          );
+          element.addEventListener('pointerleave', reset, { signal });
+          signal.addEventListener('abort', reset, { once: true });
+        });
+
+        document.querySelectorAll<HTMLElement>('.button, .header-cta').forEach((element) => {
+          if (!finePointer || reducedMotion) return;
+          const reset = () => {
+            element.style.setProperty('--magnetic-x', '0px');
+            element.style.setProperty('--magnetic-y', '0px');
+          };
+          element.addEventListener(
+            'pointermove',
+            (event) => {
+              const rect = element.getBoundingClientRect();
+              const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
+              const y = ((event.clientY - rect.top) / rect.height - 0.5) * 4;
+              element.style.setProperty('--magnetic-x', `${x.toFixed(2)}px`);
+              element.style.setProperty('--magnetic-y', `${y.toFixed(2)}px`);
+            },
+            { signal },
+          );
+          element.addEventListener('pointerleave', reset, { signal });
+          element.addEventListener('blur', reset, { signal });
+          signal.addEventListener('abort', reset, { once: true });
         });
 
         document.querySelectorAll<HTMLButtonElement>('[data-copy-password]').forEach((button) => {
@@ -235,7 +281,7 @@ const structuredData = {
           );
         });
 
-        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        if (!reducedMotion) {
           revealObserver = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
@@ -251,6 +297,82 @@ const structuredData = {
             element.dataset.revealReady = 'true';
             revealObserver?.observe(element);
           });
+
+          sectionObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                (entry.target as HTMLElement).dataset.sectionVisible = 'true';
+                sectionObserver?.unobserve(entry.target);
+              });
+            },
+            { rootMargin: '0px 0px -12% 0px', threshold: 0.02 },
+          );
+          document.querySelectorAll<HTMLElement>('.section--bordered').forEach((section) => {
+            sectionObserver?.observe(section);
+          });
+
+          const animateMetric = (element: HTMLElement) => {
+            const finalValue = element.dataset.countup ?? element.textContent?.trim() ?? '';
+            const match = finalValue.match(/^(\D*)(\d+(?:\.\d+)?)(.*)$/);
+            if (!match) return;
+            const [, prefix = '', numeric = '0', suffix = ''] = match;
+            const target = Number(numeric);
+            const decimals = numeric.includes('.') ? (numeric.split('.')[1]?.length ?? 0) : 0;
+            const start = performance.now();
+            const duration = 820;
+            const tick = (time: number) => {
+              const progress = Math.min((time - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 4);
+              element.textContent = `${prefix}${(target * eased).toFixed(decimals)}${suffix}`;
+              if (progress < 1) requestAnimationFrame(tick);
+              else element.textContent = finalValue;
+            };
+            requestAnimationFrame(tick);
+          };
+
+          metricObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                animateMetric(entry.target as HTMLElement);
+                metricObserver?.unobserve(entry.target);
+              });
+            },
+            { threshold: 0.7 },
+          );
+          document.querySelectorAll<HTMLElement>('[data-countup]').forEach((metric) => {
+            metricObserver?.observe(metric);
+          });
+
+          if (finePointer && window.innerWidth >= 768) {
+            const depthElements = Array.from(
+              document.querySelectorAll<HTMLElement>('[data-depth]'),
+            );
+            let depthFrame = 0;
+            const updateDepth = () => {
+              depthFrame = 0;
+              depthElements.forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                const distance = rect.top + rect.height / 2 - window.innerHeight / 2;
+                const progress = Math.max(-1, Math.min(1, distance / window.innerHeight));
+                element.style.setProperty('--depth-y', `${(-progress * 10).toFixed(2)}px`);
+              });
+            };
+            const requestDepthUpdate = () => {
+              if (!depthFrame) depthFrame = requestAnimationFrame(updateDepth);
+            };
+            updateDepth();
+            window.addEventListener('scroll', requestDepthUpdate, { passive: true, signal });
+            window.addEventListener('resize', requestDepthUpdate, { passive: true, signal });
+            signal.addEventListener(
+              'abort',
+              () => {
+                if (depthFrame) cancelAnimationFrame(depthFrame);
+              },
+              { once: true },
+            );
+          }
         }
       }
 

@@ -17,14 +17,15 @@ export interface LocalizedRoute {
   heading: string | RegExp;
 }
 
-export const origin = 'http://127.0.0.1:4321';
+export const origin = 'http://localhost:4321';
 
 export const logicalRoutes: readonly LogicalRoute[] = [
   {
     id: 'home',
     en: '/',
     es: '/es',
-    heading: /Shopify storefronts engineered|Tiendas Shopify pensadas/,
+    heading:
+      /High-performance Shopify stores built for better shopping experiences|Tiendas Shopify de alto rendimiento/,
   },
   { id: 'nocturna', en: '/work/nocturna', es: '/es/work/nocturna', heading: 'Nocturna' },
   { id: 'velor', en: '/work/velor', es: '/es/work/velor', heading: 'Velor' },

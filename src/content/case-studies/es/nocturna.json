@@ -4,27 +4,27 @@
   "title": "Nocturna",
   "seo": {
     "title": "Caso de estudio Shopify: Nocturna | Leandro Alonso",
-    "description": "Cómo Leandro Alonso desarrolló para Nocturna una tienda Shopify a medida, editable y con más de 95 puntos de rendimiento en Lighthouse."
+    "description": "Una tienda Shopify completamente personalizada para Nocturna, editable desde Shopify, rápida y sin dependencias innecesarias de apps en el storefront."
   },
   "category": "Implementación completa en Shopify",
-  "cardSummary": "Una tienda a medida y editable, desarrollada desde cero sin aplicaciones innecesarias en la experiencia de compra.",
+  "cardSummary": "Una tienda Shopify completamente personalizada sin perder la flexibilidad del editor de Shopify.",
   "visualAlt": "Concepto de interfaz para la tienda Shopify de Nocturna",
   "hero": {
-    "summary": "Una tienda a medida para Rest Complex, diseñada primero para dispositivos móviles. Sobre la base Horizon de Shopify, sus secciones principales siguen siendo editables y la implementación se mantiene liviana.",
-    "outcome": "A medida para la marca. Editable para el equipo."
+    "summary": "Una tienda Shopify completamente personalizada sin perder la flexibilidad del editor de Shopify. La experiencia le da más control al negocio sin necesidad de modificar código.",
+    "outcome": "Secciones a medida, performance Lighthouse superior a 95 y sin dependencias innecesarias de apps en el storefront."
   },
   "snapshot": {
     "scope": "Desarrollo completo de la tienda",
-    "platform": "Shopify, sobre la base Horizon",
+    "platform": "Shopify",
     "role": "Desarrollo Shopify · Ingeniería frontend",
     "focus": "UX móvil · Edición autónoma · Rendimiento"
   },
   "context": [
     "Nocturna es una marca ecommerce de un solo producto: Rest Complex, un suplemento alimenticio enfocado en el descanso.",
-    "El proyecto requería una tienda Shopify completa, no un ajuste aislado sobre un tema existente."
+    "El proyecto requería una tienda Shopify completa que se sintiera propia de la marca y siguiera siendo práctica de gestionar."
   ],
   "challenge": [
-    "La tienda necesitaba una experiencia propia y orientada a ecommerce, sin volverse difícil de operar para el equipo.",
+    "La tienda necesitaba una experiencia de compra propia, sin volverse difícil de operar para el equipo.",
     "Las secciones principales debían poder editarse sin código y la implementación debía evitar aplicaciones innecesarias en la experiencia de compra."
   ],
   "approach": [
@@ -44,7 +44,7 @@
   ],
   "engineering": [
     "Las secciones a medida construyen la experiencia visual, mientras las opciones y bloques de Shopify conservan la capacidad de edición.",
-    "Evitar aplicaciones innecesarias mantiene la implementación más directa y reduce dependencias recurrentes."
+    "Evitar aplicaciones innecesarias mantiene la experiencia más liviana y reduce dependencias recurrentes."
   ],
   "results": [
     "Una tienda completamente a medida cuyas secciones principales siguen siendo editables en Shopify.",

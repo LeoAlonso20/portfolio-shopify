@@ -208,15 +208,6 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     transition: scale var(--duration-normal) var(--ease-standard);
   }
 
-  .desktop-nav a:hover {
-    color: var(--color-text);
-  }
-
-  .desktop-nav a:hover::after {
-    scale: 1;
-    transform-origin: left;
-  }
-
   .desktop-actions {
     display: flex;
     align-items: center;
@@ -244,7 +235,6 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     transition: color var(--duration-fast) ease;
   }
 
-  .language-switcher a:hover,
   .language-switcher a[aria-current='page'] {
     color: var(--color-text);
   }
@@ -255,6 +245,8 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
   }
 
   .header-cta {
+    --magnetic-x: 0px;
+    --magnetic-y: 0px;
     display: inline-flex;
     min-height: 2.85rem;
     align-items: center;
@@ -265,14 +257,15 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     font-size: 0.79rem;
     font-weight: 740;
     padding-inline: 1rem;
+    transform: translate3d(var(--magnetic-x), var(--magnetic-y), 0);
     transition:
+      transform var(--duration-normal) var(--ease-out),
       background-color var(--duration-fast) ease,
       translate var(--duration-fast) var(--ease-standard);
   }
 
-  .header-cta:hover {
-    background: var(--color-accent-strong);
-    translate: 0 -1px;
+  .header-cta :global(svg) {
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   .mobile-menu {
@@ -346,6 +339,27 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
   .mobile-panel-footer {
     display: grid;
     gap: 1.4rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .desktop-nav a:hover,
+    .language-switcher a:hover {
+      color: var(--color-text);
+    }
+
+    .desktop-nav a:hover::after {
+      scale: 1;
+      transform-origin: left;
+    }
+
+    .header-cta:hover {
+      background: var(--color-accent-strong);
+      translate: 0 -1px;
+    }
+
+    .header-cta:hover :global(svg) {
+      transform: translate3d(0.13rem, -0.13rem, 0);
+    }
   }
 
   .mobile-panel-footer .language-switcher {

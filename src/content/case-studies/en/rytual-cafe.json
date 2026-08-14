@@ -4,14 +4,14 @@
   "title": "Rytual Cafe",
   "seo": {
     "title": "Rytual Cafe Cart UX Case Study | Leandro Alonso",
-    "description": "A focused Shopify cart redesign for Rytual Cafe, including UX improvements, gifts, upsells and custom Kaching Bundles logic."
+    "description": "A focused Shopify cart improvement for Rytual Cafe, redesigning the buying journey and integrating custom Kaching Bundles cart logic."
   },
   "category": "Cart UX & CRO optimization",
-  "cardSummary": "A targeted cart redesign that clarified hierarchy, improved the empty-cart state and connected Shopify cart behavior with Kaching Bundles.",
+  "cardSummary": "A focused cart improvement that made offers, empty states and bundle behavior clearer without rebuilding the store.",
   "visualAlt": "Rytual Cafe Shopify cart redesign concept",
   "hero": {
-    "summary": "A focused redesign of an existing Shopify cart. It improved hierarchy, the empty-cart state, gifts, upsells and Kaching Bundles behavior without rebuilding the store.",
-    "outcome": "A focused intervention at a high-impact point in the buying journey."
+    "summary": "Not every store needs a rebuild. Sometimes the highest-impact opportunity is already inside the buying journey.",
+    "outcome": "For Rytual Cafe, the focus was the cart: redesigning the experience, improving offers and integrating custom cart logic with Kaching Bundles."
   },
   "snapshot": {
     "scope": "Cart drawer redesign and offer integration",
@@ -21,14 +21,14 @@
   },
   "context": [
     "Rytual Cafe did not need a complete storefront rebuild.",
-    "The work focused on the cart drawer and the way products, gifts, upsells and bundle offers behaved within that part of the customer journey."
+    "The highest-impact opportunity was inside the cart drawer, where products, gifts, upsells and bundle offers needed to work together more clearly."
   ],
   "challenge": [
     "The cart needed to present its contents and offers with a clearer visual hierarchy, including a more useful empty-cart state.",
     "Bundle behavior also required custom logic between the Shopify cart and Kaching Bundles."
   ],
   "approach": [
-    "I treated the cart as a focused product surface: first clarifying its states and information hierarchy, then aligning the offer logic and integration behavior.",
+    "I treated the cart as a focused buying surface: first clarifying its states and information hierarchy, then aligning the offer logic and integration behavior.",
     "Keeping the scope centered on the cart allowed the work to improve a specific journey without forcing a full-store rebuild."
   ],
   "solution": [

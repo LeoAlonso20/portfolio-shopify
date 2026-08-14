@@ -7,11 +7,11 @@
     "description": "Una tienda Shopify premium, diseñada primero para dispositivos móviles y desarrollada a medida para la marca masculina de cuidado capilar y suplementos Velor."
   },
   "category": "Tienda Shopify a medida",
-  "cardSummary": "Una tienda premium y editable, construida alrededor de una identidad propia y una experiencia móvil cuidada.",
+  "cardSummary": "Una tienda Shopify completa con una experiencia de compra propia y gestión editable desde Shopify.",
   "visualAlt": "Concepto de interfaz para la tienda Shopify de Velor",
   "hero": {
-    "summary": "Una experiencia Shopify premium para una marca masculina de cuidado capilar y suplementos. El sistema visual propio se combina con secciones flexibles y una experiencia móvil cuidada.",
-    "outcome": "Una tienda completamente a medida, sin la apariencia ni las limitaciones de un tema genérico."
+    "summary": "Una tienda Shopify completa para una marca masculina de cuidado capilar y suplementos, pensada alrededor de la claridad del producto, la compra mobile y una gestión práctica.",
+    "outcome": "Una tienda específica para la marca, sin depender de código para cambios cotidianos."
   },
   "snapshot": {
     "scope": "Tienda completa a medida",
@@ -25,7 +25,7 @@
   ],
   "challenge": [
     "La tienda debía traducir el posicionamiento premium de Velor en una experiencia ecommerce clara, tanto en dispositivos móviles como en escritorio.",
-    "También debía ser fácil de gestionar mediante secciones flexibles, sin depender del código para cada actualización cotidiana."
+    "También debía ser fácil de gestionar desde Shopify, sin depender del código para cada actualización cotidiana."
   ],
   "approach": [
     "En lugar de recurrir a la presentación de un tema genérico, construí la estructura y las secciones principales alrededor de la identidad y las necesidades de producto de la marca.",

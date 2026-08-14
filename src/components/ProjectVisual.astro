@@ -297,10 +297,6 @@ const visualCopy =
     transition: transform var(--duration-slow) var(--ease-standard);
   }
 
-  .project-visual:hover .visual-browser {
-    transform: translateY(-0.4rem) scale(1.012);
-  }
-
   .visual-bar {
     display: flex;
     height: 1.7rem;
@@ -328,6 +324,12 @@ const visualCopy =
     border-radius: 1rem;
     margin-inline: auto;
     background: rgb(255 255 255 / 7%);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .project-visual:hover .visual-browser {
+      transform: translateY(-0.4rem) scale(1.012);
+    }
   }
 
   .mock-nav {

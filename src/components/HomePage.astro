@@ -80,8 +80,12 @@ const entries = (await getCollection('caseStudies'))
         tabindex="0"
       >
         {
-          copy.credibility.map((item) => (
-            <div class="credibility-item">
+          copy.credibility.map((item, index) => (
+            <div
+              class="credibility-item reveal"
+              data-reveal="soft"
+              style={`--reveal-delay: ${index * 45}ms`}
+            >
               <Icon name={item.icon} size={16} />
               <span>{item.label}</span>
             </div>
@@ -101,7 +105,11 @@ const entries = (await getCollection('caseStudies'))
         <div class="service-list">
           {
             copy.services.items.map((service, index) => (
-              <article class="service-row reveal" style={`--reveal-delay: ${index * 55}ms`}>
+              <article
+                class="service-row reveal"
+                data-reveal="soft"
+                style={`--reveal-delay: ${index * 55}ms`}
+              >
                 <span class="service-number">{service.number}</span>
                 <span class="service-icon">
                   <Icon name={service.icon} size={20} />
@@ -127,7 +135,7 @@ const entries = (await getCollection('caseStudies'))
             intro={copy.comparison.body}
             wide
           />
-          <ul class="improvement-notes reveal">
+          <ul class="improvement-notes reveal" data-reveal="soft" style="--reveal-delay: 140ms">
             {
               copy.comparison.notes.map((note) => (
                 <li>
@@ -138,7 +146,7 @@ const entries = (await getCollection('caseStudies'))
             }
           </ul>
         </div>
-        <div class="comparison-wrap reveal">
+        <div class="comparison-wrap reveal" data-reveal="scale">
           <BeforeAfter
             {locale}
             before={copy.comparison.before}
@@ -172,6 +180,7 @@ const entries = (await getCollection('caseStudies'))
                 cta={copy.work.viewCaseStudy}
                 metricLabel={copy.work.metricLabel}
                 featured={index === 0}
+                revealDelay={index * 65}
               />
             ))
           }
@@ -188,7 +197,7 @@ const entries = (await getCollection('caseStudies'))
             intro={copy.engineering.intro}
             wide
           />
-          <div class="stack reveal">
+          <div class="stack reveal" data-reveal="soft" style="--reveal-delay: 130ms">
             <p>{copy.engineering.stackLabel}</p>
             <ul>
               {copy.engineering.stack.map((item) => <li>{item}</li>)}
@@ -198,7 +207,11 @@ const entries = (await getCollection('caseStudies'))
         <div class="principles-grid">
           {
             copy.engineering.items.map((item, index) => (
-              <article class="principle reveal" style={`--reveal-delay: ${index * 50}ms`}>
+              <article
+                class="principle reveal"
+                data-reveal="scale"
+                style={`--reveal-delay: ${index * 55}ms`}
+              >
                 <span>
                   <Icon name={item.icon} size={20} />
                 </span>
@@ -213,7 +226,7 @@ const entries = (await getCollection('caseStudies'))
 
     <section id="about" class="section about-section section--bordered">
       <div class="about-grid container">
-        <div class="portrait-placeholder reveal">
+        <div class="portrait-placeholder reveal" data-reveal="clip">
           <AssetImage
             src={siteConfig.assets.portrait}
             alt={copy.about.portraitAlt}
@@ -221,6 +234,7 @@ const entries = (await getCollection('caseStudies'))
             height={2000}
             sizes="(max-width: 768px) calc(100vw - 40px), 38vw"
             class="portrait-image"
+            depth
           >
             <div class="portrait-fallback" role="img" aria-label={copy.about.portraitLabel}>
               <div class="portrait-initials" aria-hidden="true">LA</div>
@@ -233,12 +247,18 @@ const entries = (await getCollection('caseStudies'))
           </AssetImage>
         </div>
         <div class="about-content">
-          <p class="eyebrow reveal">{copy.about.eyebrow}</p>
-          <h2 class="section-heading section-heading--wide reveal">{copy.about.title}</h2>
-          <div class="about-copy reveal">
+          <p class="eyebrow reveal" data-reveal="soft">{copy.about.eyebrow}</p>
+          <h2
+            class="section-heading section-heading--wide reveal"
+            data-reveal="soft"
+            style="--reveal-delay: 55ms"
+          >
+            {copy.about.title}
+          </h2>
+          <div class="about-copy reveal" data-reveal="soft" style="--reveal-delay: 105ms">
             {copy.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
           </div>
-          <dl class="about-details reveal">
+          <dl class="about-details reveal" data-reveal="soft" style="--reveal-delay: 155ms">
             <div>
               <dt><Icon name="Code" size={17} />{copy.about.role}</dt>
               <dd>Córdoba, Argentina</dd>
@@ -254,11 +274,20 @@ const entries = (await getCollection('caseStudies'))
 
     <section class="section why-section section--bordered">
       <div class="container">
-        <SectionHeader eyebrow={copy.why.eyebrow} title={copy.why.title} wide />
+        <SectionHeader
+          eyebrow={copy.why.eyebrow}
+          title={copy.why.title}
+          intro={copy.why.intro}
+          wide
+        />
         <div class="why-grid">
           {
             copy.why.items.map((item, index) => (
-              <article class="why-item reveal" style={`--reveal-delay: ${index * 55}ms`}>
+              <article
+                class="why-item reveal"
+                data-reveal="soft"
+                style={`--reveal-delay: ${index * 55}ms`}
+              >
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
@@ -287,8 +316,8 @@ const entries = (await getCollection('caseStudies'))
     display: grid;
     min-width: 0;
     align-items: center;
-    grid-template-columns: minmax(0, 1.02fr) minmax(29rem, 0.98fr);
-    gap: clamp(3rem, 5vw, 6rem);
+    grid-template-columns: minmax(0, 1.2fr) minmax(27rem, 0.8fr);
+    gap: clamp(2.5rem, 4vw, 5rem);
   }
 
   .hero-copy {
@@ -301,12 +330,12 @@ const entries = (await getCollection('caseStudies'))
   }
 
   .hero-copy h1 {
-    max-width: 10.5ch;
+    max-width: 15.5ch;
     margin-top: 1.55rem;
-    font-size: var(--text-display);
+    font-size: clamp(3rem, 1.75rem + 3.25vw, 5.35rem);
     font-weight: 560;
-    letter-spacing: -0.074em;
-    line-height: 0.91;
+    letter-spacing: -0.064em;
+    line-height: 0.93;
     text-wrap: balance;
     animation: hero-in 800ms var(--ease-out) 150ms both;
   }
@@ -371,6 +400,7 @@ const entries = (await getCollection('caseStudies'))
     color: var(--color-text-subtle);
     font-family: var(--font-mono);
     font-size: 0.5rem;
+    animation: hero-in 700ms var(--ease-out) 430ms both;
   }
 
   .hero-index i {
@@ -381,6 +411,7 @@ const entries = (await getCollection('caseStudies'))
 
   @keyframes hero-in {
     from {
+      opacity: 0;
       translate: 0 1.2rem;
     }
   }
@@ -444,10 +475,6 @@ const entries = (await getCollection('caseStudies'))
     transition: border-color var(--duration-fast) ease;
   }
 
-  .service-row:hover {
-    border-color: rgb(200 255 69 / 25%);
-  }
-
   .service-number {
     color: var(--color-text-subtle);
     font-family: var(--font-mono);
@@ -466,11 +493,6 @@ const entries = (await getCollection('caseStudies'))
     transition:
       background-color var(--duration-fast) ease,
       border-color var(--duration-fast) ease;
-  }
-
-  .service-row:hover .service-icon {
-    border-color: rgb(200 255 69 / 28%);
-    background: rgb(200 255 69 / 8%);
   }
 
   .service-row h3 {
@@ -598,10 +620,6 @@ const entries = (await getCollection('caseStudies'))
     transition: background-color var(--duration-normal) ease;
   }
 
-  .principle:hover {
-    background: rgb(200 255 69 / 3%);
-  }
-
   .principle:last-child {
     grid-column: 1 / -1;
   }
@@ -659,6 +677,7 @@ const entries = (await getCollection('caseStudies'))
 
   :global(.portrait-image) {
     object-fit: cover;
+    transform: translate3d(0, var(--depth-y, 0), 0) scale(1.035);
   }
 
   .portrait-fallback {
@@ -814,6 +833,9 @@ const entries = (await getCollection('caseStudies'))
     border-right: 1px solid var(--color-line);
     border-bottom: 1px solid var(--color-line);
     padding: clamp(1.35rem, 2.5vw, 2.2rem);
+    transition:
+      background-color var(--duration-normal) ease,
+      border-color var(--duration-normal) ease;
   }
 
   .why-item > span {
@@ -833,6 +855,27 @@ const entries = (await getCollection('caseStudies'))
     margin-top: 0.7rem;
     color: var(--color-text-muted);
     font-size: var(--text-sm);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .service-row:hover {
+      border-color: rgb(200 255 69 / 25%);
+    }
+
+    .service-row:hover .service-icon {
+      border-color: rgb(200 255 69 / 28%);
+      background: rgb(200 255 69 / 8%);
+    }
+
+    .principle:hover,
+    .why-item:hover {
+      border-color: rgb(200 255 69 / 17%);
+      background: rgb(200 255 69 / 3%);
+    }
+
+    :global(.portrait-image[data-depth]) {
+      will-change: transform;
+    }
   }
 
   @media (max-width: 74rem) {

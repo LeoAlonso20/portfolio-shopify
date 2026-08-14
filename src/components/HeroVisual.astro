@@ -42,7 +42,7 @@ const visualCopy =
       };
 ---
 
-<figure class="hero-visual reveal" role="img" aria-label={label}>
+<figure class="hero-visual" data-tilt role="img" aria-label={label}>
   <div class="atmosphere" aria-hidden="true"></div>
   <div class="browser" data-spotlight aria-hidden="true">
     <div class="browser-bar" aria-hidden="true">
@@ -97,10 +97,13 @@ const visualCopy =
 
 <style>
   .hero-visual {
+    --tilt-x: 0deg;
+    --tilt-y: 0deg;
     position: relative;
     min-width: 0;
     aspect-ratio: 1.08 / 1;
     perspective: 1200px;
+    animation: visual-enter 920ms var(--ease-out) 180ms both;
   }
 
   .atmosphere {
@@ -127,7 +130,7 @@ const visualCopy =
     box-shadow:
       0 50px 110px rgb(0 0 0 / 54%),
       0 0 0 1px rgb(0 0 0 / 55%);
-    transform: rotateY(-4deg) rotateX(1.7deg);
+    transform: rotateY(calc(-4deg + var(--tilt-y))) rotateX(calc(1.7deg + var(--tilt-x)));
     transform-origin: center;
     transition:
       transform var(--duration-slow) var(--ease-standard),
@@ -144,11 +147,6 @@ const visualCopy =
     );
     content: '';
     pointer-events: none;
-  }
-
-  .hero-visual:hover .browser {
-    border-color: rgb(200 255 69 / 25%);
-    transform: rotateY(-1.5deg) rotateX(0.5deg) translateY(-3px);
   }
 
   .browser-bar {
@@ -352,6 +350,7 @@ const visualCopy =
       inset -16px 0 24px rgb(0 0 0 / 30%),
       0 22px 30px rgb(40 51 35 / 28%);
     color: #dce3d5;
+    animation: bottle-breathe 7s ease-in-out 1.2s infinite alternate;
   }
 
   .product-bottle::before {
@@ -439,11 +438,13 @@ const visualCopy =
   .floating-card--performance {
     top: 2%;
     right: -2%;
+    animation: badge-drift-a 6.8s ease-in-out 1.1s infinite alternate;
   }
 
   .floating-card--ux {
     right: 3%;
     bottom: 1%;
+    animation: badge-drift-b 7.6s ease-in-out 1.5s infinite alternate;
   }
 
   .floating-card span:last-child {
@@ -485,6 +486,39 @@ const visualCopy =
       0 0 16px rgb(200 255 69 / 40%);
   }
 
+  @keyframes visual-enter {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.1rem, 0) scale(0.985);
+    }
+  }
+
+  @keyframes badge-drift-a {
+    to {
+      transform: translate3d(-0.18rem, -0.3rem, 0);
+    }
+  }
+
+  @keyframes badge-drift-b {
+    to {
+      transform: translate3d(0.22rem, -0.22rem, 0);
+    }
+  }
+
+  @keyframes bottle-breathe {
+    to {
+      transform: translate3d(0, -0.22rem, 0);
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-visual:hover .browser {
+      border-color: rgb(200 255 69 / 25%);
+      transform: rotateY(calc(-1.5deg + var(--tilt-y))) rotateX(calc(0.5deg + var(--tilt-x)))
+        translateY(-3px);
+    }
+  }
+
   @media (max-width: 74rem) {
     .floating-card--performance {
       right: 0;
@@ -499,10 +533,6 @@ const visualCopy =
     .browser {
       inset: 6% 0 9%;
       transform: none;
-    }
-
-    .hero-visual:hover .browser {
-      transform: translateY(-2px);
     }
 
     .store-links {

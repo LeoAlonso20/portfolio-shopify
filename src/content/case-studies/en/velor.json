@@ -7,11 +7,11 @@
     "description": "A custom, mobile-first Shopify storefront developed for Velor’s premium men’s hair-care and supplement brand."
   },
   "category": "Custom Shopify storefront",
-  "cardSummary": "A premium, merchant-editable storefront built around a distinct brand identity and mobile shopping experience.",
+  "cardSummary": "A complete Shopify storefront that gives the brand a distinct shopping experience while staying editable from Shopify.",
   "visualAlt": "Velor Shopify storefront interface concept",
   "hero": {
-    "summary": "A premium, mobile-first Shopify experience for a men’s hair-care and supplement brand. The custom visual system is paired with flexible sections for practical content management.",
-    "outcome": "A complete custom storefront without the look or limitations of a generic theme."
+    "summary": "A complete Shopify storefront for a men's hair-care and supplement brand, shaped around product clarity, mobile shopping and practical content management.",
+    "outcome": "A storefront that feels specific to the brand without locking the merchant into code changes for routine updates."
   },
   "snapshot": {
     "scope": "Full custom storefront",
@@ -25,10 +25,10 @@
   ],
   "challenge": [
     "The storefront needed to translate Velor’s premium positioning into a clear ecommerce experience across mobile and desktop.",
-    "The result also needed to remain manageable through flexible Shopify sections rather than depend on code for routine updates."
+    "The result also needed to remain manageable from Shopify rather than depend on code for routine updates."
   ],
   "approach": [
-    "Instead of relying on a generic theme presentation, I built the storefront structure and major sections around the brand’s visual and product needs.",
+    "Instead of relying on a generic theme presentation, I built the storefront structure and major sections around the brand's visual and product needs.",
     "Product presentation, mobile behavior, editor flexibility and frontend performance guided the implementation."
   ],
   "solution": [

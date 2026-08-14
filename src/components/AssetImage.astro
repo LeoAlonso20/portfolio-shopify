@@ -11,6 +11,7 @@ interface Props {
   fetchpriority?: 'high' | 'low' | 'auto';
   decoding?: 'sync' | 'async' | 'auto';
   class?: string;
+  depth?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   fetchpriority = 'auto',
   decoding = 'async',
   class: className,
+  depth = false,
 } = Astro.props;
 const resolvedSource = publicAssetPath(src);
 const srcset = publicAssetSrcset(src);
@@ -41,6 +43,7 @@ const srcset = publicAssetSrcset(src);
       {fetchpriority}
       {decoding}
       class={className}
+      data-depth={depth ? '' : undefined}
     />
   ) : (
     <slot />

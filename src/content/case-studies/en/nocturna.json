@@ -4,31 +4,31 @@
   "title": "Nocturna",
   "seo": {
     "title": "Nocturna Shopify Case Study | Leandro Alonso",
-    "description": "How Leandro Alonso built Nocturna’s custom, merchant-editable Shopify storefront with 95+ Lighthouse performance."
+    "description": "A fully custom Shopify storefront for Nocturna that stays editable from Shopify, runs fast and avoids unnecessary storefront app dependencies."
   },
   "category": "Full Shopify storefront",
-  "cardSummary": "A custom, merchant-editable storefront built from the ground up without unnecessary storefront apps.",
+  "cardSummary": "A fully custom Shopify storefront that stays editable from Shopify — without unnecessary storefront app dependencies.",
   "visualAlt": "Nocturna Shopify storefront interface concept",
   "hero": {
-    "summary": "A custom, mobile-first storefront for Rest Complex. Built on Shopify’s Horizon foundation, its major sections remain merchant-editable while the frontend stays lean and conversion-conscious.",
-    "outcome": "Custom where the brand needed it. Editable where the merchant needed it."
+    "summary": "A fully custom Shopify storefront without giving up the flexibility of Shopify's editor. The experience gives the merchant more control without requiring code changes.",
+    "outcome": "Custom sections, 95+ Lighthouse performance and no unnecessary storefront app dependencies."
   },
   "snapshot": {
     "scope": "Full storefront development",
-    "platform": "Shopify, built on Horizon",
+    "platform": "Shopify",
     "role": "Shopify development · Frontend engineering",
     "focus": "Mobile UX · Merchant editing · Performance"
   },
   "context": [
     "Nocturna is a single-product ecommerce brand selling Rest Complex, a dietary supplement focused on better rest.",
-    "The project called for a complete Shopify storefront rather than a limited theme adjustment."
+    "The project called for a complete Shopify storefront that could feel specific to the brand while still being practical to manage."
   ],
   "challenge": [
-    "The storefront needed a custom, conversion-oriented experience while remaining practical for the merchant to operate.",
+    "The storefront needed a tailored shopping experience while remaining practical for the merchant to operate.",
     "Major content areas had to remain editable without code, and the implementation needed to avoid unnecessary third-party storefront apps."
   ],
   "approach": [
-    "I used Shopify’s Horizon foundation as the base, then developed the major storefront sections around the brand’s content and commerce needs.",
+    "I used Shopify's Horizon foundation as the base, then developed the major storefront sections around the brand's content and commerce needs.",
     "Mobile behavior, theme-editor flexibility and performance were treated as requirements from the beginning."
   ],
   "solution": [
@@ -44,7 +44,7 @@
   ],
   "engineering": [
     "Custom sections provide the tailored experience while Shopify settings and blocks preserve editor control.",
-    "Avoiding unnecessary storefront apps keeps the implementation direct and reduces recurring app dependency."
+    "Avoiding unnecessary storefront apps keeps the experience lean and reduces recurring app dependency."
   ],
   "results": [
     "A fully custom storefront whose major sections remain editable in Shopify.",

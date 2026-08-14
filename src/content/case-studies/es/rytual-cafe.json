@@ -4,14 +4,14 @@
   "title": "Rytual Cafe",
   "seo": {
     "title": "Caso de estudio UX de carrito: Rytual Cafe | Leandro Alonso",
-    "description": "Rediseño puntual del carrito Shopify de Rytual Cafe, con mejoras de UX, regalos, ventas adicionales y lógica personalizada para Kaching Bundles."
+    "description": "Una mejora puntual del carrito Shopify de Rytual Cafe, rediseñando el proceso de compra e integrando lógica personalizada con Kaching Bundles."
   },
   "category": "Optimización de carrito, UX y CRO",
-  "cardSummary": "Un rediseño puntual que mejoró la jerarquía, el estado vacío y la conexión entre el carrito de Shopify y Kaching Bundles.",
+  "cardSummary": "Una mejora puntual del carrito que hizo más claros los estados, las ofertas y el comportamiento de bundles sin rehacer la tienda.",
   "visualAlt": "Concepto del rediseño del carrito Shopify de Rytual Cafe",
   "hero": {
-    "summary": "Un rediseño enfocado del carrito existente. Mejoró la jerarquía, el estado vacío, los regalos, las ventas adicionales y el comportamiento de Kaching Bundles sin rehacer toda la tienda.",
-    "outcome": "Una intervención puntual en un momento clave del recorrido de compra."
+    "summary": "No todas las tiendas necesitan rehacerse. A veces, la oportunidad de mayor impacto ya está dentro del proceso de compra.",
+    "outcome": "En Rytual Cafe, el foco estuvo en el carrito: rediseñar la experiencia, mejorar las ofertas e integrar lógica personalizada con Kaching Bundles."
   },
   "snapshot": {
     "scope": "Rediseño del carrito e integración de ofertas",
@@ -21,14 +21,14 @@
   },
   "context": [
     "Rytual Cafe no necesitaba reconstruir toda su tienda.",
-    "El trabajo se concentró en el carrito lateral y en cómo funcionaban allí los productos, regalos, ventas adicionales y ofertas en paquete."
+    "La oportunidad de mayor impacto estaba dentro del carrito lateral, donde productos, regalos, ventas adicionales y ofertas en paquete necesitaban funcionar juntos con más claridad."
   ],
   "challenge": [
     "El carrito necesitaba presentar su contenido y sus ofertas con una jerarquía visual más clara, además de contar con un estado vacío más útil.",
     "El comportamiento de los paquetes también requería lógica personalizada entre el carrito de Shopify y Kaching Bundles."
   ],
   "approach": [
-    "Trabajé el carrito como una superficie de producto específica: primero aclarando sus estados y jerarquía, y luego alineando la lógica de ofertas y el comportamiento de la integración.",
+    "Trabajé el carrito como una superficie de compra específica: primero aclarando sus estados y jerarquía, y luego alineando la lógica de ofertas y el comportamiento de la integración.",
     "Mantener el alcance centrado en el carrito permitió mejorar ese recorrido sin forzar una reconstrucción completa."
   ],
   "solution": [

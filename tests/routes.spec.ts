@@ -17,8 +17,8 @@ test.describe('localized routes and metadata', () => {
       await expect(page.locator('main#main-content')).toBeVisible();
       await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(route.heading);
-      await expect(page.locator('header')).toBeVisible();
-      await expect(page.locator('footer')).toBeVisible();
+      await expect(page.getByRole('banner')).toBeVisible();
+      await expect(page.getByRole('contentinfo')).toBeVisible();
 
       await expect(page).toHaveTitle(/\S+/);
       await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /\S+/);

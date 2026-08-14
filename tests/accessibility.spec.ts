@@ -29,7 +29,8 @@ test.describe('WCAG 2.2 AA automated checks', () => {
     test(`${route.path} has no automatically detectable WCAG A/AA violations`, async ({
       page,
     }, testInfo) => {
-      await page.goto(route.path);
+      await page.goto(route.path, { waitUntil: 'networkidle' });
+      await expect(page.locator('main#main-content')).toBeVisible();
       await expectNoAxeViolations(page, testInfo);
     });
   }
@@ -39,7 +40,7 @@ test.describe('WCAG 2.2 AA automated checks', () => {
       page,
     }, testInfo) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(locale === 'en' ? '/' : '/es');
+      await page.goto(locale === 'en' ? '/' : '/es', { waitUntil: 'networkidle' });
       await page.getByTestId('mobile-nav-toggle').click();
       await expect(page.getByTestId('mobile-nav-panel')).toBeVisible();
       await expectNoAxeViolations(page, testInfo);

@@ -17,7 +17,7 @@ const copy = getUi(locale);
   class:list={['contact-section section', { 'contact-section--compact': compact }]}
 >
   <div class="container">
-    <div class="contact-shell reveal">
+    <div class="contact-shell reveal" data-reveal="scale">
       <div class="contact-glow" aria-hidden="true"></div>
       <div class="contact-copy">
         <p class="eyebrow">{compact ? copy.caseStudy.ready : copy.contact.eyebrow}</p>
@@ -79,6 +79,7 @@ const copy = getUi(locale);
     background: rgb(180 255 54 / 11%);
     filter: blur(70px);
     pointer-events: none;
+    animation: contact-glow 7s ease-in-out infinite alternate;
   }
 
   .contact-copy,
@@ -110,7 +111,22 @@ const copy = getUi(locale);
   }
 
   .contact-actions .button {
+    overflow: hidden;
     justify-content: space-between;
+  }
+
+  .contact-actions .button--primary::after {
+    position: absolute;
+    inset: -50% auto -50% -35%;
+    width: 24%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 34%), transparent);
+    content: '';
+    opacity: 0;
+    rotate: 14deg;
+    transform: translate3d(-180%, 0, 0);
+    transition:
+      opacity var(--duration-fast) ease,
+      transform 650ms var(--ease-out);
   }
 
   .contact-actions > p {
@@ -124,6 +140,21 @@ const copy = getUi(locale);
 
   .contact-section--compact .contact-copy h2 {
     font-size: clamp(2.1rem, 4.1vw, 4.2rem);
+  }
+
+  @keyframes contact-glow {
+    to {
+      opacity: 0.68;
+      scale: 1.08;
+      translate: -3% -2%;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .contact-actions .button--primary:hover::after {
+      opacity: 0.7;
+      transform: translate3d(620%, 0, 0);
+    }
   }
 
   @media (max-width: 55rem) {
