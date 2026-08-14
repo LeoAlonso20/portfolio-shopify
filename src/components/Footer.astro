@@ -1,0 +1,181 @@
+---
+import Icon from './Icon.astro';
+import { getUi } from '../i18n/ui';
+import { homePath, siteConfig, type Locale } from '../config/site';
+
+interface Props {
+  locale: Locale;
+  alternatePath: string;
+}
+
+const { locale, alternatePath } = Astro.props;
+const copy = getUi(locale);
+const root = homePath(locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-grid container">
+    <div class="footer-brand">
+      <a href={root} class="footer-name">Leandro Alonso<span>.</span></a>
+      <p>{copy.footer.tagline}</p>
+    </div>
+
+    <div class="footer-column">
+      <p class="footer-label">{copy.footer.explore}</p>
+      <nav aria-label={copy.footer.explore}>
+        <a href={`${root}#work`}>{copy.nav.work}</a>
+        <a href={`${root}#services`}>{copy.nav.services}</a>
+        <a href={`${root}#about`}>{copy.nav.about}</a>
+      </nav>
+    </div>
+
+    <div class="footer-column">
+      <p class="footer-label">{copy.footer.connect}</p>
+      <nav aria-label={copy.footer.connect}>
+        <a data-contact="email" href={`mailto:${siteConfig.email}`}>Email</a>
+        <a
+          data-contact="linkedin"
+          href={siteConfig.social.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn <Icon name="ArrowUpRight" size={13} /><span class="sr-only"
+            >({copy.accessibility.external})</span
+          ></a
+        >
+        <a
+          data-contact="github"
+          href={siteConfig.social.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub <Icon name="ArrowUpRight" size={13} /><span class="sr-only"
+            >({copy.accessibility.external})</span
+          ></a
+        >
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {year} Leandro Alonso. {copy.footer.copyright}</p>
+      <nav class="footer-languages" aria-label={copy.accessibility.language}>
+        <a
+          href={locale === 'en' ? Astro.url.pathname : alternatePath}
+          lang="en"
+          hreflang="en"
+          aria-current={locale === 'en' ? 'page' : undefined}>EN</a
+        >
+        <span aria-hidden="true">/</span>
+        <a
+          href={locale === 'es' ? Astro.url.pathname : alternatePath}
+          lang="es"
+          hreflang="es"
+          aria-current={locale === 'es' ? 'page' : undefined}>ES</a
+        >
+      </nav>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-line);
+    padding-block: 4.25rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(14rem, 1.8fr) 0.7fr 0.7fr;
+    gap: 2rem;
+  }
+
+  .footer-brand p {
+    margin-top: 0.7rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .footer-name {
+    font-size: 1.3rem;
+    font-weight: 680;
+    letter-spacing: -0.04em;
+  }
+
+  .footer-name span {
+    color: var(--color-accent);
+  }
+
+  .footer-label {
+    margin-bottom: 1rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-column nav {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .footer-column a {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .footer-column a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--color-line);
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    color: var(--color-text-subtle);
+    font-size: var(--text-xs);
+    grid-column: 1 / -1;
+  }
+
+  .footer-languages {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-mono);
+  }
+
+  .footer-languages a {
+    display: inline-grid;
+    min-width: 2rem;
+    min-height: 2rem;
+    place-items: center;
+    border-radius: 0.2rem;
+  }
+
+  .footer-languages a[aria-current='page'] {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 47.99rem) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 2.5rem;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+
+    .footer-bottom {
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+  }
+</style>

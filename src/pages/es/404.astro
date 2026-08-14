@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  locale="es"
+  title="Página no encontrada | Leandro Alonso"
+  description="No pudimos encontrar la página solicitada."
+  pathname="/es/404"
+  alternatePath="/404"
+  indexable={false}
+>
+  <main id="main-content" class="not-found container">
+    <p class="eyebrow">404</p>
+    <h1>Esta ruta quedó fuera de la tienda.</h1>
+    <p>Es posible que la página se haya movido o que la dirección esté incompleta.</p>
+    <a class="button button--primary" href="/es">Volver al portfolio</a>
+  </main>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    min-height: 80svh;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block: 9rem 5rem;
+  }
+
+  h1 {
+    max-width: 13ch;
+    margin-top: 1.5rem;
+    font-size: var(--text-h2);
+    font-weight: 560;
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+
+  main > p:nth-of-type(2) {
+    max-width: 34rem;
+    margin-top: 1.3rem;
+    color: var(--color-text-muted);
+  }
+
+  .button {
+    margin-top: 2rem;
+  }
+</style>

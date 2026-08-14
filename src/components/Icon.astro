@@ -1,0 +1,69 @@
+---
+import {
+  Accessibility,
+  ArrowRight,
+  ArrowUpRight,
+  Blocks,
+  Check,
+  Code,
+  Copy,
+  ExternalLink,
+  Gauge,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  MousePointerClick,
+  MoveHorizontal,
+  Network,
+  PanelsTopLeft,
+  SlidersHorizontal,
+  Smartphone,
+  Store,
+  TrendingUp,
+  Wrench,
+  X,
+} from '@lucide/astro';
+
+interface Props {
+  name: string;
+  size?: number | string;
+  strokeWidth?: number | string;
+  class?: string;
+}
+
+const { name, size = 20, strokeWidth = 1.7, class: className } = Astro.props;
+
+const icons = {
+  Accessibility,
+  ArrowRight,
+  ArrowUpRight,
+  Blocks,
+  Check,
+  Code,
+  Code2: Code,
+  Copy,
+  ExternalLink,
+  Gauge,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  MousePointerClick,
+  MoveHorizontal,
+  Network,
+  PanelsTopLeft,
+  SlidersHorizontal,
+  Smartphone,
+  Store,
+  TrendingUp,
+  Wrench,
+  X,
+};
+
+const IconComponent = icons[name as keyof typeof icons] ?? Code;
+---
+
+<IconComponent size={size} stroke-width={strokeWidth} class={className} aria-hidden="true" />

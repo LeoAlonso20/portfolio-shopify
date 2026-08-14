@@ -1,0 +1,712 @@
+---
+import Icon from './Icon.astro';
+import AssetImage from './AssetImage.astro';
+import type { Locale } from '../config/site';
+
+interface Props {
+  before: string;
+  after: string;
+  locale: Locale;
+  beforeSrc?: string;
+  afterSrc?: string;
+  rangeLabel: string;
+  ariaLabel: string;
+  projectHint?: string;
+}
+
+const { locale, before, after, beforeSrc, afterSrc, rangeLabel, ariaLabel, projectHint } =
+  Astro.props;
+const visualCopy =
+  locale === 'en'
+    ? {
+        nav: 'Shop · Story · Café',
+        concept: 'COMMERCE CONCEPT',
+        title: 'A clearer cart journey.',
+        cartItems: 'Cart items',
+        productA: 'Product A',
+        productB: 'Product B',
+        option: 'Selected option',
+        related: 'Related offer',
+        suggestion: 'Suggested item',
+        add: 'Add',
+        subtotal: 'Subtotal',
+        checkout: 'CHECKOUT',
+        yourCart: 'YOUR CART',
+        selection: 'Your selection',
+        items: 'Items',
+        offer: 'Offer state',
+        optional: 'Optional addition',
+        continue: 'CONTINUE TO CHECKOUT',
+        secure: 'Secure checkout',
+      }
+    : {
+        nav: 'Tienda · Historia · Café',
+        concept: 'CONCEPTO DE COMERCIO',
+        title: 'Un recorrido de carrito más claro.',
+        cartItems: 'Productos del carrito',
+        productA: 'Producto A',
+        productB: 'Producto B',
+        option: 'Opción elegida',
+        related: 'Oferta relacionada',
+        suggestion: 'Producto sugerido',
+        add: 'Agregar',
+        subtotal: 'Subtotal',
+        checkout: 'FINALIZAR COMPRA',
+        yourCart: 'TU CARRITO',
+        selection: 'Tu selección',
+        items: 'Productos',
+        offer: 'Estado de oferta',
+        optional: 'Adición opcional',
+        continue: 'CONTINUAR A LA COMPRA',
+        secure: 'Compra segura',
+      };
+---
+
+<div
+  class="comparison"
+  data-comparison
+  data-testid="before-after"
+  role="group"
+  aria-label={ariaLabel}
+>
+  <div class="comparison-frame" aria-hidden="true">
+    <div class="comparison-state comparison-state--before">
+      <AssetImage
+        src={beforeSrc}
+        alt=""
+        width={1440}
+        height={1600}
+        sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
+        class="comparison-real-image"
+      >
+        <div class="comparison-concept">
+          <div class="comparison-shop">
+            <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
+            <div class="mini-content">
+              <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
+            </div>
+          </div>
+          <div class="before-cart">
+            <div class="before-head"><b>{visualCopy.cartItems}</b><span>×</span></div>
+            <div class="before-item">
+              <i></i><span><b>{visualCopy.productA}</b><small>{visualCopy.option}</small></span><em
+                >—</em
+              >
+            </div>
+            <div class="before-item">
+              <i></i><span><b>{visualCopy.productB}</b><small>{visualCopy.option}</small></span><em
+                >—</em
+              >
+            </div>
+            <div class="before-offer">
+              <small>{visualCopy.related}</small><span
+                ><i></i><b>{visualCopy.suggestion}</b><em>{visualCopy.add}</em></span
+              >
+            </div>
+            <div class="before-total">
+              <span>{visualCopy.subtotal} <b>—</b></span><span class="mock-button"
+                >{visualCopy.checkout}</span
+              >
+            </div>
+          </div>
+        </div>
+      </AssetImage>
+    </div>
+
+    <div class="comparison-state comparison-state--after">
+      <AssetImage
+        src={afterSrc}
+        alt=""
+        width={1440}
+        height={1600}
+        sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
+        class="comparison-real-image"
+      >
+        <div class="comparison-concept">
+          <div class="comparison-shop comparison-shop--after">
+            <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
+            <div class="mini-content">
+              <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
+            </div>
+          </div>
+          <div class="after-cart">
+            <div class="after-head">
+              <div><small>{visualCopy.yourCart}</small><b>{visualCopy.selection}</b></div><span
+                >{visualCopy.items} &nbsp; ×</span
+              >
+            </div>
+            <div class="gift-progress">
+              <span><Icon name="Check" size={10} /> {visualCopy.offer}</span><i><b></b></i>
+            </div>
+            <div class="after-item">
+              <i></i><span
+                ><b>{visualCopy.productA}</b><small>{visualCopy.option}</small><em
+                  >− &nbsp; 1 &nbsp; +</em
+                ></span
+              ><strong>—</strong>
+            </div>
+            <div class="after-item">
+              <i></i><span
+                ><b>{visualCopy.productB}</b><small>{visualCopy.option}</small><em
+                  >− &nbsp; 1 &nbsp; +</em
+                ></span
+              ><strong>—</strong>
+            </div>
+            <div class="after-offer">
+              <small>{visualCopy.related}</small><div>
+                <i></i><span
+                  ><b>{visualCopy.suggestion}</b><small>{visualCopy.optional}</small></span
+                ><strong>+</strong>
+              </div>
+            </div>
+            <div class="after-total">
+              <span><small>{visualCopy.subtotal}</small><b>—</b></span><span class="mock-button"
+                >{visualCopy.continue} <b>→</b></span
+              ><small>{visualCopy.secure}</small>
+            </div>
+          </div>
+        </div>
+      </AssetImage>
+    </div>
+
+    <div class="comparison-divider" aria-hidden="true">
+      <span><Icon name="MoveHorizontal" size={17} /></span>
+    </div>
+    <span class="comparison-label comparison-label--before">{before}</span>
+    <span class="comparison-label comparison-label--after">{after}</span>
+  </div>
+
+  <label class="comparison-control">
+    <span class="sr-only">{rangeLabel}</span>
+    <input
+      data-comparison-range
+      type="range"
+      min="0"
+      max="100"
+      value="52"
+      aria-label={rangeLabel}
+    />
+  </label>
+  {projectHint && <p class="comparison-hint">{projectHint}</p>}
+</div>
+
+<style>
+  .comparison {
+    --comparison: 52%;
+  }
+
+  .comparison-frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.58;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background: #15110d;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .comparison-state {
+    position: absolute;
+    inset: 0;
+  }
+
+  .comparison-concept {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1.08fr 0.92fr;
+  }
+
+  :global(.comparison-real-image) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .comparison-state--after {
+    z-index: 2;
+    clip-path: inset(0 calc(100% - var(--comparison)) 0 0);
+  }
+
+  .comparison-shop {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 70% 80%, rgb(116 75 41 / 70%) 0 21%, transparent 21.5%),
+      linear-gradient(130deg, #d9c4a6, #a98560);
+    color: #2d2116;
+  }
+
+  .comparison-shop::after {
+    position: absolute;
+    right: 4%;
+    bottom: -22%;
+    width: 44%;
+    aspect-ratio: 1;
+    border: 1.5rem solid rgb(71 42 25 / 74%);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .comparison-shop--after {
+    filter: saturate(0.92) contrast(1.02);
+  }
+
+  .mini-store {
+    display: flex;
+    height: 3.3rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(55 37 24 / 14%);
+    padding-inline: clamp(0.8rem, 2vw, 1.6rem);
+  }
+
+  .mini-store b {
+    font-size: clamp(0.42rem, 0.7vw, 0.66rem);
+    letter-spacing: 0.2em;
+  }
+
+  .mini-store span {
+    font-size: clamp(0.28rem, 0.45vw, 0.4rem);
+  }
+
+  .mini-content {
+    position: absolute;
+    top: 26%;
+    left: 10%;
+    display: flex;
+    max-width: 50%;
+    flex-direction: column;
+  }
+
+  .mini-content small {
+    font-family: var(--font-mono);
+    font-size: clamp(0.22rem, 0.38vw, 0.34rem);
+    letter-spacing: 0.1em;
+  }
+
+  .mini-content b {
+    margin-top: 0.7rem;
+    font-family: Georgia, serif;
+    font-size: clamp(1rem, 2.6vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  .before-cart,
+  .after-cart {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    background: #f3efe7;
+    color: #2b251f;
+    box-shadow: -20px 0 45px rgb(47 30 17 / 15%);
+  }
+
+  .before-head,
+  .after-head {
+    display: flex;
+    min-height: 3.3rem;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dcd5ca;
+    padding-inline: clamp(0.65rem, 1.8vw, 1.25rem);
+  }
+
+  .before-head {
+    font-size: clamp(0.35rem, 0.6vw, 0.54rem);
+  }
+
+  .before-item,
+  .after-item {
+    display: grid;
+    align-items: center;
+    border-bottom: 1px solid #ded7cc;
+    grid-template-columns: clamp(2rem, 5vw, 4.3rem) 1fr auto;
+    gap: clamp(0.4rem, 1.2vw, 0.8rem);
+    margin-inline: clamp(0.6rem, 1.6vw, 1.1rem);
+    padding-block: clamp(0.45rem, 1.2vw, 0.85rem);
+  }
+
+  .before-item > i,
+  .after-item > i {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 0.28rem;
+    background: linear-gradient(140deg, #b9946d, #60412d);
+  }
+
+  .before-item:nth-of-type(3) > i,
+  .after-item:nth-of-type(4) > i {
+    background: linear-gradient(140deg, #d0ad7e, #7a4c2d);
+  }
+
+  .before-item span,
+  .after-item span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .before-item b,
+  .after-item b {
+    overflow: hidden;
+    font-size: clamp(0.28rem, 0.54vw, 0.48rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .before-item small,
+  .after-item small {
+    color: #675f56;
+    font-size: clamp(0.21rem, 0.38vw, 0.34rem);
+  }
+
+  .before-item em,
+  .after-item strong {
+    font-family: var(--font-mono);
+    font-size: clamp(0.24rem, 0.45vw, 0.4rem);
+    font-style: normal;
+  }
+
+  .before-offer {
+    margin: clamp(0.5rem, 1.5vw, 1rem);
+    border: 1px solid #ded6ca;
+    padding: clamp(0.4rem, 1vw, 0.75rem);
+  }
+
+  .before-offer > small {
+    color: #786e63;
+    font-size: clamp(0.2rem, 0.36vw, 0.31rem);
+  }
+
+  .before-offer > span {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1.8rem 1fr auto;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .before-offer i {
+    width: 1.8rem;
+    aspect-ratio: 1;
+    background: #c8b093;
+  }
+
+  .before-offer b,
+  .before-offer em {
+    font-size: clamp(0.22rem, 0.4vw, 0.35rem);
+    font-style: normal;
+  }
+
+  .before-offer em {
+    border: 1px solid #6b5a4a;
+    padding: 0.15rem 0.25rem;
+  }
+
+  .before-total,
+  .after-total {
+    margin-top: auto;
+    border-top: 1px solid #ded7cc;
+    padding: clamp(0.5rem, 1.4vw, 1rem);
+  }
+
+  .before-total > span,
+  .after-total > span {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: clamp(0.27rem, 0.48vw, 0.42rem);
+  }
+
+  .before-total .mock-button,
+  .after-total .mock-button {
+    width: 100%;
+    border: 0;
+    border-radius: 0.2rem;
+    margin-top: 0.45rem;
+    background: #35271d;
+    color: white;
+    font-size: clamp(0.26rem, 0.45vw, 0.4rem);
+    font-weight: 700;
+    padding: clamp(0.45rem, 1vw, 0.75rem);
+  }
+
+  .after-head > div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .after-head small {
+    color: #675f56;
+    font-family: var(--font-mono);
+    font-size: clamp(0.18rem, 0.32vw, 0.28rem);
+    letter-spacing: 0.08em;
+  }
+
+  .after-head b {
+    font-size: clamp(0.35rem, 0.65vw, 0.58rem);
+  }
+
+  .after-head > span {
+    color: #766c61;
+    font-family: var(--font-mono);
+    font-size: clamp(0.2rem, 0.36vw, 0.31rem);
+  }
+
+  .gift-progress {
+    background: #e8e0d4;
+    padding: 0.45rem clamp(0.6rem, 1.5vw, 1.1rem);
+  }
+
+  .gift-progress > span {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: #5d4835;
+    font-size: clamp(0.2rem, 0.37vw, 0.33rem);
+    font-weight: 650;
+  }
+
+  .gift-progress > i {
+    display: block;
+    height: 0.18rem;
+    overflow: hidden;
+    border-radius: 2rem;
+    margin-top: 0.28rem;
+    background: #d3c7b7;
+  }
+
+  .gift-progress > i > b {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #725039;
+  }
+
+  .after-item span em {
+    width: fit-content;
+    border: 1px solid #d6cdc0;
+    margin-top: 0.24rem;
+    font-family: var(--font-mono);
+    font-size: clamp(0.17rem, 0.3vw, 0.27rem);
+    font-style: normal;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .after-offer {
+    margin: clamp(0.45rem, 1.2vw, 0.85rem) clamp(0.6rem, 1.6vw, 1.1rem) 0;
+    border-radius: 0.3rem;
+    background: #e8dfd2;
+    padding: clamp(0.35rem, 0.8vw, 0.6rem);
+  }
+
+  .after-offer > small {
+    color: #5f554b;
+    font-family: var(--font-mono);
+    font-size: clamp(0.17rem, 0.3vw, 0.26rem);
+    letter-spacing: 0.08em;
+  }
+
+  .after-offer > div {
+    display: grid;
+    align-items: center;
+    grid-template-columns: clamp(1.5rem, 3.4vw, 2.7rem) 1fr auto;
+    gap: 0.45rem;
+    margin-top: 0.35rem;
+  }
+
+  .after-offer div > i {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 0.2rem;
+    background: #b79872;
+  }
+
+  .after-offer div > span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .after-offer b {
+    overflow: hidden;
+    font-size: clamp(0.23rem, 0.4vw, 0.36rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .after-offer small {
+    color: #5f554b;
+    font-size: clamp(0.17rem, 0.29vw, 0.25rem);
+  }
+
+  .after-offer div > strong {
+    display: grid;
+    width: clamp(1rem, 2vw, 1.5rem);
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: #573924;
+    color: white;
+    font-size: clamp(0.3rem, 0.55vw, 0.48rem);
+  }
+
+  .after-total .mock-button {
+    display: flex;
+    justify-content: space-between;
+    background: #573924;
+  }
+
+  .after-total > small {
+    display: block;
+    margin-top: 0.3rem;
+    color: #675f56;
+    font-size: clamp(0.16rem, 0.28vw, 0.24rem);
+    text-align: center;
+  }
+
+  .comparison-divider {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    left: var(--comparison);
+    width: 2px;
+    background: var(--color-accent);
+    box-shadow: 0 0 24px rgb(200 255 69 / 35%);
+    translate: -1px 0;
+  }
+
+  .comparison-divider span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 2.8rem;
+    height: 2.8rem;
+    place-items: center;
+    border: 2px solid #11150c;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+    color: #10140c;
+    translate: -50% -50%;
+  }
+
+  .comparison-label {
+    position: absolute;
+    z-index: 4;
+    top: 1rem;
+    border: 1px solid rgb(255 255 255 / 16%);
+    border-radius: var(--radius-pill);
+    background: rgb(8 11 8 / 76%);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: clamp(0.48rem, 0.7vw, 0.65rem);
+    letter-spacing: 0.08em;
+    padding: 0.34rem 0.62rem;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+  }
+
+  .comparison-label--before {
+    left: 1rem;
+  }
+
+  .comparison-label--after {
+    right: 1rem;
+  }
+
+  .comparison-control {
+    display: block;
+    margin-top: 1.25rem;
+  }
+
+  .comparison-control input {
+    width: 100%;
+    height: 2rem;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: ew-resize;
+  }
+
+  .comparison-control input::-webkit-slider-runnable-track {
+    height: 0.3rem;
+    border-radius: 3rem;
+    background: linear-gradient(
+      to right,
+      var(--color-accent) var(--comparison),
+      #262d25 var(--comparison)
+    );
+  }
+
+  .comparison-control input::-webkit-slider-thumb {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 0.24rem solid #10140c;
+    border-radius: 50%;
+    margin-top: -0.48rem;
+    appearance: none;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+
+  .comparison-control input::-moz-range-track {
+    height: 0.3rem;
+    border-radius: 3rem;
+    background: #262d25;
+  }
+
+  .comparison-control input::-moz-range-progress {
+    height: 0.3rem;
+    border-radius: 3rem;
+    background: var(--color-accent);
+  }
+
+  .comparison-control input::-moz-range-thumb {
+    width: 0.9rem;
+    height: 0.9rem;
+    border: 0.22rem solid #10140c;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent);
+  }
+
+  .comparison-hint {
+    margin-top: 0.6rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-align: center;
+  }
+
+  @media (max-width: 47.99rem) {
+    .comparison-frame {
+      aspect-ratio: 0.95;
+    }
+
+    .comparison-state {
+      grid-template-columns: 0.5fr 1.5fr;
+    }
+
+    .mini-content {
+      display: none;
+    }
+
+    .comparison-shop::after {
+      right: -70%;
+      width: 150%;
+    }
+
+    .comparison-divider span {
+      width: 2.55rem;
+      height: 2.55rem;
+    }
+  }
+</style>

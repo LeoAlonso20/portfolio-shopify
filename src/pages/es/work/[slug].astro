@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import CaseStudyPage from '../../../components/CaseStudyPage.astro';
+import { projects, projectSlugs } from '../../../config/projects';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('caseStudies', ({ data }) => data.locale === 'es');
+
+  return projectSlugs.map((slug) => {
+    const entry = entries.find((candidate) => candidate.data.projectKey === slug);
+    const nextEntry = entries.find(
+      (candidate) => candidate.data.projectKey === projects[slug].next,
+    );
+
+    if (!entry || !nextEntry) {
+      throw new Error(`Missing Spanish case-study content for ${slug}`);
+    }
+
+    return { params: { slug }, props: { entry, nextEntry } };
+  });
+}
+
+const { entry, nextEntry } = Astro.props;
+---
+
+<CaseStudyPage locale="es" {entry} {nextEntry} />

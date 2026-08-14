@@ -1,0 +1,55 @@
+{
+  "projectKey": "velor",
+  "locale": "en",
+  "title": "Velor",
+  "seo": {
+    "title": "Velor Shopify Case Study | Leandro Alonso",
+    "description": "A custom, mobile-first Shopify storefront developed for Velor’s premium men’s hair-care and supplement brand."
+  },
+  "category": "Custom Shopify storefront",
+  "cardSummary": "A premium, merchant-editable storefront built around a distinct brand identity and mobile shopping experience.",
+  "visualAlt": "Velor Shopify storefront interface concept",
+  "hero": {
+    "summary": "A premium, mobile-first Shopify experience for a men’s hair-care and supplement brand. The custom visual system is paired with flexible sections for practical content management.",
+    "outcome": "A complete custom storefront without the look or limitations of a generic theme."
+  },
+  "snapshot": {
+    "scope": "Full custom storefront",
+    "platform": "Shopify",
+    "role": "Shopify development · Frontend engineering",
+    "focus": "Premium DTC design · Mobile ecommerce · Flexible sections"
+  },
+  "context": [
+    "Velor is a premium men’s hair-care and supplement brand focused on customers experiencing hair thinning.",
+    "The project involved building a complete Shopify storefront with its own visual character."
+  ],
+  "challenge": [
+    "The storefront needed to translate Velor’s premium positioning into a clear ecommerce experience across mobile and desktop.",
+    "The result also needed to remain manageable through flexible Shopify sections rather than depend on code for routine updates."
+  ],
+  "approach": [
+    "Instead of relying on a generic theme presentation, I built the storefront structure and major sections around the brand’s visual and product needs.",
+    "Product presentation, mobile behavior, editor flexibility and frontend performance guided the implementation."
+  ],
+  "solution": [
+    "Developed the full custom Shopify storefront.",
+    "Established a distinct premium visual system.",
+    "Built configurable custom Shopify sections.",
+    "Created responsive product presentation across screen sizes.",
+    "Kept frontend implementation decisions performance-aware."
+  ],
+  "uxCro": [
+    "The experience prioritizes product presentation, legibility and a composed path to purchase.",
+    "The premium visual treatment supports the brand without competing with the shopping journey."
+  ],
+  "engineering": [
+    "Reusable Shopify sections keep layouts flexible and maintainable for the merchant.",
+    "Responsive and performance-aware frontend decisions support the experience across devices."
+  ],
+  "results": [
+    "A complete custom Shopify storefront aligned with Velor’s premium positioning.",
+    "A merchant-editable section architecture for ongoing content management.",
+    "A composed product experience that remains clear across mobile and desktop."
+  ],
+  "beforeAfter": null
+}

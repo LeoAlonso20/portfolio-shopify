@@ -1,0 +1,302 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { ProjectConfig } from '../config/projects';
+import type { Locale } from '../config/site';
+import { workPath } from '../config/site';
+import Icon from './Icon.astro';
+import AssetImage from './AssetImage.astro';
+import ProjectVisual from './ProjectVisual.astro';
+
+interface Props {
+  entry: CollectionEntry<'caseStudies'>;
+  project: ProjectConfig;
+  locale: Locale;
+  cta: string;
+  metricLabel: string;
+  featured?: boolean;
+}
+
+const { entry, project, locale, cta, metricLabel, featured = false } = Astro.props;
+const path = workPath(locale, project.slug);
+---
+
+<article
+  class:list={['project-card reveal', { 'project-card--featured': featured }]}
+  data-project-slug={project.slug}
+  data-spotlight
+>
+  <a class="project-card-link" href={path} aria-label={`${cta}: ${entry.data.title}`}>
+    <div
+      class="project-card-media"
+      transition:name={`project-${project.slug}-visual`}
+      transition:animate="slide"
+    >
+      <AssetImage
+        src={project.assets.card}
+        alt={entry.data.visualAlt}
+        width={1800}
+        height={1240}
+        sizes={featured
+          ? '(max-width: 768px) calc(100vw - 40px), 82rem'
+          : '(max-width: 768px) calc(100vw - 40px), 40rem'}
+        class="project-card-image"
+      >
+        <ProjectVisual variant={project.visual} {locale} label={entry.data.visualAlt} />
+      </AssetImage>
+    </div>
+
+    <div class="project-card-body">
+      <div class="project-card-meta">
+        <span>{String(project.order).padStart(2, '0')}</span>
+        <span>{entry.data.category}</span>
+      </div>
+      <div class="project-card-title-row">
+        <h3 transition:name={`project-${project.slug}-title`}>{entry.data.title}</h3>
+        <span class="project-card-arrow"><Icon name="ArrowUpRight" size={20} /></span>
+      </div>
+      <p>{entry.data.cardSummary}</p>
+
+      <div class="project-card-footer">
+        <span class="project-card-cta">{cta}<Icon name="ArrowRight" size={15} /></span>
+        {
+          project.metrics.length > 0 && (
+            <span class="project-metric">
+              <small>{metricLabel}</small>
+              <strong>{project.metrics[0]?.value}</strong>
+              <span>{project.metrics[0]?.label[locale]}</span>
+            </span>
+          )
+        }
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .project-card {
+    --pointer-x: 50%;
+    --pointer-y: 40%;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color var(--duration-normal) ease,
+      translate var(--duration-normal) var(--ease-standard),
+      box-shadow var(--duration-normal) var(--ease-standard);
+  }
+
+  .project-card::after {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      30rem circle at var(--pointer-x) var(--pointer-y),
+      rgb(200 255 69 / 7%),
+      transparent 42%
+    );
+    content: '';
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-normal) ease;
+  }
+
+  .project-card:hover {
+    border-color: rgb(200 255 69 / 28%);
+    box-shadow: var(--shadow-lg), var(--shadow-accent);
+    translate: 0 -0.35rem;
+  }
+
+  .project-card:hover::after {
+    opacity: 1;
+  }
+
+  .project-card-link {
+    display: block;
+  }
+
+  .project-card-link:focus-visible {
+    border-radius: var(--radius-lg);
+    outline-offset: -4px;
+  }
+
+  .project-card-media {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.65rem;
+  }
+
+  :global(.project-card-image) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.45;
+    border-radius: calc(var(--radius-lg) - 1px);
+    object-fit: cover;
+  }
+
+  .project-card-body {
+    position: relative;
+    z-index: 1;
+    padding: clamp(1.35rem, 2.6vw, 2.25rem);
+  }
+
+  .project-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-card-meta span:first-child {
+    color: var(--color-accent);
+  }
+
+  .project-card-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .project-card-title-row h3 {
+    font-size: clamp(1.65rem, 2.4vw, 2.8rem);
+    font-weight: 570;
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  .project-card-arrow {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 50%;
+    color: var(--color-accent);
+    transition:
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      rotate var(--duration-normal) var(--ease-standard);
+  }
+
+  .project-card:hover .project-card-arrow {
+    background: var(--color-accent);
+    color: #10140c;
+    rotate: 45deg;
+  }
+
+  .project-card-body > p {
+    max-width: 41rem;
+    margin-top: 1rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.65;
+  }
+
+  .project-card-footer {
+    display: flex;
+    min-height: 3.1rem;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .project-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-text-soft);
+    font-size: 0.78rem;
+    font-weight: 650;
+  }
+
+  .project-card-cta :global(svg) {
+    color: var(--color-accent);
+    transition: translate var(--duration-fast) ease;
+  }
+
+  .project-card:hover .project-card-cta :global(svg) {
+    translate: 0.2rem 0;
+  }
+
+  .project-metric {
+    display: grid;
+    align-items: end;
+    grid-template-columns: auto auto;
+    gap: 0 0.45rem;
+    text-align: right;
+  }
+
+  .project-metric small {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    grid-column: 1 / -1;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-metric strong {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 630;
+    letter-spacing: -0.06em;
+    line-height: 1;
+  }
+
+  .project-metric > span {
+    max-width: 8.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.58rem;
+    line-height: 1.25;
+  }
+
+  @media (min-width: 64rem) {
+    .project-card--featured {
+      grid-column: 1 / -1;
+    }
+
+    .project-card--featured .project-card-link {
+      display: grid;
+      grid-template-columns: 1.55fr 0.75fr;
+    }
+
+    .project-card--featured .project-card-media {
+      border-right: 1px solid var(--color-line);
+      border-bottom: 0;
+    }
+
+    .project-card--featured .project-card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-card--featured .project-card-footer {
+      margin-top: auto;
+      padding-top: 3rem;
+    }
+  }
+
+  @media (max-width: 35rem) {
+    .project-card-footer {
+      align-items: flex-start;
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
+
+    .project-metric {
+      text-align: left;
+    }
+  }
+</style>

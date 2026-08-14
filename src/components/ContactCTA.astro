@@ -1,0 +1,150 @@
+---
+import Icon from './Icon.astro';
+import { getUi } from '../i18n/ui';
+import { getWhatsAppUrl, siteConfig, type Locale } from '../config/site';
+
+interface Props {
+  locale: Locale;
+  compact?: boolean;
+}
+
+const { locale, compact = false } = Astro.props;
+const copy = getUi(locale);
+---
+
+<section
+  id="contact"
+  class:list={['contact-section section', { 'contact-section--compact': compact }]}
+>
+  <div class="container">
+    <div class="contact-shell reveal">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="contact-copy">
+        <p class="eyebrow">{compact ? copy.caseStudy.ready : copy.contact.eyebrow}</p>
+        <h2>{copy.contact.title}</h2>
+        <p>{compact ? copy.caseStudy.readyBody : copy.contact.body}</p>
+      </div>
+      <div class="contact-actions">
+        <a
+          class="button button--primary"
+          data-contact="email"
+          href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(locale === 'en' ? 'Shopify project inquiry' : 'Consulta sobre proyecto Shopify')}`}
+        >
+          <Icon name="Mail" size={18} />{copy.contact.primary}
+        </a>
+        <a
+          class="button button--secondary"
+          data-contact="whatsapp"
+          href={getWhatsAppUrl(locale)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Icon name="MessageCircle" size={18} />{copy.contact.whatsapp}<span class="sr-only"
+            >({copy.accessibility.external})</span
+          >
+        </a>
+        {!compact && <p>{copy.contact.response}</p>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding-top: calc(var(--section-space) * 0.85);
+  }
+
+  .contact-shell {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    align-items: end;
+    border: 1px solid rgb(200 255 69 / 18%);
+    border-radius: var(--radius-xl);
+    background:
+      linear-gradient(120deg, rgb(200 255 69 / 3%), transparent 50%), var(--color-surface);
+    box-shadow: var(--shadow-lg);
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3rem;
+    padding: clamp(2rem, 5vw, 5.5rem);
+  }
+
+  .contact-glow {
+    position: absolute;
+    right: -10%;
+    bottom: -70%;
+    width: 55%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: rgb(180 255 54 / 11%);
+    filter: blur(70px);
+    pointer-events: none;
+  }
+
+  .contact-copy,
+  .contact-actions {
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-copy h2 {
+    max-width: 12ch;
+    margin-top: 1.3rem;
+    font-size: clamp(2.35rem, 4.7vw, 5.1rem);
+    font-weight: 570;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .contact-copy > p:last-child {
+    max-width: 40rem;
+    margin-top: 1.4rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .contact-actions {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .contact-actions .button {
+    justify-content: space-between;
+  }
+
+  .contact-actions > p {
+    margin-top: 0.5rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    line-height: 1.55;
+    text-align: center;
+  }
+
+  .contact-section--compact .contact-copy h2 {
+    font-size: clamp(2.1rem, 4.1vw, 4.2rem);
+  }
+
+  @media (max-width: 55rem) {
+    .contact-shell {
+      align-items: start;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .contact-actions {
+      max-width: 29rem;
+    }
+  }
+
+  @media (max-width: 35rem) {
+    .contact-shell {
+      padding: 1.6rem;
+    }
+
+    .contact-actions .button {
+      justify-content: center;
+    }
+  }
+</style>

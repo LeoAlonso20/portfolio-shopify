@@ -1,0 +1,541 @@
+---
+import Icon from './Icon.astro';
+import type { Locale } from '../config/site';
+
+interface Props {
+  label: string;
+  locale: Locale;
+  product: string;
+  detail: string;
+  cta: string;
+  performance: string;
+  performanceValue: string;
+  uxNote: string;
+  uxValue: string;
+}
+
+const { label, locale, product, detail, cta, performance, performanceValue, uxNote, uxValue } =
+  Astro.props;
+const visualCopy =
+  locale === 'en'
+    ? {
+        nav: 'Shop · Science · Story',
+        bag: 'Bag · 0',
+        eyebrow: 'REST EXPERIENCE CONCEPT',
+        description:
+          'A considered product experience, presented with clarity from first impression to purchase.',
+        benefits: ['01 · Clear', '02 · Calm', '03 · Simple'],
+        bottleDetail: 'CONCEPT FORMULA',
+        stageOne: 'REST / CONCEPT',
+        stageTwo: 'FORM / SYSTEM',
+      }
+    : {
+        nav: 'Tienda · Ciencia · Historia',
+        bag: 'Bolsa · 0',
+        eyebrow: 'CONCEPTO DE EXPERIENCIA',
+        description:
+          'Una experiencia de producto cuidada y clara, desde la primera impresión hasta la compra.',
+        benefits: ['01 · Claro', '02 · Calmo', '03 · Simple'],
+        bottleDetail: 'FÓRMULA CONCEPTUAL',
+        stageOne: 'DESCANSO / CONCEPTO',
+        stageTwo: 'FORMA / SISTEMA',
+      };
+---
+
+<figure class="hero-visual reveal" role="img" aria-label={label}>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="browser" data-spotlight aria-hidden="true">
+    <div class="browser-bar" aria-hidden="true">
+      <div class="browser-dots"><span></span><span></span><span></span></div>
+      <div class="browser-address">nocturna / rest-complex</div>
+      <div class="browser-secure"><span></span></div>
+    </div>
+    <div class="storefront">
+      <div class="store-nav">
+        <span class="store-logo">NOCTURNA</span>
+        <div class="store-links"><span>{visualCopy.nav}</span></div>
+        <span class="store-cart">{visualCopy.bag}</span>
+      </div>
+      <div class="store-content">
+        <div class="store-copy">
+          <p>{visualCopy.eyebrow}</p>
+          <strong class="store-title">{product}</strong>
+          <p class="store-description">
+            {visualCopy.description}
+          </p>
+          <div class="store-purchase">
+            <span>{cta}</span><strong>{detail}</strong>
+          </div>
+          <div class="store-benefits">
+            {visualCopy.benefits.map((benefit) => <span>{benefit}</span>)}
+          </div>
+        </div>
+        <div class="product-stage">
+          <div class="moon-ring"></div>
+          <div class="product-shadow"></div>
+          <div class="product-bottle">
+            <span class="bottle-brand">NOCTURNA</span>
+            <span class="bottle-title">REST<br />COMPLEX</span>
+            <span class="bottle-detail">{visualCopy.bottleDetail}</span>
+          </div>
+          <span class="stage-note stage-note--one">{visualCopy.stageOne}</span>
+          <span class="stage-note stage-note--two">{visualCopy.stageTwo}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="floating-card floating-card--performance" aria-hidden="true">
+    <span class="floating-icon"><Icon name="Gauge" size={17} /></span>
+    <span><small>{performance}</small><strong>{performanceValue}</strong></span>
+  </div>
+  <div class="floating-card floating-card--ux" aria-hidden="true">
+    <span class="floating-dot" aria-hidden="true"></span>
+    <span><small>{uxNote}</small><strong>{uxValue}</strong></span>
+  </div>
+</figure>
+
+<style>
+  .hero-visual {
+    position: relative;
+    min-width: 0;
+    aspect-ratio: 1.08 / 1;
+    perspective: 1200px;
+  }
+
+  .atmosphere {
+    position: absolute;
+    inset: 8% 3% 0 8%;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgb(184 255 62 / 15%),
+      rgb(134 255 54 / 3%) 45%,
+      transparent 71%
+    );
+    filter: blur(26px);
+  }
+
+  .browser {
+    position: absolute;
+    z-index: 1;
+    inset: 7% 2% 6% 4%;
+    overflow: hidden;
+    border: 1px solid rgb(226 255 213 / 18%);
+    border-radius: 1.15rem;
+    background: #0d110e;
+    box-shadow:
+      0 50px 110px rgb(0 0 0 / 54%),
+      0 0 0 1px rgb(0 0 0 / 55%);
+    transform: rotateY(-4deg) rotateX(1.7deg);
+    transform-origin: center;
+    transition:
+      transform var(--duration-slow) var(--ease-standard),
+      border-color var(--duration-normal) ease;
+  }
+
+  .browser::after {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      28rem circle at var(--pointer-x, 80%) var(--pointer-y, 20%),
+      rgb(200 255 69 / 7%),
+      transparent 42%
+    );
+    content: '';
+    pointer-events: none;
+  }
+
+  .hero-visual:hover .browser {
+    border-color: rgb(200 255 69 / 25%);
+    transform: rotateY(-1.5deg) rotateX(0.5deg) translateY(-3px);
+  }
+
+  .browser-bar {
+    display: grid;
+    height: 2.55rem;
+    align-items: center;
+    border-bottom: 1px solid rgb(255 255 255 / 7%);
+    background: #0b0e0c;
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: 0.9rem;
+  }
+
+  .browser-dots {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .browser-dots span {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 16%);
+  }
+
+  .browser-dots span:first-child {
+    background: rgb(200 255 69 / 52%);
+  }
+
+  .browser-address {
+    border: 1px solid rgb(255 255 255 / 6%);
+    border-radius: var(--radius-pill);
+    color: rgb(239 244 233 / 38%);
+    font-family: var(--font-mono);
+    font-size: 0.46rem;
+    letter-spacing: 0.02em;
+    padding: 0.28rem 2rem;
+  }
+
+  .browser-secure {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .browser-secure span {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 12px rgb(200 255 69 / 55%);
+  }
+
+  .storefront {
+    position: relative;
+    height: calc(100% - 2.55rem);
+    background: #edf0e8;
+    color: #10130f;
+  }
+
+  .store-nav {
+    display: grid;
+    height: 3.35rem;
+    align-items: center;
+    border-bottom: 1px solid rgb(15 20 14 / 10%);
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: clamp(1rem, 3vw, 1.8rem);
+  }
+
+  .store-logo {
+    font-size: clamp(0.55rem, 1vw, 0.72rem);
+    font-weight: 800;
+    letter-spacing: 0.22em;
+  }
+
+  .store-links {
+    display: flex;
+    gap: 1.2rem;
+    font-size: 0.48rem;
+    font-weight: 660;
+    text-transform: uppercase;
+  }
+
+  .store-cart {
+    justify-self: end;
+    font-size: 0.48rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .store-content {
+    display: grid;
+    height: calc(100% - 3.35rem);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+
+  .store-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(1.2rem, 3.5vw, 3.1rem);
+  }
+
+  .store-copy > p:first-child {
+    color: #5a6256;
+    font-family: var(--font-mono);
+    font-size: clamp(0.4rem, 0.55vw, 0.56rem);
+    letter-spacing: 0.12em;
+  }
+
+  .store-title {
+    display: block;
+    max-width: 8ch;
+    margin-top: 0.8rem;
+    font-size: clamp(1.5rem, 3.3vw, 3.4rem);
+    font-weight: 500;
+    letter-spacing: -0.065em;
+    line-height: 0.94;
+  }
+
+  .store-description {
+    max-width: 25rem;
+    margin-top: 0.9rem;
+    color: #5b6257;
+    font-size: clamp(0.48rem, 0.75vw, 0.68rem);
+    line-height: 1.55;
+  }
+
+  .store-purchase {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.25rem;
+    margin-top: 1.25rem;
+    background: #11150f;
+    color: #eff3e8;
+    font-size: clamp(0.48rem, 0.7vw, 0.65rem);
+    font-weight: 700;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .store-purchase strong {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.54rem;
+  }
+
+  .store-benefits {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgb(17 21 15 / 10%);
+    margin-top: 1.2rem;
+    padding-top: 0.75rem;
+    color: #60675c;
+    font-family: var(--font-mono);
+    font-size: clamp(0.28rem, 0.45vw, 0.42rem);
+  }
+
+  .product-stage {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    place-items: center;
+    background:
+      radial-gradient(circle at center, rgb(230 255 174 / 28%) 0 18%, transparent 48%), #d8dfd2;
+  }
+
+  .moon-ring {
+    position: absolute;
+    width: 68%;
+    aspect-ratio: 1;
+    border: 1px solid rgb(24 31 21 / 15%);
+    border-radius: 50%;
+  }
+
+  .moon-ring::before,
+  .moon-ring::after {
+    position: absolute;
+    border: 1px solid rgb(24 31 21 / 8%);
+    border-radius: 50%;
+    content: '';
+    inset: 12%;
+  }
+
+  .moon-ring::after {
+    inset: 27%;
+  }
+
+  .product-bottle {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    width: 31%;
+    max-width: 8.2rem;
+    aspect-ratio: 0.48;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 1.2rem 1.2rem 0.85rem 0.85rem;
+    background: linear-gradient(100deg, #0e130e, #252e21 48%, #0c100c);
+    box-shadow:
+      inset -16px 0 24px rgb(0 0 0 / 30%),
+      0 22px 30px rgb(40 51 35 / 28%);
+    color: #dce3d5;
+  }
+
+  .product-bottle::before {
+    position: absolute;
+    top: -7%;
+    width: 72%;
+    height: 11%;
+    border: 1px solid rgb(255 255 255 / 10%);
+    border-radius: 0.3rem 0.3rem 0.08rem 0.08rem;
+    background: linear-gradient(90deg, #111511, #2e3829 50%, #10140f);
+    content: '';
+  }
+
+  .bottle-brand {
+    position: absolute;
+    top: 13%;
+    color: var(--color-accent);
+    font-size: clamp(0.24rem, 0.45vw, 0.4rem);
+    font-weight: 750;
+    letter-spacing: 0.18em;
+  }
+
+  .bottle-title {
+    font-size: clamp(0.45rem, 1vw, 0.86rem);
+    font-weight: 520;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .bottle-detail {
+    position: absolute;
+    bottom: 12%;
+    color: rgb(220 227 213 / 54%);
+    font-family: var(--font-mono);
+    font-size: clamp(0.2rem, 0.35vw, 0.3rem);
+    letter-spacing: 0.06em;
+  }
+
+  .product-shadow {
+    position: absolute;
+    z-index: 1;
+    bottom: 16%;
+    width: 44%;
+    height: 10%;
+    border-radius: 50%;
+    background: rgb(30 39 27 / 24%);
+    filter: blur(10px);
+  }
+
+  .stage-note {
+    position: absolute;
+    color: rgb(18 23 16 / 38%);
+    font-family: var(--font-mono);
+    font-size: clamp(0.25rem, 0.4vw, 0.38rem);
+    letter-spacing: 0.1em;
+    writing-mode: vertical-rl;
+  }
+
+  .stage-note--one {
+    top: 9%;
+    left: 8%;
+  }
+
+  .stage-note--two {
+    right: 8%;
+    bottom: 9%;
+  }
+
+  .floating-card {
+    position: absolute;
+    z-index: 3;
+    display: flex;
+    min-width: 12rem;
+    align-items: center;
+    gap: 0.8rem;
+    border: 1px solid rgb(218 255 197 / 17%);
+    border-radius: 0.75rem;
+    background: rgb(9 13 10 / 88%);
+    box-shadow: 0 18px 52px rgb(0 0 0 / 46%);
+    padding: 0.8rem 0.95rem;
+    backdrop-filter: blur(14px);
+  }
+
+  .floating-card--performance {
+    top: 2%;
+    right: -2%;
+  }
+
+  .floating-card--ux {
+    right: 3%;
+    bottom: 1%;
+  }
+
+  .floating-card span:last-child {
+    display: grid;
+  }
+
+  .floating-card small {
+    color: var(--color-text-muted);
+    font-size: 0.59rem;
+    line-height: 1.4;
+  }
+
+  .floating-card strong {
+    margin-top: 0.1rem;
+    color: var(--color-text);
+    font-size: 0.72rem;
+    font-weight: 650;
+    line-height: 1.35;
+  }
+
+  .floating-icon {
+    display: grid;
+    width: 2.1rem;
+    height: 2.1rem;
+    flex: 0 0 auto;
+    place-items: center;
+    border-radius: 0.45rem;
+    background: rgb(200 255 69 / 10%);
+    color: var(--color-accent);
+  }
+
+  .floating-dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow:
+      0 0 0 5px rgb(200 255 69 / 8%),
+      0 0 16px rgb(200 255 69 / 40%);
+  }
+
+  @media (max-width: 74rem) {
+    .floating-card--performance {
+      right: 0;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .hero-visual {
+      aspect-ratio: 0.98;
+    }
+
+    .browser {
+      inset: 6% 0 9%;
+      transform: none;
+    }
+
+    .hero-visual:hover .browser {
+      transform: translateY(-2px);
+    }
+
+    .store-links {
+      display: none;
+    }
+
+    .store-nav {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .store-content {
+      grid-template-columns: minmax(0, 0.93fr) minmax(0, 1.07fr);
+    }
+
+    .store-benefits,
+    .store-description {
+      display: none;
+    }
+
+    .floating-card {
+      min-width: 10.5rem;
+      padding: 0.66rem 0.75rem;
+    }
+
+    .floating-card--performance {
+      top: 1%;
+      right: 2%;
+    }
+
+    .floating-card--ux {
+      right: auto;
+      bottom: 1%;
+      left: 2%;
+    }
+  }
+</style>

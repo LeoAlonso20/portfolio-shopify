@@ -1,0 +1,55 @@
+{
+  "projectKey": "velor",
+  "locale": "es",
+  "title": "Velor",
+  "seo": {
+    "title": "Caso de estudio Shopify: Velor | Leandro Alonso",
+    "description": "Una tienda Shopify premium, diseñada primero para dispositivos móviles y desarrollada a medida para la marca masculina de cuidado capilar y suplementos Velor."
+  },
+  "category": "Tienda Shopify a medida",
+  "cardSummary": "Una tienda premium y editable, construida alrededor de una identidad propia y una experiencia móvil cuidada.",
+  "visualAlt": "Concepto de interfaz para la tienda Shopify de Velor",
+  "hero": {
+    "summary": "Una experiencia Shopify premium para una marca masculina de cuidado capilar y suplementos. El sistema visual propio se combina con secciones flexibles y una experiencia móvil cuidada.",
+    "outcome": "Una tienda completamente a medida, sin la apariencia ni las limitaciones de un tema genérico."
+  },
+  "snapshot": {
+    "scope": "Tienda completa a medida",
+    "platform": "Shopify",
+    "role": "Desarrollo Shopify · Ingeniería frontend",
+    "focus": "Diseño DTC premium · Ecommerce móvil · Secciones flexibles"
+  },
+  "context": [
+    "Velor es una marca premium de cuidado capilar y suplementos orientada a hombres que experimentan pérdida de densidad capilar.",
+    "El proyecto consistió en desarrollar una tienda Shopify completa con una identidad visual propia."
+  ],
+  "challenge": [
+    "La tienda debía traducir el posicionamiento premium de Velor en una experiencia ecommerce clara, tanto en dispositivos móviles como en escritorio.",
+    "También debía ser fácil de gestionar mediante secciones flexibles, sin depender del código para cada actualización cotidiana."
+  ],
+  "approach": [
+    "En lugar de recurrir a la presentación de un tema genérico, construí la estructura y las secciones principales alrededor de la identidad y las necesidades de producto de la marca.",
+    "La presentación del producto, la experiencia móvil, la flexibilidad del editor y el rendimiento guiaron la implementación."
+  ],
+  "solution": [
+    "Desarrollo completo de la tienda Shopify a medida.",
+    "Creación de un sistema visual premium y diferenciado.",
+    "Secciones Shopify personalizadas y configurables.",
+    "Presentación de producto adaptada a distintos tamaños de pantalla.",
+    "Decisiones de frontend conscientes del rendimiento."
+  ],
+  "uxCro": [
+    "La experiencia prioriza el producto, la legibilidad y un recorrido de compra ordenado.",
+    "El tratamiento visual premium acompaña a la marca sin competir con la experiencia de compra."
+  ],
+  "engineering": [
+    "Las secciones reutilizables mantienen los diseños flexibles y fáciles de gestionar.",
+    "Las decisiones de diseño adaptable y rendimiento sostienen la experiencia en distintos dispositivos."
+  ],
+  "results": [
+    "Una tienda Shopify completa y alineada con el posicionamiento premium de Velor.",
+    "Una arquitectura de secciones editable para gestionar contenido a futuro.",
+    "Una experiencia de producto clara y cuidada en dispositivos móviles y de escritorio."
+  ],
+  "beforeAfter": null
+}

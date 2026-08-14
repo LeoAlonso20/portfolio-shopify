@@ -1,0 +1,17 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  wide?: boolean;
+  class?: string;
+}
+
+const { eyebrow, title, intro, wide = false, class: className } = Astro.props;
+---
+
+<div class:list={['section-copy reveal', className]}>
+  <p class="eyebrow">{eyebrow}</p>
+  <h2 class:list={['section-heading', { 'section-heading--wide': wide }]}>{title}</h2>
+  {intro && <p class="section-intro">{intro}</p>}
+</div>

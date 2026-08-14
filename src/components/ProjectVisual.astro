@@ -1,0 +1,970 @@
+---
+import Icon from './Icon.astro';
+import type { Locale } from '../config/site';
+
+interface Props {
+  variant: 'nocturna' | 'velor' | 'rytual';
+  locale: Locale;
+  label?: string;
+  compact?: boolean;
+}
+
+const { variant, locale, label, compact = false } = Astro.props;
+const visualCopy =
+  locale === 'en'
+    ? {
+        nocturnaNav: 'REST / SHOP / STORY',
+        bag: 'BAG',
+        nocturnaEyebrow: 'PRODUCT EXPERIENCE / CONCEPT',
+        nocturnaTitle: 'A focused product story.',
+        nocturnaDetail: 'REST COMPLEX · PRODUCT CONCEPT',
+        nocturnaCta: 'EXPLORE PRODUCT',
+        view: 'VIEW',
+        bottleDetail: 'CONCEPT / 01',
+        velorNav: 'METHOD / SHOP / NOTES',
+        cart: 'CART',
+        velorEyebrow: 'DAILY CARE, REFINED.',
+        velorTitle: 'Confidence in the details.',
+        velorBody: 'A considered product system presented with restraint.',
+        velorCta: 'DISCOVER THE SYSTEM',
+        system: 'SYSTEM CONCEPT',
+        rytualNav: 'SHOP / CAFÉ / RITUAL',
+        rytualEyebrow: 'COMMERCE CONCEPT',
+        rytualTitle: 'Coffee for the daily ritual.',
+        rytualCta: 'Explore selection',
+        cartTitle: 'YOUR CART',
+        items: 'ITEMS',
+        offerState: 'Offer state',
+        productA: 'Product A',
+        productB: 'Product B',
+        option: 'Selected option',
+        upsell: 'RELATED OFFER',
+        suggestion: 'Suggested item',
+        quickAdd: 'Optional addition',
+        subtotal: 'Subtotal',
+        checkout: 'CHECKOUT',
+      }
+    : {
+        nocturnaNav: 'DESCANSO / TIENDA / HISTORIA',
+        bag: 'BOLSA',
+        nocturnaEyebrow: 'EXPERIENCIA DE PRODUCTO / CONCEPTO',
+        nocturnaTitle: 'Una historia de producto clara.',
+        nocturnaDetail: 'REST COMPLEX · CONCEPTO DE PRODUCTO',
+        nocturnaCta: 'EXPLORAR PRODUCTO',
+        view: 'VER',
+        bottleDetail: 'CONCEPTO / 01',
+        velorNav: 'MÉTODO / TIENDA / NOTAS',
+        cart: 'CARRITO',
+        velorEyebrow: 'CUIDADO DIARIO, REFINADO.',
+        velorTitle: 'Confianza en los detalles.',
+        velorBody: 'Un sistema de producto cuidado y presentado con sobriedad.',
+        velorCta: 'DESCUBRIR EL SISTEMA',
+        system: 'CONCEPTO DE SISTEMA',
+        rytualNav: 'TIENDA / CAFÉ / RITUAL',
+        rytualEyebrow: 'CONCEPTO DE COMERCIO',
+        rytualTitle: 'Café para el ritual cotidiano.',
+        rytualCta: 'Ver selección',
+        cartTitle: 'TU CARRITO',
+        items: 'PRODUCTOS',
+        offerState: 'Estado de oferta',
+        productA: 'Producto A',
+        productB: 'Producto B',
+        option: 'Opción elegida',
+        upsell: 'OFERTA RELACIONADA',
+        suggestion: 'Producto sugerido',
+        quickAdd: 'Adición opcional',
+        subtotal: 'Subtotal',
+        checkout: 'FINALIZAR COMPRA',
+      };
+---
+
+<figure
+  class:list={[
+    'project-visual',
+    `project-visual--${variant}`,
+    { 'project-visual--compact': compact },
+  ]}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <div class="visual-browser" aria-hidden="true">
+    <div class="visual-bar"><span></span><span></span><span></span><i></i></div>
+
+    {
+      variant === 'nocturna' && (
+        <div class="nocturna-screen">
+          <div class="mock-nav">
+            <>
+              <b>NOCTURNA</b>
+              <span>{visualCopy.nocturnaNav}</span>
+              <i>{visualCopy.bag}</i>
+            </>
+          </div>
+          <div class="nocturna-grid">
+            <div class="nocturna-copy">
+              <small>{visualCopy.nocturnaEyebrow}</small>
+              <strong>{visualCopy.nocturnaTitle}</strong>
+              <p>{visualCopy.nocturnaDetail}</p>
+              <span class="mock-button">
+                {visualCopy.nocturnaCta} <span>{visualCopy.view}</span>
+              </span>
+            </div>
+            <div class="nocturna-product">
+              <div class="orbit" />
+              <div class="bottle">
+                <>
+                  <small>NOCTURNA</small>
+                  <b>
+                    REST
+                    <br />
+                    COMPLEX
+                  </b>
+                  <i>{visualCopy.bottleDetail}</i>
+                </>
+              </div>
+            </div>
+          </div>
+          <div class="score-chip">
+            <>
+              <Icon name="Gauge" size={14} />
+              <span>
+                <b>95+</b>LIGHTHOUSE
+              </span>
+            </>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      variant === 'velor' && (
+        <div class="velor-screen">
+          <div class="mock-nav mock-nav--velor">
+            <>
+              <b>VELOR</b>
+              <span>{visualCopy.velorNav}</span>
+              <i>{visualCopy.cart}</i>
+            </>
+          </div>
+          <div class="velor-grid">
+            <div class="velor-product">
+              <div class="velor-line" />
+              <div class="velor-box">
+                <>
+                  <small>VELOR</small>
+                  <b>01</b>
+                  <i>{visualCopy.system}</i>
+                </>
+              </div>
+              <div class="velor-bottle">
+                <>
+                  <small>V</small>
+                  <b>FORM / 01</b>
+                </>
+              </div>
+            </div>
+            <div class="velor-copy">
+              <small>{visualCopy.velorEyebrow}</small>
+              <strong>{visualCopy.velorTitle}</strong>
+              <p>{visualCopy.velorBody}</p>
+              <span class="mock-button">
+                {visualCopy.velorCta} <span>→</span>
+              </span>
+            </div>
+          </div>
+          <span class="velor-index">01 — 04</span>
+        </div>
+      )
+    }
+
+    {
+      variant === 'rytual' && (
+        <div class="rytual-screen">
+          <div class="rytual-store">
+            <div class="mock-nav mock-nav--rytual">
+              <>
+                <b>RYTUAL</b>
+                <span>{visualCopy.rytualNav}</span>
+                <i>{visualCopy.cart}</i>
+              </>
+            </div>
+            <div class="rytual-content">
+              <>
+                <small>{visualCopy.rytualEyebrow}</small>
+                <strong>{visualCopy.rytualTitle}</strong>
+                <span>{visualCopy.rytualCta}</span>
+              </>
+            </div>
+            <div class="coffee-shape">
+              <>
+                <i />
+                <i />
+                <i />
+              </>
+            </div>
+          </div>
+          <div class="cart-drawer">
+            <div class="cart-head">
+              <>
+                <b>{visualCopy.cartTitle}</b>
+                <span>{visualCopy.items} · ×</span>
+              </>
+            </div>
+            <div class="progress">
+              <>
+                <span>{visualCopy.offerState}</span>
+                <i>
+                  <b />
+                </i>
+              </>
+            </div>
+            <div class="cart-product">
+              <>
+                <i />
+                <span>
+                  <>
+                    <b>{visualCopy.productA}</b>
+                    <small>{visualCopy.option}</small>
+                    <em>− &nbsp; 1 &nbsp; +</em>
+                  </>
+                </span>
+                <strong>—</strong>
+              </>
+            </div>
+            <div class="cart-product">
+              <>
+                <i />
+                <span>
+                  <>
+                    <b>{visualCopy.productB}</b>
+                    <small>{visualCopy.option}</small>
+                    <em>− &nbsp; 1 &nbsp; +</em>
+                  </>
+                </span>
+                <strong>—</strong>
+              </>
+            </div>
+            <div class="upsell">
+              <>
+                <small>{visualCopy.upsell}</small>
+                <div>
+                  <>
+                    <i />
+                    <span>
+                      <>
+                        <b>{visualCopy.suggestion}</b>
+                        <small>{visualCopy.quickAdd}</small>
+                      </>
+                    </span>
+                    <strong>+</strong>
+                  </>
+                </div>
+              </>
+            </div>
+            <div class="cart-total">
+              <>
+                <span>
+                  {visualCopy.subtotal} <b>—</b>
+                </span>
+                <span class="mock-button">{visualCopy.checkout}</span>
+              </>
+            </div>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</figure>
+
+<style>
+  .project-visual {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1.45;
+    border-radius: calc(var(--radius-lg) - 1px);
+    background: #141914;
+  }
+
+  .visual-browser {
+    position: absolute;
+    inset: 6.5% 5% -8%;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.8rem 0.8rem 0 0;
+    background: #111;
+    box-shadow: 0 30px 60px rgb(0 0 0 / 30%);
+    transition: transform var(--duration-slow) var(--ease-standard);
+  }
+
+  .project-visual:hover .visual-browser {
+    transform: translateY(-0.4rem) scale(1.012);
+  }
+
+  .visual-bar {
+    display: flex;
+    height: 1.7rem;
+    align-items: center;
+    gap: 0.25rem;
+    border-bottom: 1px solid rgb(255 255 255 / 7%);
+    background: #0c0f0d;
+    padding-inline: 0.65rem;
+  }
+
+  .visual-bar span {
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 17%);
+  }
+
+  .visual-bar span:first-child {
+    background: rgb(200 255 69 / 48%);
+  }
+
+  .visual-bar i {
+    width: 31%;
+    height: 0.32rem;
+    border-radius: 1rem;
+    margin-inline: auto;
+    background: rgb(255 255 255 / 7%);
+  }
+
+  .mock-nav {
+    display: grid;
+    height: 2.7rem;
+    align-items: center;
+    border-bottom: 1px solid rgb(20 25 18 / 10%);
+    color: #161b14;
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: 1rem;
+  }
+
+  .mock-nav b {
+    font-size: clamp(0.34rem, 0.62vw, 0.55rem);
+    letter-spacing: 0.17em;
+  }
+
+  .mock-nav span,
+  .mock-nav i {
+    font-family: var(--font-mono);
+    font-size: clamp(0.22rem, 0.4vw, 0.34rem);
+    font-style: normal;
+  }
+
+  .mock-nav i {
+    justify-self: end;
+  }
+
+  .nocturna-screen,
+  .velor-screen,
+  .rytual-screen {
+    position: relative;
+    height: calc(100% - 1.7rem);
+  }
+
+  .project-visual--nocturna {
+    background: radial-gradient(circle at 70% 25%, rgb(195 255 57 / 14%), transparent 36%), #111611;
+  }
+
+  .nocturna-screen {
+    background: #e5e9e0;
+    color: #141912;
+  }
+
+  .nocturna-grid {
+    display: grid;
+    height: calc(100% - 2.7rem);
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+
+  .nocturna-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(0.9rem, 3vw, 2.4rem);
+  }
+
+  .nocturna-copy small,
+  .velor-copy small,
+  .rytual-content small {
+    color: #414b3e;
+    font-family: var(--font-mono);
+    font-size: clamp(0.23rem, 0.4vw, 0.35rem);
+    letter-spacing: 0.12em;
+  }
+
+  .nocturna-copy > strong {
+    max-width: 10ch;
+    margin-top: 0.55rem;
+    font-size: clamp(0.9rem, 2.3vw, 2.2rem);
+    font-weight: 520;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
+  }
+
+  .nocturna-copy p {
+    margin-top: 0.75rem;
+    color: #626b5d;
+    font-size: clamp(0.25rem, 0.5vw, 0.45rem);
+  }
+
+  .nocturna-copy .mock-button,
+  .velor-copy .mock-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 0;
+    border-radius: 0.2rem;
+    margin-top: 0.8rem;
+    background: #141912;
+    color: white;
+    font-size: clamp(0.27rem, 0.45vw, 0.4rem);
+    font-weight: 650;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .nocturna-copy .mock-button span {
+    color: var(--color-accent);
+  }
+
+  .nocturna-product {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    place-items: center;
+    background: #d2dacd;
+  }
+
+  .orbit {
+    position: absolute;
+    width: 62%;
+    aspect-ratio: 1;
+    border: 1px solid rgb(25 32 22 / 16%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 2.5rem rgb(242 255 230 / 9%),
+      0 0 0 5rem rgb(242 255 230 / 7%);
+  }
+
+  .bottle {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 25%;
+    aspect-ratio: 0.52;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.65rem;
+    background: linear-gradient(100deg, #0d110d, #2b3527 52%, #0b0f0b);
+    box-shadow: 0 15px 24px rgb(0 0 0 / 25%);
+    color: #e7ebdf;
+  }
+
+  .bottle::before {
+    position: absolute;
+    top: -6%;
+    width: 70%;
+    height: 10%;
+    border-radius: 0.18rem;
+    background: #1b2119;
+    content: '';
+  }
+
+  .bottle small {
+    position: absolute;
+    top: 13%;
+    color: var(--color-accent);
+    font-size: clamp(0.14rem, 0.3vw, 0.27rem);
+    letter-spacing: 0.12em;
+  }
+
+  .bottle b {
+    font-size: clamp(0.3rem, 0.65vw, 0.6rem);
+    font-weight: 520;
+    line-height: 0.95;
+    text-align: center;
+  }
+
+  .bottle i {
+    position: absolute;
+    bottom: 11%;
+    color: rgb(255 255 255 / 45%);
+    font-family: var(--font-mono);
+    font-size: clamp(0.11rem, 0.22vw, 0.2rem);
+    font-style: normal;
+  }
+
+  .score-chip {
+    position: absolute;
+    z-index: 2;
+    right: 4%;
+    bottom: 5%;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border: 1px solid rgb(255 255 255 / 12%);
+    border-radius: 0.4rem;
+    background: rgb(12 16 12 / 88%);
+    box-shadow: 0 10px 24px rgb(0 0 0 / 20%);
+    color: var(--color-accent);
+    padding: 0.4rem 0.55rem;
+  }
+
+  .score-chip span {
+    display: flex;
+    flex-direction: column;
+    color: rgb(255 255 255 / 52%);
+    font-family: var(--font-mono);
+    font-size: clamp(0.13rem, 0.24vw, 0.21rem);
+    line-height: 1.25;
+  }
+
+  .score-chip b {
+    color: white;
+    font-size: clamp(0.32rem, 0.55vw, 0.5rem);
+  }
+
+  .project-visual--velor {
+    background: #1b1814;
+  }
+
+  .velor-screen {
+    overflow: hidden;
+    background: #d9cebd;
+    color: #211e19;
+  }
+
+  .mock-nav--velor {
+    border-color: rgb(30 25 20 / 13%);
+    color: #242019;
+  }
+
+  .velor-grid {
+    display: grid;
+    height: calc(100% - 2.7rem);
+    grid-template-columns: 1.06fr 0.94fr;
+  }
+
+  .velor-product {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.6rem;
+    overflow: hidden;
+    padding-bottom: 8%;
+    background: #a89782;
+  }
+
+  .velor-product::after {
+    position: absolute;
+    width: 80%;
+    aspect-ratio: 1;
+    border: 1px solid rgb(46 38 29 / 20%);
+    border-radius: 50%;
+    content: '';
+    inset: 10% auto auto -20%;
+  }
+
+  .velor-line {
+    position: absolute;
+    top: 15%;
+    right: 8%;
+    width: 24%;
+    height: 1px;
+    background: #373027;
+  }
+
+  .velor-box {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 25%;
+    aspect-ratio: 0.55;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(100deg, #312b24, #4a4033);
+    box-shadow: 0 18px 30px rgb(44 35 27 / 25%);
+    color: #e7ddcf;
+  }
+
+  .velor-box small {
+    position: absolute;
+    top: 10%;
+    font-size: clamp(0.17rem, 0.3vw, 0.27rem);
+    letter-spacing: 0.2em;
+  }
+
+  .velor-box b {
+    font-family: Georgia, serif;
+    font-size: clamp(0.9rem, 2.4vw, 2rem);
+    font-weight: 400;
+  }
+
+  .velor-box i {
+    position: absolute;
+    bottom: 10%;
+    font-size: clamp(0.13rem, 0.25vw, 0.21rem);
+    font-style: normal;
+    letter-spacing: 0.1em;
+  }
+
+  .velor-bottle {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: 18%;
+    aspect-ratio: 0.42;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.4rem;
+    background: linear-gradient(100deg, #171512, #393229 50%, #16130f);
+    box-shadow: 0 18px 30px rgb(44 35 27 / 32%);
+    color: #ded3c3;
+  }
+
+  .velor-bottle::before {
+    position: absolute;
+    top: -7%;
+    width: 68%;
+    height: 10%;
+    border-radius: 0.12rem;
+    background: #211d18;
+    content: '';
+  }
+
+  .velor-bottle small {
+    font-family: Georgia, serif;
+    font-size: clamp(0.7rem, 1.4vw, 1.2rem);
+  }
+
+  .velor-bottle b {
+    position: absolute;
+    bottom: 12%;
+    font-size: clamp(0.13rem, 0.22vw, 0.2rem);
+    letter-spacing: 0.08em;
+  }
+
+  .velor-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(0.9rem, 2.5vw, 2rem);
+  }
+
+  .velor-copy > strong {
+    max-width: 8ch;
+    margin-top: 0.65rem;
+    font-family: Georgia, serif;
+    font-size: clamp(1rem, 2.4vw, 2.2rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+  }
+
+  .velor-copy p {
+    max-width: 18rem;
+    margin-top: 0.65rem;
+    color: #554d42;
+    font-size: clamp(0.26rem, 0.48vw, 0.42rem);
+    line-height: 1.4;
+  }
+
+  .velor-index {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    font-family: var(--font-mono);
+    font-size: clamp(0.15rem, 0.28vw, 0.24rem);
+  }
+
+  .project-visual--rytual {
+    background: #17120d;
+  }
+
+  .rytual-screen {
+    display: grid;
+    background: #d8c6ab;
+    color: #241a12;
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+
+  .rytual-store {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mock-nav--rytual {
+    color: #2c2016;
+  }
+
+  .rytual-content {
+    position: absolute;
+    z-index: 1;
+    top: 28%;
+    left: 9%;
+    display: flex;
+    max-width: 45%;
+    flex-direction: column;
+  }
+
+  .rytual-content > strong {
+    margin-top: 0.5rem;
+    font-family: Georgia, serif;
+    font-size: clamp(0.9rem, 2vw, 1.8rem);
+    font-weight: 400;
+    letter-spacing: -0.045em;
+    line-height: 0.96;
+  }
+
+  .rytual-content > span {
+    width: fit-content;
+    border-bottom: 1px solid currentColor;
+    margin-top: 0.75rem;
+    font-size: clamp(0.25rem, 0.4vw, 0.36rem);
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .coffee-shape {
+    position: absolute;
+    right: -4%;
+    bottom: -10%;
+    width: 58%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #50311e;
+    box-shadow: inset 12px 20px 0 rgb(255 255 255 / 7%);
+  }
+
+  .coffee-shape i {
+    position: absolute;
+    width: 20%;
+    aspect-ratio: 0.6;
+    border-radius: 50%;
+    background: #b28b61;
+    rotate: 35deg;
+  }
+
+  .coffee-shape i:nth-child(1) {
+    top: 19%;
+    left: 18%;
+  }
+
+  .coffee-shape i:nth-child(2) {
+    top: 45%;
+    left: 45%;
+    rotate: -20deg;
+  }
+
+  .coffee-shape i:nth-child(3) {
+    top: 22%;
+    right: 16%;
+    rotate: 72deg;
+  }
+
+  .cart-drawer {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    background: #f3efe6;
+    box-shadow: -16px 0 38px rgb(48 31 18 / 18%);
+  }
+
+  .cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ded8cd;
+    padding: 0.65rem;
+    font-size: clamp(0.25rem, 0.42vw, 0.38rem);
+  }
+
+  .cart-head span {
+    color: #675f56;
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+  }
+
+  .progress {
+    padding: 0.45rem 0.65rem 0.3rem;
+    color: #655e53;
+    font-size: clamp(0.19rem, 0.34vw, 0.3rem);
+  }
+
+  .progress i {
+    display: block;
+    height: 0.18rem;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-top: 0.25rem;
+    background: #ddd6c9;
+  }
+
+  .progress b {
+    display: block;
+    width: 78%;
+    height: 100%;
+    background: #6c3f25;
+  }
+
+  .cart-product {
+    display: grid;
+    align-items: center;
+    border-bottom: 1px solid #e0dacf;
+    grid-template-columns: 1.7rem 1fr auto;
+    gap: 0.45rem;
+    margin-inline: 0.65rem;
+    padding-block: 0.48rem;
+  }
+
+  .cart-product > i {
+    width: 1.7rem;
+    aspect-ratio: 1;
+    border-radius: 0.2rem;
+    background: linear-gradient(135deg, #ae8d69, #60402b);
+  }
+
+  .cart-product > span,
+  .upsell div > span {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .cart-product b,
+  .upsell b {
+    overflow: hidden;
+    font-size: clamp(0.21rem, 0.37vw, 0.34rem);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cart-product small,
+  .upsell small {
+    color: #5f574f;
+    font-size: clamp(0.16rem, 0.28vw, 0.24rem);
+  }
+
+  .cart-product em {
+    width: fit-content;
+    border: 1px solid #ded7cb;
+    margin-top: 0.2rem;
+    font-size: clamp(0.14rem, 0.25vw, 0.22rem);
+    font-style: normal;
+    padding: 0.1rem 0.18rem;
+  }
+
+  .cart-product > strong {
+    font-family: var(--font-mono);
+    font-size: clamp(0.18rem, 0.3vw, 0.27rem);
+  }
+
+  .upsell {
+    margin: 0.5rem 0.65rem 0;
+    border-radius: 0.25rem;
+    background: #e8e0d4;
+    padding: 0.4rem;
+  }
+
+  .upsell > small {
+    font-family: var(--font-mono);
+    font-size: clamp(0.14rem, 0.24vw, 0.2rem);
+    letter-spacing: 0.05em;
+  }
+
+  .upsell > div {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1.35rem 1fr auto;
+    gap: 0.35rem;
+    margin-top: 0.3rem;
+  }
+
+  .upsell div > i {
+    width: 1.35rem;
+    aspect-ratio: 1;
+    border-radius: 0.15rem;
+    background: #c4a782;
+  }
+
+  .upsell div > strong {
+    display: grid;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #6c3f25;
+    color: white;
+    font-size: 0.45rem;
+  }
+
+  .cart-total {
+    margin-top: auto;
+    border-top: 1px solid #ded8cd;
+    padding: 0.5rem 0.65rem 0.65rem;
+  }
+
+  .cart-total span {
+    display: flex;
+    justify-content: space-between;
+    font-size: clamp(0.22rem, 0.38vw, 0.33rem);
+  }
+
+  .cart-total .mock-button {
+    width: 100%;
+    border: 0;
+    border-radius: 0.18rem;
+    margin-top: 0.35rem;
+    background: #5a321e;
+    color: white;
+    font-size: clamp(0.2rem, 0.35vw, 0.3rem);
+    padding: 0.4rem;
+  }
+
+  .project-visual--compact {
+    aspect-ratio: 1.65;
+  }
+
+  @media (max-width: 35rem) {
+    .project-visual {
+      aspect-ratio: 1.1;
+    }
+
+    .visual-browser {
+      inset: 5% 4% -5%;
+    }
+
+    .nocturna-grid,
+    .velor-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .nocturna-copy,
+    .velor-copy {
+      padding: 0.75rem;
+    }
+
+    .rytual-screen {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+
+    .rytual-content {
+      max-width: 70%;
+    }
+
+    .mock-nav span {
+      display: none;
+    }
+
+    .mock-nav {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

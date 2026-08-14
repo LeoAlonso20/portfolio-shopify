@@ -1,0 +1,55 @@
+{
+  "projectKey": "nocturna",
+  "locale": "es",
+  "title": "Nocturna",
+  "seo": {
+    "title": "Caso de estudio Shopify: Nocturna | Leandro Alonso",
+    "description": "Cómo Leandro Alonso desarrolló para Nocturna una tienda Shopify a medida, editable y con más de 95 puntos de rendimiento en Lighthouse."
+  },
+  "category": "Implementación completa en Shopify",
+  "cardSummary": "Una tienda a medida y editable, desarrollada desde cero sin aplicaciones innecesarias en la experiencia de compra.",
+  "visualAlt": "Concepto de interfaz para la tienda Shopify de Nocturna",
+  "hero": {
+    "summary": "Una tienda a medida para Rest Complex, diseñada primero para dispositivos móviles. Sobre la base Horizon de Shopify, sus secciones principales siguen siendo editables y la implementación se mantiene liviana.",
+    "outcome": "A medida para la marca. Editable para el equipo."
+  },
+  "snapshot": {
+    "scope": "Desarrollo completo de la tienda",
+    "platform": "Shopify, sobre la base Horizon",
+    "role": "Desarrollo Shopify · Ingeniería frontend",
+    "focus": "UX móvil · Edición autónoma · Rendimiento"
+  },
+  "context": [
+    "Nocturna es una marca ecommerce de un solo producto: Rest Complex, un suplemento alimenticio enfocado en el descanso.",
+    "El proyecto requería una tienda Shopify completa, no un ajuste aislado sobre un tema existente."
+  ],
+  "challenge": [
+    "La tienda necesitaba una experiencia propia y orientada a ecommerce, sin volverse difícil de operar para el equipo.",
+    "Las secciones principales debían poder editarse sin código y la implementación debía evitar aplicaciones innecesarias en la experiencia de compra."
+  ],
+  "approach": [
+    "Partí de Horizon, la base de Shopify, y desarrollé las secciones principales alrededor del contenido y las necesidades comerciales de la marca.",
+    "La experiencia móvil, la flexibilidad del editor y el rendimiento fueron requisitos desde el inicio."
+  ],
+  "solution": [
+    "Desarrollo completo de la tienda y de todas sus secciones principales.",
+    "Controles de contenido y diseño disponibles desde el editor de temas de Shopify.",
+    "Cambios cotidianos en manos del equipo, sin necesidad de modificar código.",
+    "Implementación sin aplicaciones innecesarias en la experiencia de compra.",
+    "Diseño y desarrollo pensado primero para dispositivos móviles."
+  ],
+  "uxCro": [
+    "La jerarquía acompaña una presentación clara del producto y un recorrido directo hacia la compra.",
+    "La composición móvil mantiene el contenido central y las acciones de compra fáciles de seguir."
+  ],
+  "engineering": [
+    "Las secciones a medida construyen la experiencia visual, mientras las opciones y bloques de Shopify conservan la capacidad de edición.",
+    "Evitar aplicaciones innecesarias mantiene la implementación más directa y reduce dependencias recurrentes."
+  ],
+  "results": [
+    "Una tienda completamente a medida cuyas secciones principales siguen siendo editables en Shopify.",
+    "El equipo puede gestionar cambios cotidianos sin modificar código.",
+    "Rendimiento verificado superior a 95 en Lighthouse."
+  ],
+  "beforeAfter": null
+}

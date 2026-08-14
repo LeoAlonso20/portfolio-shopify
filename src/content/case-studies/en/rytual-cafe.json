@@ -1,0 +1,60 @@
+{
+  "projectKey": "rytual-cafe",
+  "locale": "en",
+  "title": "Rytual Cafe",
+  "seo": {
+    "title": "Rytual Cafe Cart UX Case Study | Leandro Alonso",
+    "description": "A focused Shopify cart redesign for Rytual Cafe, including UX improvements, gifts, upsells and custom Kaching Bundles logic."
+  },
+  "category": "Cart UX & CRO optimization",
+  "cardSummary": "A targeted cart redesign that clarified hierarchy, improved the empty-cart state and connected Shopify cart behavior with Kaching Bundles.",
+  "visualAlt": "Rytual Cafe Shopify cart redesign concept",
+  "hero": {
+    "summary": "A focused redesign of an existing Shopify cart. It improved hierarchy, the empty-cart state, gifts, upsells and Kaching Bundles behavior without rebuilding the store.",
+    "outcome": "A focused intervention at a high-impact point in the buying journey."
+  },
+  "snapshot": {
+    "scope": "Cart drawer redesign and offer integration",
+    "platform": "Shopify · Kaching Bundles",
+    "role": "UX/CRO implementation · Shopify development",
+    "focus": "Cart hierarchy · Offers · Bundle logic"
+  },
+  "context": [
+    "Rytual Cafe did not need a complete storefront rebuild.",
+    "The work focused on the cart drawer and the way products, gifts, upsells and bundle offers behaved within that part of the customer journey."
+  ],
+  "challenge": [
+    "The cart needed to present its contents and offers with a clearer visual hierarchy, including a more useful empty-cart state.",
+    "Bundle behavior also required custom logic between the Shopify cart and Kaching Bundles."
+  ],
+  "approach": [
+    "I treated the cart as a focused product surface: first clarifying its states and information hierarchy, then aligning the offer logic and integration behavior.",
+    "Keeping the scope centered on the cart allowed the work to improve a specific journey without forcing a full-store rebuild."
+  ],
+  "solution": [
+    "Redesigned the cart drawer.",
+    "Improved the empty-cart state.",
+    "Refined cart hierarchy and interaction behavior.",
+    "Improved the presentation of offers, gifts and upsells.",
+    "Integrated Kaching Bundles with the cart experience.",
+    "Implemented custom logic between Shopify cart state and bundle behavior."
+  ],
+  "uxCro": [
+    "The revised hierarchy makes products, totals and offers easier to distinguish.",
+    "The empty state gives the cart a purposeful experience even before a product is added.",
+    "Gifts, upsells and bundle offers are presented as part of one coherent cart journey."
+  ],
+  "engineering": [
+    "Custom cart logic connects Shopify cart state with Kaching Bundles so bundle offers behave correctly inside the redesigned drawer.",
+    "The implementation stays focused on cart-related behavior rather than replacing unrelated areas of the existing storefront."
+  ],
+  "results": [
+    "A clearer cart experience across products, offers, gifts and upsells.",
+    "More coherent Kaching Bundles behavior inside the Shopify cart.",
+    "A targeted improvement delivered without a complete storefront rebuild."
+  ],
+  "beforeAfter": {
+    "before": "The original cart drawer and its existing bundle-offer behavior.",
+    "after": "A redesigned hierarchy and empty state, with connected gift, upsell and bundle logic."
+  }
+}

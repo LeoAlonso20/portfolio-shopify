@@ -1,0 +1,55 @@
+{
+  "projectKey": "nocturna",
+  "locale": "en",
+  "title": "Nocturna",
+  "seo": {
+    "title": "Nocturna Shopify Case Study | Leandro Alonso",
+    "description": "How Leandro Alonso built Nocturna’s custom, merchant-editable Shopify storefront with 95+ Lighthouse performance."
+  },
+  "category": "Full Shopify storefront",
+  "cardSummary": "A custom, merchant-editable storefront built from the ground up without unnecessary storefront apps.",
+  "visualAlt": "Nocturna Shopify storefront interface concept",
+  "hero": {
+    "summary": "A custom, mobile-first storefront for Rest Complex. Built on Shopify’s Horizon foundation, its major sections remain merchant-editable while the frontend stays lean and conversion-conscious.",
+    "outcome": "Custom where the brand needed it. Editable where the merchant needed it."
+  },
+  "snapshot": {
+    "scope": "Full storefront development",
+    "platform": "Shopify, built on Horizon",
+    "role": "Shopify development · Frontend engineering",
+    "focus": "Mobile UX · Merchant editing · Performance"
+  },
+  "context": [
+    "Nocturna is a single-product ecommerce brand selling Rest Complex, a dietary supplement focused on better rest.",
+    "The project called for a complete Shopify storefront rather than a limited theme adjustment."
+  ],
+  "challenge": [
+    "The storefront needed a custom, conversion-oriented experience while remaining practical for the merchant to operate.",
+    "Major content areas had to remain editable without code, and the implementation needed to avoid unnecessary third-party storefront apps."
+  ],
+  "approach": [
+    "I used Shopify’s Horizon foundation as the base, then developed the major storefront sections around the brand’s content and commerce needs.",
+    "Mobile behavior, theme-editor flexibility and performance were treated as requirements from the beginning."
+  ],
+  "solution": [
+    "Developed the complete storefront and all major sections.",
+    "Made content and layout controls available through Shopify’s theme editor.",
+    "Kept routine merchant updates independent from code changes.",
+    "Implemented the required storefront experience without unnecessary third-party storefront apps.",
+    "Designed and developed the experience mobile-first."
+  ],
+  "uxCro": [
+    "The information hierarchy supports a clear product story and a direct path to purchase.",
+    "The mobile composition keeps the core content and purchase journey easy to follow on smaller screens."
+  ],
+  "engineering": [
+    "Custom sections provide the tailored experience while Shopify settings and blocks preserve editor control.",
+    "Avoiding unnecessary storefront apps keeps the implementation direct and reduces recurring app dependency."
+  ],
+  "results": [
+    "A fully custom storefront whose major sections remain editable in Shopify.",
+    "The merchant can manage routine content changes without modifying code.",
+    "Verified Lighthouse performance above 95."
+  ],
+  "beforeAfter": null
+}

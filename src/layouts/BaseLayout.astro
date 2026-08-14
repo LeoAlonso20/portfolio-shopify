@@ -1,0 +1,270 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { absoluteUrl, siteConfig, type Locale } from '../config/site';
+import { getUi } from '../i18n/ui';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  pathname: string;
+  alternatePath: string;
+  isHome?: boolean;
+  ogType?: 'website' | 'article';
+  indexable?: boolean;
+}
+
+const {
+  locale,
+  title,
+  description,
+  pathname,
+  alternatePath,
+  isHome = false,
+  ogType = 'website',
+  indexable = true,
+} = Astro.props;
+const copy = getUi(locale);
+const canonical = absoluteUrl(pathname);
+const englishPath = locale === 'en' ? pathname : alternatePath;
+const spanishPath = locale === 'es' ? pathname : alternatePath;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteConfig.siteUrl}/#person`,
+      name: siteConfig.name,
+      jobTitle: siteConfig.title,
+      email: `mailto:${siteConfig.email}`,
+      url: siteConfig.siteUrl,
+      sameAs: [siteConfig.social.linkedin, siteConfig.social.github],
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: siteConfig.education.institution,
+      },
+      knowsAbout: [
+        'Shopify development',
+        'Ecommerce frontend development',
+        'Web performance',
+        'Ecommerce UX',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteConfig.siteUrl}/#website`,
+      url: siteConfig.siteUrl,
+      name: `${siteConfig.name} — ${siteConfig.title}`,
+      inLanguage: ['en', 'es'],
+      publisher: { '@id': `${siteConfig.siteUrl}/#person` },
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#060806" />
+    <meta name="color-scheme" content="dark" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {!indexable && <meta name="robots" content="noindex, follow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={absoluteUrl(englishPath)} />
+    <link rel="alternate" hreflang="es" href={absoluteUrl(spanishPath)} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(englishPath)} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Leandro Alonso" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'es_AR'} />
+    <meta property="og:locale:alternate" content={locale === 'en' ? 'es_AR' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+    <ClientRouter fallback="animate" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{copy.accessibility.skip}</a>
+    <Header {locale} {alternatePath} {isHome} />
+    <slot />
+    <Footer {locale} {alternatePath} />
+
+    <script>
+      let pageController: AbortController | undefined;
+      let revealObserver: IntersectionObserver | undefined;
+
+      function initializePage() {
+        pageController?.abort();
+        revealObserver?.disconnect();
+        pageController = new AbortController();
+        const { signal } = pageController;
+
+        const header = document.querySelector<HTMLElement>('[data-site-header]');
+        const updateHeader = () => {
+          if (header) header.dataset.scrolled = String(window.scrollY > 18);
+        };
+        updateHeader();
+        window.addEventListener('scroll', updateHeader, { passive: true, signal });
+
+        const mobileMenu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
+        const mobileSummary = mobileMenu?.querySelector<HTMLElement>('summary');
+        const backgroundElements = document.querySelectorAll<HTMLElement>(
+          'body > main, body > footer, body > .skip-link',
+        );
+        const syncMenuState = () => {
+          if (!mobileMenu || !mobileSummary) return;
+          const isOpen = mobileMenu.open;
+          mobileSummary.setAttribute('aria-expanded', String(isOpen));
+          mobileSummary.setAttribute(
+            'aria-label',
+            isOpen
+              ? (mobileSummary.dataset.closeLabel ?? '')
+              : (mobileSummary.dataset.openLabel ?? ''),
+          );
+          document.body.toggleAttribute('data-nav-open', isOpen);
+          backgroundElements.forEach((element) => {
+            element.inert = isOpen;
+          });
+        };
+        mobileMenu?.addEventListener('toggle', syncMenuState, { signal });
+        mobileMenu?.querySelectorAll('a').forEach((link) => {
+          link.addEventListener(
+            'click',
+            () => {
+              mobileMenu.open = false;
+              syncMenuState();
+            },
+            { signal },
+          );
+        });
+        document.addEventListener(
+          'keydown',
+          (event) => {
+            if (event.key === 'Escape' && mobileMenu?.open) {
+              mobileMenu.open = false;
+              syncMenuState();
+              mobileSummary?.focus();
+            }
+
+            if (event.key === 'Tab' && mobileMenu?.open) {
+              const focusable = Array.from(
+                mobileMenu.querySelectorAll<HTMLElement>(
+                  'summary, a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+                ),
+              ).filter((element) => element.getClientRects().length > 0);
+              const first = focusable.at(0);
+              const last = focusable.at(-1);
+
+              if (!first || !last) return;
+              if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last.focus();
+              } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first.focus();
+              } else if (!mobileMenu.contains(document.activeElement)) {
+                event.preventDefault();
+                first.focus();
+              }
+            }
+          },
+          { signal },
+        );
+        signal.addEventListener(
+          'abort',
+          () => {
+            backgroundElements.forEach((element) => {
+              element.inert = false;
+            });
+          },
+          { once: true },
+        );
+        syncMenuState();
+
+        document.querySelectorAll<HTMLInputElement>('[data-comparison-range]').forEach((range) => {
+          const frame = range.closest<HTMLElement>('[data-comparison]');
+          const update = () => frame?.style.setProperty('--comparison', `${range.value}%`);
+          update();
+          range.addEventListener('input', update, { signal });
+        });
+
+        document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
+          if (
+            !window.matchMedia('(pointer: fine)').matches ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          )
+            return;
+          card.addEventListener(
+            'pointermove',
+            (event) => {
+              const rect = card.getBoundingClientRect();
+              card.style.setProperty('--pointer-x', `${event.clientX - rect.left}px`);
+              card.style.setProperty('--pointer-y', `${event.clientY - rect.top}px`);
+            },
+            { signal },
+          );
+        });
+
+        document.querySelectorAll<HTMLButtonElement>('[data-copy-password]').forEach((button) => {
+          button.addEventListener(
+            'click',
+            async () => {
+              const value = button.dataset.copyPassword;
+              if (!value) return;
+              await navigator.clipboard.writeText(value);
+              const status = button.querySelector<HTMLElement>('[data-copy-status]');
+              if (status) status.textContent = button.dataset.copiedLabel ?? '';
+            },
+            { signal },
+          );
+        });
+
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          revealObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  (entry.target as HTMLElement).dataset.revealVisible = 'true';
+                  revealObserver?.unobserve(entry.target);
+                }
+              });
+            },
+            { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+          );
+          document.querySelectorAll<HTMLElement>('.reveal').forEach((element) => {
+            element.dataset.revealReady = 'true';
+            revealObserver?.observe(element);
+          });
+        }
+      }
+
+      document.addEventListener('astro:page-load', initializePage);
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  html {
+    scrollbar-gutter: stable;
+  }
+
+  body[data-nav-open] {
+    overflow: hidden;
+  }
+</style>

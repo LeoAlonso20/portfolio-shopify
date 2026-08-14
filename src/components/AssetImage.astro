@@ -1,0 +1,48 @@
+---
+import { publicAssetPath, publicAssetSrcset } from '../lib/assets';
+
+interface Props {
+  src?: string | null;
+  alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'sync' | 'async' | 'auto';
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  sizes,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+  decoding = 'async',
+  class: className,
+} = Astro.props;
+const resolvedSource = publicAssetPath(src);
+const srcset = publicAssetSrcset(src);
+---
+
+{
+  resolvedSource ? (
+    <img
+      src={resolvedSource}
+      srcset={srcset}
+      {sizes}
+      {alt}
+      {width}
+      {height}
+      {loading}
+      {fetchpriority}
+      {decoding}
+      class={className}
+    />
+  ) : (
+    <slot />
+  )
+}

@@ -1,0 +1,880 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ContactCTA from './ContactCTA.astro';
+import AssetImage from './AssetImage.astro';
+import Icon from './Icon.astro';
+import ProjectVisual from './ProjectVisual.astro';
+import { projects } from '../config/projects';
+import { homePath, type Locale, workPath } from '../config/site';
+import { getUi } from '../i18n/ui';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  locale: Locale;
+  entry: CollectionEntry<'caseStudies'>;
+  nextEntry: CollectionEntry<'caseStudies'>;
+}
+
+const { locale, entry, nextEntry } = Astro.props;
+const copy = getUi(locale);
+const project = projects[entry.data.projectKey];
+const nextProject = projects[nextEntry.data.projectKey];
+const pathname = workPath(locale, project.slug);
+const alternateLocale = locale === 'en' ? 'es' : 'en';
+const alternatePath = workPath(alternateLocale, project.slug);
+const nextPath = workPath(locale, nextProject.slug);
+
+const contentSections = [
+  { id: 'context', title: locale === 'en' ? 'Context' : 'Contexto', content: entry.data.context },
+  {
+    id: 'challenge',
+    title: locale === 'en' ? 'Challenge' : 'Desafío',
+    content: entry.data.challenge,
+  },
+  { id: 'approach', title: locale === 'en' ? 'Approach' : 'Enfoque', content: entry.data.approach },
+  {
+    id: 'solution',
+    title: locale === 'en' ? 'Solution' : 'Solución',
+    content: entry.data.solution,
+  },
+  {
+    id: 'ux-cro',
+    title: locale === 'en' ? 'UX / CRO decisions' : 'Decisiones de UX / CRO',
+    content: entry.data.uxCro,
+  },
+  {
+    id: 'engineering',
+    title: locale === 'en' ? 'Engineering' : 'Ingeniería',
+    content: entry.data.engineering,
+  },
+];
+---
+
+<BaseLayout
+  {locale}
+  title={entry.data.seo.title}
+  description={entry.data.seo.description}
+  {pathname}
+  {alternatePath}
+  ogType="article"
+>
+  <main id="main-content" class="case-study">
+    <section class="case-hero">
+      <div class="container">
+        <a class="case-back" href={`${homePath(locale)}#work`}>
+          <Icon name="ArrowRight" size={14} />{copy.caseStudy.backToWork}
+        </a>
+        <div class="case-title-grid">
+          <div>
+            <div class="case-kicker">
+              <span>{String(project.order).padStart(2, '0')}</span>
+              <span>{entry.data.category}</span>
+            </div>
+            <h1 transition:name={`project-${project.slug}-title`}>{entry.data.title}</h1>
+          </div>
+          <p>{entry.data.hero.summary}</p>
+        </div>
+
+        <div
+          class="case-hero-visual"
+          transition:name={`project-${project.slug}-visual`}
+          transition:animate="slide"
+        >
+          <AssetImage
+            src={project.assets.hero}
+            alt={entry.data.visualAlt}
+            width={2400}
+            height={1500}
+            sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
+            loading="eager"
+            fetchpriority="high"
+            class="case-hero-image"
+          >
+            <ProjectVisual variant={project.visual} {locale} label={entry.data.visualAlt} />
+          </AssetImage>
+        </div>
+
+        <p class="case-outcome reveal">{entry.data.hero.outcome}</p>
+      </div>
+    </section>
+
+    <section class="case-snapshot section--bordered">
+      <div class="container">
+        <div class="snapshot-heading">
+          <h2 class="eyebrow">{copy.caseStudy.snapshot}</h2>
+          {
+            project.liveStore.url && (
+              <div class="live-store-wrap">
+                <a
+                  data-testid="live-store-link"
+                  class="button button--primary"
+                  href={project.liveStore.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {copy.caseStudy.liveStore}
+                  <Icon name="ExternalLink" size={16} />
+                  <span class="sr-only">({copy.accessibility.external})</span>
+                </a>
+                {project.liveStore.isPrivate && project.liveStore.publicPreviewPassword && (
+                  <button
+                    class="password-copy"
+                    type="button"
+                    data-copy-password={project.liveStore.publicPreviewPassword}
+                    data-copied-label={copy.caseStudy.passwordCopied}
+                  >
+                    <Icon name="Copy" size={15} />
+                    <span>
+                      <small>{copy.caseStudy.password}</small>
+                      <strong data-copy-status>{project.liveStore.publicPreviewPassword}</strong>
+                    </span>
+                  </button>
+                )}
+              </div>
+            )
+          }
+        </div>
+        <dl class="snapshot-grid reveal">
+          <div><dt>{copy.caseStudy.scope}</dt><dd>{entry.data.snapshot.scope}</dd></div>
+          <div><dt>{copy.caseStudy.platform}</dt><dd>{entry.data.snapshot.platform}</dd></div>
+          <div><dt>{copy.caseStudy.role}</dt><dd>{entry.data.snapshot.role}</dd></div>
+          <div><dt>{copy.caseStudy.focus}</dt><dd>{entry.data.snapshot.focus}</dd></div>
+          {
+            project.metrics.map((metric) => (
+              <div class="snapshot-metric">
+                <dt>{copy.caseStudy.verifiedResult}</dt>
+                <dd>
+                  <>
+                    <strong>{metric.value}</strong>
+                    <span>{metric.label[locale]}</span>
+                  </>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </section>
+
+    <section class="case-content section--bordered">
+      <div class="case-content-grid container">
+        <aside
+          aria-label={locale === 'en' ? 'Case study sections' : 'Secciones del caso de estudio'}
+        >
+          <ol>
+            {
+              contentSections.map((section, index) => (
+                <li>
+                  <a href={`#${section.id}`}>
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    {section.title}
+                  </a>
+                </li>
+              ))
+            }
+            <li>
+              <a href="#results"
+                ><span>{String(contentSections.length + 1).padStart(2, '0')}</span>{
+                  copy.caseStudy.results
+                }</a
+              >
+            </li>
+          </ol>
+        </aside>
+
+        <div class="case-sections">
+          {
+            contentSections.map((section, index) => (
+              <section id={section.id} class="case-section reveal">
+                <p class="case-section-number">{String(index + 1).padStart(2, '0')}</p>
+                <div>
+                  <h2>{section.title}</h2>
+                  {section.id === 'solution' ? (
+                    <ul class="solution-list">
+                      {section.content.map((paragraph) => (
+                        <li>
+                          <Icon name="Check" size={15} />
+                          {paragraph}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    section.content.map((paragraph) => <p>{paragraph}</p>)
+                  )}
+                </div>
+              </section>
+            ))
+          }
+
+          {
+            entry.data.beforeAfter && (
+              <section class="case-before-after reveal" aria-labelledby="before-after-title">
+                <p class="case-section-number">BA</p>
+                <div>
+                  <h2 id="before-after-title">
+                    {locale === 'en' ? 'Before / after' : 'Antes / después'}
+                  </h2>
+                  <div class="before-after-grid">
+                    <article>
+                      <h3>{locale === 'en' ? 'Before' : 'Antes'}</h3>
+                      <AssetImage
+                        src={project.assets.before}
+                        alt=""
+                        width={1440}
+                        height={1600}
+                        sizes="(max-width: 720px) calc(100vw - 56px), 24rem"
+                        class="mini-cart-image"
+                      >
+                        <div class="mini-cart mini-cart--before" aria-hidden="true">
+                          <div>
+                            <>
+                              <b>{locale === 'en' ? 'Cart items' : 'Productos del carrito'}</b>
+                              <span>×</span>
+                            </>
+                          </div>
+                          <>
+                            <i />
+                            <i />
+                            <small>
+                              {locale === 'en' ? 'Related offer' : 'Oferta relacionada'}
+                            </small>
+                            <span class="mock-button">
+                              {locale === 'en' ? 'CHECKOUT' : 'FINALIZAR COMPRA'}
+                            </span>
+                          </>
+                        </div>
+                      </AssetImage>
+                      <p>{entry.data.beforeAfter.before}</p>
+                    </article>
+                    <article>
+                      <h3>{locale === 'en' ? 'After' : 'Después'}</h3>
+                      <AssetImage
+                        src={project.assets.after}
+                        alt=""
+                        width={1440}
+                        height={1600}
+                        sizes="(max-width: 720px) calc(100vw - 56px), 24rem"
+                        class="mini-cart-image"
+                      >
+                        <div class="mini-cart mini-cart--after" aria-hidden="true">
+                          <div>
+                            <>
+                              <b>{locale === 'en' ? 'Your selection' : 'Tu selección'}</b>
+                              <span>{locale === 'en' ? 'Items · ×' : 'Productos · ×'}</span>
+                            </>
+                          </div>
+                          <>
+                            <em>{locale === 'en' ? 'Offer state' : 'Estado de oferta'}</em>
+                            <i />
+                            <i />
+                            <small>
+                              {locale === 'en' ? 'Related offer' : 'Oferta relacionada'}
+                            </small>
+                            <span class="mock-button">
+                              {locale === 'en' ? 'CONTINUE →' : 'CONTINUAR →'}
+                            </span>
+                          </>
+                        </div>
+                      </AssetImage>
+                      <p>{entry.data.beforeAfter.after}</p>
+                    </article>
+                  </div>
+                </div>
+              </section>
+            )
+          }
+
+          <section id="results" class="case-results reveal">
+            <p class="eyebrow">{copy.caseStudy.results}</p>
+            <h2>{entry.data.hero.outcome}</h2>
+            <ul>
+              {
+                entry.data.results.map((result) => (
+                  <li>
+                    <Icon name="Check" size={17} />
+                    {result}
+                  </li>
+                ))
+              }
+            </ul>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <nav class="next-project section--bordered" aria-label={copy.caseStudy.nextProject}>
+      <a href={nextPath} class="next-link container">
+        <span class="next-label">{copy.caseStudy.nextProject}<i></i></span>
+        <span class="next-name">{nextEntry.data.title}</span>
+        <span class="next-arrow"><Icon name="ArrowUpRight" size={30} /></span>
+      </a>
+    </nav>
+
+    <ContactCTA {locale} compact />
+  </main>
+</BaseLayout>
+
+<style>
+  .case-study {
+    overflow: clip;
+  }
+
+  .case-hero {
+    padding-block: 9.5rem var(--section-space);
+  }
+
+  .case-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .case-back :global(svg) {
+    rotate: 180deg;
+    transition: translate var(--duration-fast) ease;
+  }
+
+  .case-back:hover {
+    color: var(--color-accent);
+  }
+
+  .case-back:hover :global(svg) {
+    translate: -0.2rem 0;
+  }
+
+  .case-title-grid {
+    display: grid;
+    align-items: end;
+    margin-top: clamp(3rem, 7vw, 6rem);
+    grid-template-columns: minmax(0, 1.15fr) minmax(18rem, 0.7fr);
+    gap: 3rem;
+  }
+
+  .case-kicker {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .case-kicker span:first-child {
+    color: var(--color-accent);
+  }
+
+  .case-title-grid h1 {
+    margin-top: 1.25rem;
+    font-size: clamp(4rem, 11vw, 10.5rem);
+    font-weight: 530;
+    letter-spacing: -0.085em;
+    line-height: 0.79;
+  }
+
+  .case-title-grid > p {
+    max-width: 35rem;
+    padding-bottom: 0.4rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .case-hero-visual {
+    position: relative;
+    margin-top: clamp(3rem, 7vw, 6rem);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-xl);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(0.55rem, 1.5vw, 1rem);
+  }
+
+  :global(.case-hero-image) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1.6;
+    border-radius: calc(var(--radius-xl) - 0.45rem);
+    object-fit: cover;
+  }
+
+  .case-outcome {
+    max-width: 22ch;
+    margin-top: clamp(2.5rem, 5vw, 4.5rem);
+    margin-left: auto;
+    color: var(--color-text-soft);
+    font-size: clamp(1.7rem, 3.3vw, 3.5rem);
+    font-weight: 530;
+    letter-spacing: -0.05em;
+    line-height: 1.07;
+  }
+
+  .case-snapshot {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .snapshot-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .live-store-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .password-copy {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    color: var(--color-text-soft);
+    padding: 0.55rem 0.8rem;
+  }
+
+  .password-copy span {
+    display: grid;
+    text-align: left;
+  }
+
+  .password-copy small {
+    color: var(--color-text-subtle);
+    font-size: 0.5rem;
+  }
+
+  .password-copy strong {
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+  }
+
+  .snapshot-grid {
+    display: grid;
+    margin-top: 2rem;
+    border-top: 1px solid var(--color-line);
+    border-left: 1px solid var(--color-line);
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .snapshot-grid > div {
+    min-height: 10rem;
+    border-right: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .snapshot-grid dt {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.54rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .snapshot-grid dd {
+    margin-top: 1.4rem;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  .snapshot-grid .snapshot-metric {
+    background: rgb(200 255 69 / 4%);
+  }
+
+  .snapshot-metric dd {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.55rem;
+  }
+
+  .snapshot-metric strong {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 620;
+    letter-spacing: -0.07em;
+    line-height: 0.9;
+  }
+
+  .snapshot-metric span {
+    max-width: 7rem;
+    color: var(--color-text-muted);
+    font-size: 0.63rem;
+    line-height: 1.25;
+  }
+
+  .case-content {
+    padding-block: var(--section-space);
+  }
+
+  .case-content-grid {
+    display: grid;
+    align-items: start;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: clamp(3rem, 10vw, 10rem);
+  }
+
+  .case-content aside {
+    position: sticky;
+    top: 8rem;
+  }
+
+  .case-content aside ol {
+    border-top: 1px solid var(--color-line);
+    list-style: none;
+  }
+
+  .case-content aside li {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .case-content aside a {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+    padding-block: 0.75rem;
+    transition: color var(--duration-fast) ease;
+  }
+
+  .case-content aside a:hover {
+    color: var(--color-text);
+  }
+
+  .case-content aside a span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+  }
+
+  .case-sections {
+    max-width: 54rem;
+  }
+
+  .case-section,
+  .case-before-after {
+    display: grid;
+    border-top: 1px solid var(--color-line);
+    scroll-margin-top: 8rem;
+    grid-template-columns: 3rem 1fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .case-section:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .case-section-number {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.57rem;
+  }
+
+  .case-section h2,
+  .case-before-after h2 {
+    font-size: clamp(2rem, 3.5vw, 3.3rem);
+    font-weight: 560;
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  .case-section > div > p {
+    max-width: 44rem;
+    margin-top: 1.2rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .solution-list {
+    display: grid;
+    margin-top: 1.7rem;
+    list-style: none;
+  }
+
+  .solution-list li {
+    display: grid;
+    align-items: start;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-text-muted);
+    grid-template-columns: 1.5rem 1fr;
+    gap: 0.75rem;
+    padding-block: 0.9rem;
+  }
+
+  .solution-list li:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .solution-list :global(svg) {
+    margin-top: 0.3rem;
+    color: var(--color-accent);
+  }
+
+  .before-after-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .before-after-grid article {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: 0.65rem;
+  }
+
+  .before-after-grid article > h3 {
+    display: inline-block;
+    margin: 0.4rem;
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .before-after-grid article > p {
+    margin: 0.8rem 0.5rem 0.5rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .mini-cart {
+    display: flex;
+    min-height: 17rem;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    background: #f0ece3;
+    color: #2d261f;
+    padding: 0.75rem;
+  }
+
+  :global(.mini-cart-image) {
+    display: block;
+    width: 100%;
+    min-height: 17rem;
+    aspect-ratio: 0.9;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+
+  .mini-cart > div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #d7d0c4;
+    font-size: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .mini-cart > i {
+    display: block;
+    height: 3.5rem;
+    border-bottom: 1px solid #d7d0c4;
+    background: linear-gradient(90deg, #b6936f 0 2.5rem, transparent 2.5rem);
+  }
+
+  .mini-cart > small,
+  .mini-cart > em {
+    margin-top: 0.55rem;
+    font-size: 0.48rem;
+    font-style: normal;
+  }
+
+  .mini-cart > .mock-button {
+    border: 0;
+    border-radius: 0.2rem;
+    margin-top: auto;
+    background: #47301f;
+    color: white;
+    font-size: 0.5rem;
+    padding: 0.6rem;
+  }
+
+  .mini-cart--after > em {
+    border-radius: 0.15rem;
+    background: #dfd5c7;
+    padding: 0.35rem;
+  }
+
+  .case-results {
+    margin-top: 2rem;
+    border: 1px solid rgb(200 255 69 / 16%);
+    border-radius: var(--radius-lg);
+    background:
+      radial-gradient(circle at 90% 10%, rgb(200 255 69 / 7%), transparent 22rem),
+      var(--color-surface);
+    padding: clamp(2rem, 5vw, 4.5rem);
+  }
+
+  .case-results h2 {
+    max-width: 16ch;
+    margin-top: 1.25rem;
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-weight: 550;
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  .case-results ul {
+    display: grid;
+    margin-top: 2.2rem;
+    list-style: none;
+  }
+
+  .case-results li {
+    display: grid;
+    align-items: start;
+    border-top: 1px solid var(--color-line);
+    color: var(--color-text-muted);
+    grid-template-columns: 1.5rem 1fr;
+    gap: 0.7rem;
+    padding-block: 0.85rem;
+  }
+
+  .case-results li:last-child {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .case-results :global(svg) {
+    margin-top: 0.3rem;
+    color: var(--color-accent);
+  }
+
+  .next-project {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .next-link {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr auto auto;
+    gap: 2rem;
+  }
+
+  .next-label {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+  }
+
+  .next-label i {
+    width: 3rem;
+    height: 1px;
+    background: var(--color-accent);
+  }
+
+  .next-name {
+    font-size: clamp(2.7rem, 7vw, 7rem);
+    font-weight: 540;
+    letter-spacing: -0.075em;
+    line-height: 0.9;
+  }
+
+  .next-arrow {
+    display: grid;
+    width: 4.5rem;
+    height: 4.5rem;
+    place-items: center;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 50%;
+    color: var(--color-accent);
+    transition:
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      rotate var(--duration-normal) var(--ease-standard);
+  }
+
+  .next-link:hover .next-arrow {
+    background: var(--color-accent);
+    color: #10140c;
+    rotate: 45deg;
+  }
+
+  @media (max-width: 61.99rem) {
+    .case-title-grid {
+      align-items: start;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .snapshot-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .case-content-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .case-content aside {
+      display: none;
+    }
+
+    .case-sections {
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .case-hero {
+      padding-top: 8.5rem;
+    }
+
+    .case-title-grid h1 {
+      font-size: clamp(3.7rem, 19vw, 6.2rem);
+      line-height: 0.84;
+    }
+
+    .snapshot-heading {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .snapshot-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .snapshot-grid > div {
+      min-height: 8rem;
+    }
+
+    .case-section,
+    .case-before-after {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .before-after-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .next-link {
+      grid-template-columns: 1fr auto;
+    }
+
+    .next-label {
+      grid-column: 1 / -1;
+    }
+
+    .next-arrow {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+</style>
