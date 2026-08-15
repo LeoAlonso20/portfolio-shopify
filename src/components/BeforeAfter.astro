@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import AssetImage from './AssetImage.astro';
+import AssetVideo from './AssetVideo.astro';
 import type { Locale } from '../config/site';
 
 interface Props {
@@ -9,13 +9,25 @@ interface Props {
   locale: Locale;
   beforeSrc?: string;
   afterSrc?: string;
+  beforeVideoSrc?: string;
+  afterVideoSrc?: string;
   rangeLabel: string;
   ariaLabel: string;
   projectHint?: string;
 }
 
-const { locale, before, after, beforeSrc, afterSrc, rangeLabel, ariaLabel, projectHint } =
-  Astro.props;
+const {
+  locale,
+  before,
+  after,
+  beforeSrc,
+  afterSrc,
+  beforeVideoSrc,
+  afterVideoSrc,
+  rangeLabel,
+  ariaLabel,
+  projectHint,
+} = Astro.props;
 const visualCopy =
   locale === 'en'
     ? {
@@ -69,124 +81,126 @@ const visualCopy =
   role="group"
   aria-label={ariaLabel}
 >
-  <div class="comparison-frame" aria-hidden="true">
-    <div class="comparison-state comparison-state--before">
-      <AssetImage
-        src={beforeSrc}
-        alt=""
-        width={1440}
-        height={1600}
-        sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
-        class="comparison-real-image"
-      >
-        <div class="comparison-concept">
-          <div class="comparison-shop">
-            <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
-            <div class="mini-content">
-              <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
-            </div>
-          </div>
-          <div class="before-cart">
-            <div class="before-head"><b>{visualCopy.cartItems}</b><span>×</span></div>
-            <div class="before-item">
-              <i></i><span><b>{visualCopy.productA}</b><small>{visualCopy.option}</small></span><em
-                >—</em
-              >
-            </div>
-            <div class="before-item">
-              <i></i><span><b>{visualCopy.productB}</b><small>{visualCopy.option}</small></span><em
-                >—</em
-              >
-            </div>
-            <div class="before-offer">
-              <small>{visualCopy.related}</small><span
-                ><i></i><b>{visualCopy.suggestion}</b><em>{visualCopy.add}</em></span
-              >
-            </div>
-            <div class="before-total">
-              <span>{visualCopy.subtotal} <b>—</b></span><span class="mock-button"
-                >{visualCopy.checkout}</span
-              >
-            </div>
-          </div>
-        </div>
-      </AssetImage>
-    </div>
-
-    <div class="comparison-state comparison-state--after">
-      <AssetImage
-        src={afterSrc}
-        alt=""
-        width={1440}
-        height={1600}
-        sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
-        class="comparison-real-image"
-      >
-        <div class="comparison-concept">
-          <div class="comparison-shop comparison-shop--after">
-            <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
-            <div class="mini-content">
-              <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
-            </div>
-          </div>
-          <div class="after-cart">
-            <div class="after-head">
-              <div><small>{visualCopy.yourCart}</small><b>{visualCopy.selection}</b></div><span
-                >{visualCopy.items} &nbsp; ×</span
-              >
-            </div>
-            <div class="gift-progress">
-              <span><Icon name="Check" size={10} /> {visualCopy.offer}</span><i><b></b></i>
-            </div>
-            <div class="after-item">
-              <i></i><span
-                ><b>{visualCopy.productA}</b><small>{visualCopy.option}</small><em
-                  >− &nbsp; 1 &nbsp; +</em
-                ></span
-              ><strong>—</strong>
-            </div>
-            <div class="after-item">
-              <i></i><span
-                ><b>{visualCopy.productB}</b><small>{visualCopy.option}</small><em
-                  >− &nbsp; 1 &nbsp; +</em
-                ></span
-              ><strong>—</strong>
-            </div>
-            <div class="after-offer">
-              <small>{visualCopy.related}</small><div>
-                <i></i><span
-                  ><b>{visualCopy.suggestion}</b><small>{visualCopy.optional}</small></span
-                ><strong>+</strong>
+  <div class="comparison-frame" data-comparison-frame>
+    <div class="comparison-visuals" aria-hidden="true">
+      <div class="comparison-state comparison-state--before">
+        <AssetVideo
+          videoSrc={beforeVideoSrc}
+          posterSrc={beforeSrc}
+          alt=""
+          width={1440}
+          height={1600}
+          sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
+          class="comparison-real-image"
+        >
+          <div class="comparison-concept">
+            <div class="comparison-shop">
+              <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
+              <div class="mini-content">
+                <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
               </div>
             </div>
-            <div class="after-total">
-              <span><small>{visualCopy.subtotal}</small><b>—</b></span><span class="mock-button"
-                >{visualCopy.continue} <b>→</b></span
-              ><small>{visualCopy.secure}</small>
+            <div class="before-cart">
+              <div class="before-head"><b>{visualCopy.cartItems}</b><span>×</span></div>
+              <div class="before-item">
+                <i></i><span><b>{visualCopy.productA}</b><small>{visualCopy.option}</small></span
+                ><em>—</em>
+              </div>
+              <div class="before-item">
+                <i></i><span><b>{visualCopy.productB}</b><small>{visualCopy.option}</small></span
+                ><em>—</em>
+              </div>
+              <div class="before-offer">
+                <small>{visualCopy.related}</small><span
+                  ><i></i><b>{visualCopy.suggestion}</b><em>{visualCopy.add}</em></span
+                >
+              </div>
+              <div class="before-total">
+                <span>{visualCopy.subtotal} <b>—</b></span><span class="mock-button"
+                  >{visualCopy.checkout}</span
+                >
+              </div>
             </div>
           </div>
-        </div>
-      </AssetImage>
+        </AssetVideo>
+      </div>
+
+      <div class="comparison-state comparison-state--after">
+        <AssetVideo
+          videoSrc={afterVideoSrc}
+          posterSrc={afterSrc}
+          alt=""
+          width={1440}
+          height={1600}
+          sizes="(max-width: 768px) calc(100vw - 40px), 82rem"
+          class="comparison-real-image"
+        >
+          <div class="comparison-concept">
+            <div class="comparison-shop comparison-shop--after">
+              <div class="mini-store"><b>RYTUAL</b><span>{visualCopy.nav}</span></div>
+              <div class="mini-content">
+                <small>{visualCopy.concept}</small><b>{visualCopy.title}</b>
+              </div>
+            </div>
+            <div class="after-cart">
+              <div class="after-head">
+                <div><small>{visualCopy.yourCart}</small><b>{visualCopy.selection}</b></div><span
+                  >{visualCopy.items} &nbsp; ×</span
+                >
+              </div>
+              <div class="gift-progress">
+                <span><Icon name="Check" size={10} /> {visualCopy.offer}</span><i><b></b></i>
+              </div>
+              <div class="after-item">
+                <i></i><span
+                  ><b>{visualCopy.productA}</b><small>{visualCopy.option}</small><em
+                    >− &nbsp; 1 &nbsp; +</em
+                  ></span
+                ><strong>—</strong>
+              </div>
+              <div class="after-item">
+                <i></i><span
+                  ><b>{visualCopy.productB}</b><small>{visualCopy.option}</small><em
+                    >− &nbsp; 1 &nbsp; +</em
+                  ></span
+                ><strong>—</strong>
+              </div>
+              <div class="after-offer">
+                <small>{visualCopy.related}</small><div>
+                  <i></i><span
+                    ><b>{visualCopy.suggestion}</b><small>{visualCopy.optional}</small></span
+                  ><strong>+</strong>
+                </div>
+              </div>
+              <div class="after-total">
+                <span><small>{visualCopy.subtotal}</small><b>—</b></span><span class="mock-button"
+                  >{visualCopy.continue} <b>→</b></span
+                ><small>{visualCopy.secure}</small>
+              </div>
+            </div>
+          </div>
+        </AssetVideo>
+      </div>
+
+      <div class="comparison-divider">
+        <span><Icon name="MoveHorizontal" size={17} /></span>
+      </div>
+      <span class="comparison-label comparison-label--before">{before}</span>
+      <span class="comparison-label comparison-label--after">{after}</span>
     </div>
 
-    <div class="comparison-divider" aria-hidden="true">
-      <span><Icon name="MoveHorizontal" size={17} /></span>
-    </div>
-    <span class="comparison-label comparison-label--before">{before}</span>
-    <span class="comparison-label comparison-label--after">{after}</span>
+    <label class="comparison-control">
+      <span class="sr-only">{rangeLabel}</span>
+      <input
+        data-comparison-range
+        type="range"
+        min="0"
+        max="100"
+        value="52"
+        aria-label={rangeLabel}
+      />
+    </label>
   </div>
-
-  <label class="comparison-control">
-    <span class="sr-only">{rangeLabel}</span>
-    <input
-      data-comparison-range
-      type="range"
-      min="0"
-      max="100"
-      value="52"
-      aria-label={rangeLabel}
-    />
-  </label>
   {projectHint && <p class="comparison-hint">{projectHint}</p>}
 </div>
 
@@ -203,6 +217,16 @@ const visualCopy =
     border-radius: var(--radius-lg);
     background: #15110d;
     box-shadow: var(--shadow-lg);
+    cursor: ew-resize;
+    touch-action: none;
+  }
+
+  .comparison-visuals {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
   }
 
   .comparison-state {
@@ -225,7 +249,7 @@ const visualCopy =
 
   .comparison-state--after {
     z-index: 2;
-    clip-path: inset(0 calc(100% - var(--comparison)) 0 0);
+    clip-path: inset(0 0 0 var(--comparison));
   }
 
   .comparison-shop {
@@ -596,6 +620,16 @@ const visualCopy =
     box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
     color: #10140c;
     translate: -50% -50%;
+    transition:
+      scale var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .comparison-frame:focus-within .comparison-divider span {
+    box-shadow:
+      0 10px 30px rgb(0 0 0 / 35%),
+      0 0 0 0.22rem rgb(200 255 69 / 24%);
+    scale: 1.04;
   }
 
   .comparison-label {
@@ -623,59 +657,57 @@ const visualCopy =
   }
 
   .comparison-control {
+    position: absolute;
+    z-index: 5;
+    inset: 0;
     display: block;
-    margin-top: 1.25rem;
+    cursor: ew-resize;
+    pointer-events: none;
   }
 
   .comparison-control input {
+    position: absolute;
+    inset: 0;
     width: 100%;
-    height: 2rem;
+    height: 100%;
     margin: 0;
     appearance: none;
     background: transparent;
     cursor: ew-resize;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .comparison-control input::-webkit-slider-runnable-track {
-    height: 0.3rem;
-    border-radius: 3rem;
-    background: linear-gradient(
-      to right,
-      var(--color-accent) var(--comparison),
-      #262d25 var(--comparison)
-    );
+    height: 100%;
+    background: transparent;
   }
 
   .comparison-control input::-webkit-slider-thumb {
-    width: 1.25rem;
-    height: 1.25rem;
-    border: 0.24rem solid #10140c;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 0;
     border-radius: 50%;
-    margin-top: -0.48rem;
+    margin-top: 0;
     appearance: none;
-    background: var(--color-accent);
-    box-shadow: 0 0 0 1px var(--color-accent);
+    background: transparent;
   }
 
   .comparison-control input::-moz-range-track {
-    height: 0.3rem;
-    border-radius: 3rem;
-    background: #262d25;
-  }
-
-  .comparison-control input::-moz-range-progress {
-    height: 0.3rem;
-    border-radius: 3rem;
-    background: var(--color-accent);
+    height: 100%;
+    background: transparent;
   }
 
   .comparison-control input::-moz-range-thumb {
-    width: 0.9rem;
-    height: 0.9rem;
-    border: 0.22rem solid #10140c;
+    width: 2.8rem;
+    height: 2.8rem;
+    border: 0;
     border-radius: 50%;
-    background: var(--color-accent);
-    box-shadow: 0 0 0 1px var(--color-accent);
+    background: transparent;
+  }
+
+  .comparison-control input:focus-visible {
+    outline: 0;
   }
 
   .comparison-hint {

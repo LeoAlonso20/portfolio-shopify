@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import ContactCTA from './ContactCTA.astro';
-import AssetImage from './AssetImage.astro';
+import AssetVideo from './AssetVideo.astro';
 import Icon from './Icon.astro';
 import ProjectVisual from './ProjectVisual.astro';
 import { projects } from '../config/projects';
@@ -76,8 +76,9 @@ const contentSections = [
         </div>
 
         <div class="case-hero-visual" transition:name={`project-${project.slug}-visual`}>
-          <AssetImage
-            src={project.assets.hero}
+          <AssetVideo
+            videoSrc={project.videos.hero}
+            posterSrc={project.assets.hero}
             alt={entry.data.visualAlt}
             width={2400}
             height={1500}
@@ -87,7 +88,7 @@ const contentSections = [
             class="case-hero-image"
           >
             <ProjectVisual variant={project.visual} {locale} label={entry.data.visualAlt} />
-          </AssetImage>
+          </AssetVideo>
         </div>
 
         <p class="case-outcome reveal" data-reveal="soft">{entry.data.hero.outcome}</p>
@@ -234,8 +235,9 @@ const contentSections = [
                   <div class="before-after-grid">
                     <article>
                       <h3>{locale === 'en' ? 'Before' : 'Antes'}</h3>
-                      <AssetImage
-                        src={project.assets.before}
+                      <AssetVideo
+                        videoSrc={project.videos.before}
+                        posterSrc={project.assets.before}
                         alt=""
                         width={1440}
                         height={1600}
@@ -260,13 +262,14 @@ const contentSections = [
                             </span>
                           </>
                         </div>
-                      </AssetImage>
+                      </AssetVideo>
                       <p>{entry.data.beforeAfter.before}</p>
                     </article>
                     <article>
                       <h3>{locale === 'en' ? 'After' : 'Después'}</h3>
-                      <AssetImage
-                        src={project.assets.after}
+                      <AssetVideo
+                        videoSrc={project.videos.after}
+                        posterSrc={project.assets.after}
                         alt=""
                         width={1440}
                         height={1600}
@@ -292,7 +295,7 @@ const contentSections = [
                             </span>
                           </>
                         </div>
-                      </AssetImage>
+                      </AssetVideo>
                       <p>{entry.data.beforeAfter.after}</p>
                     </article>
                   </div>

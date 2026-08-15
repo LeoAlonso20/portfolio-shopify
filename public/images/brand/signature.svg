@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 96" role="img" aria-labelledby="title desc">
+  <title id="title">LA</title>
+  <desc id="desc">Monograma geométrico con las iniciales L y A de Leandro Alonso.</desc>
+  <g fill="#F5F7F2">
+    <path d="M24 16h14v52h42v12H24V16Z"/>
+    <path fill-rule="evenodd" d="M126 16h16l49 64h-17l-12-16h-56L94 80H77l49-64Zm-11 36h38l-19-25-19 25Z" clip-rule="evenodd"/>
+  </g>
+  <path fill="#B9FF22" d="M198 68h18v12h-18z"/>
+</svg>

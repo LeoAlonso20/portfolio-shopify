@@ -152,6 +152,13 @@ test('before/after slider supports keyboard comparison', async ({ page }) => {
   });
 
   await expect(slider).toHaveValue('52');
+  await expect
+    .poll(() =>
+      comparison
+        .locator('.comparison-state--after')
+        .evaluate((element) => getComputedStyle(element).clipPath),
+    )
+    .toContain('52%');
   await slider.focus();
   await page.keyboard.press('ArrowRight');
   await expect(slider).toHaveValue('53');
@@ -163,4 +170,31 @@ test('before/after slider supports keyboard comparison', async ({ page }) => {
   await expect(slider).toHaveValue('100');
   await page.keyboard.press('Home');
   await expect(slider).toHaveValue('0');
+});
+
+test('before/after slider can be dragged directly from the visual handle', async ({ page }) => {
+  await page.goto('/');
+
+  const comparison = page.getByTestId('before-after');
+  const frame = comparison.locator('.comparison-frame');
+  const slider = page.getByRole('slider', {
+    name: 'Move the slider to compare the cart before and after',
+  });
+  await frame.scrollIntoViewIfNeeded();
+  const frameBox = await frame.boundingBox();
+
+  expect(frameBox).not.toBeNull();
+  if (!frameBox) return;
+
+  await page.mouse.move(frameBox.x + frameBox.width * 0.52, frameBox.y + frameBox.height * 0.5);
+  await page.mouse.down();
+  await page.mouse.move(frameBox.x + frameBox.width * 0.74, frameBox.y + frameBox.height * 0.5, {
+    steps: 8,
+  });
+  await page.mouse.up();
+
+  await expect.poll(async () => Number(await slider.inputValue())).toBeGreaterThan(60);
+  await expect
+    .poll(() => comparison.evaluate((element) => element.style.getPropertyValue('--comparison')))
+    .toContain('%');
 });

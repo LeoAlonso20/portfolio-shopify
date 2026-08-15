@@ -25,6 +25,7 @@ export const siteConfig = {
   },
   assets: {
     signature: '/images/brand/signature.svg',
+    aboutSignature: '/images/brand/about-signature.png',
     portrait: '/images/leandro/portrait.webp',
   },
 } as const;

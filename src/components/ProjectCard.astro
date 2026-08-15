@@ -4,7 +4,7 @@ import type { ProjectConfig } from '../config/projects';
 import type { Locale } from '../config/site';
 import { workPath } from '../config/site';
 import Icon from './Icon.astro';
-import AssetImage from './AssetImage.astro';
+import AssetVideo from './AssetVideo.astro';
 import ProjectVisual from './ProjectVisual.astro';
 
 interface Props {
@@ -30,8 +30,9 @@ const path = workPath(locale, project.slug);
 >
   <a class="project-card-link" href={path} aria-label={`${cta}: ${entry.data.title}`}>
     <div class="project-card-media" transition:name={`project-${project.slug}-visual`}>
-      <AssetImage
-        src={project.assets.card}
+      <AssetVideo
+        videoSrc={project.videos.card}
+        posterSrc={project.assets.card}
         alt={entry.data.visualAlt}
         width={1800}
         height={1240}
@@ -41,7 +42,7 @@ const path = workPath(locale, project.slug);
         class="project-card-image"
       >
         <ProjectVisual variant={project.visual} {locale} label={entry.data.visualAlt} />
-      </AssetImage>
+      </AssetVideo>
     </div>
 
     <div class="project-card-body">

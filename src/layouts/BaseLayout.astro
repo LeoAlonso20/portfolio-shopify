@@ -110,12 +110,14 @@ const structuredData = {
       let revealObserver: IntersectionObserver | undefined;
       let sectionObserver: IntersectionObserver | undefined;
       let metricObserver: IntersectionObserver | undefined;
+      let videoObserver: IntersectionObserver | undefined;
 
       function initializePage() {
         pageController?.abort();
         revealObserver?.disconnect();
         sectionObserver?.disconnect();
         metricObserver?.disconnect();
+        videoObserver?.disconnect();
         pageController = new AbortController();
         const { signal } = pageController;
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -205,10 +207,53 @@ const structuredData = {
         syncMenuState();
 
         document.querySelectorAll<HTMLInputElement>('[data-comparison-range]').forEach((range) => {
-          const frame = range.closest<HTMLElement>('[data-comparison]');
-          const update = () => frame?.style.setProperty('--comparison', `${range.value}%`);
+          const comparison = range.closest<HTMLElement>('[data-comparison]');
+          const frame = comparison?.querySelector<HTMLElement>('[data-comparison-frame]');
+          const update = () => comparison?.style.setProperty('--comparison', `${range.value}%`);
+          const updateFromPointer = (event: PointerEvent) => {
+            if (!frame) return;
+            const rect = frame.getBoundingClientRect();
+            const value = Math.round(((event.clientX - rect.left) / rect.width) * 100);
+            range.value = String(Math.max(0, Math.min(100, value)));
+            update();
+          };
           update();
           range.addEventListener('input', update, { signal });
+          frame?.addEventListener(
+            'pointerdown',
+            (event) => {
+              if (event.button !== 0) return;
+              event.preventDefault();
+              range.focus({ preventScroll: true });
+              frame.setPointerCapture(event.pointerId);
+              updateFromPointer(event);
+            },
+            { signal },
+          );
+          frame?.addEventListener(
+            'pointermove',
+            (event) => {
+              if (!frame.hasPointerCapture(event.pointerId)) return;
+              updateFromPointer(event);
+            },
+            { signal },
+          );
+          frame?.addEventListener(
+            'pointerup',
+            (event) => {
+              if (frame.hasPointerCapture(event.pointerId))
+                frame.releasePointerCapture(event.pointerId);
+            },
+            { signal },
+          );
+          frame?.addEventListener(
+            'pointercancel',
+            (event) => {
+              if (frame.hasPointerCapture(event.pointerId))
+                frame.releasePointerCapture(event.pointerId);
+            },
+            { signal },
+          );
         });
 
         document.querySelectorAll<HTMLElement>('[data-spotlight]').forEach((card) => {
@@ -280,6 +325,66 @@ const structuredData = {
             { signal },
           );
         });
+
+        const videoMotionAllowed = !reducedMotion && finePointer && window.innerWidth >= 768;
+        const resetAssetVideo = (video: HTMLVideoElement) => {
+          const frame = video.closest<HTMLElement>('[data-asset-video-frame]');
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+          frame?.removeAttribute('data-video-active');
+        };
+        document.querySelectorAll<HTMLVideoElement>('[data-asset-video]').forEach((video) => {
+          resetAssetVideo(video);
+        });
+
+        if (videoMotionAllowed) {
+          videoObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                const video = entry.target as HTMLVideoElement;
+                const frame = video.closest<HTMLElement>('[data-asset-video-frame]');
+                const source = video.dataset.videoSrc;
+                if (!source) return;
+
+                if (!entry.isIntersecting) {
+                  video.pause();
+                  return;
+                }
+
+                if (!video.getAttribute('src')) {
+                  video.src = source;
+                  video.load();
+                }
+
+                void video
+                  .play()
+                  .then(() => {
+                    frame?.setAttribute('data-video-active', 'true');
+                  })
+                  .catch(() => {
+                    resetAssetVideo(video);
+                  });
+              });
+            },
+            { rootMargin: '180px 0px', threshold: 0.08 },
+          );
+
+          document.querySelectorAll<HTMLVideoElement>('[data-asset-video]').forEach((video) => {
+            video.addEventListener(
+              'canplay',
+              () => {
+                video
+                  .closest<HTMLElement>('[data-asset-video-frame]')
+                  ?.setAttribute('data-video-active', 'true');
+              },
+              { once: true, signal },
+            );
+            video.addEventListener('error', () => resetAssetVideo(video), { signal });
+            videoObserver?.observe(video);
+            signal.addEventListener('abort', () => resetAssetVideo(video), { once: true });
+          });
+        }
 
         if (!reducedMotion) {
           revealObserver = new IntersectionObserver(

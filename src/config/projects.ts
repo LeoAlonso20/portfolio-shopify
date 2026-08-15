@@ -20,6 +20,12 @@ export interface ProjectConfig {
     before?: string;
     after?: string;
   };
+  videos: {
+    hero: string;
+    card: string;
+    before?: string;
+    after?: string;
+  };
   liveStore: {
     url: string | null;
     isPrivate: boolean;
@@ -40,6 +46,10 @@ export const projects: Record<ProjectSlug, ProjectConfig> = {
       hero: '/images/projects/nocturna/hero.webp',
       card: '/images/projects/nocturna/card.webp',
     },
+    videos: {
+      hero: '/videos/projects/nocturna/hero.mp4',
+      card: '/videos/projects/nocturna/card.mp4',
+    },
     liveStore: { url: null, isPrivate: false, publicPreviewPassword: null },
     metrics: [
       {
@@ -57,6 +67,10 @@ export const projects: Record<ProjectSlug, ProjectConfig> = {
       hero: '/images/projects/velor/hero.webp',
       card: '/images/projects/velor/card.webp',
     },
+    videos: {
+      hero: '/videos/projects/velor/hero.mp4',
+      card: '/videos/projects/velor/card.mp4',
+    },
     liveStore: { url: null, isPrivate: false, publicPreviewPassword: null },
     metrics: [],
   },
@@ -70,6 +84,12 @@ export const projects: Record<ProjectSlug, ProjectConfig> = {
       card: '/images/projects/rytual-cafe/card.webp',
       before: '/images/projects/rytual-cafe/cart-before.webp',
       after: '/images/projects/rytual-cafe/cart-after.webp',
+    },
+    videos: {
+      hero: '/videos/projects/rytual-cafe/hero.mp4',
+      card: '/videos/projects/rytual-cafe/card.mp4',
+      before: '/videos/projects/rytual-cafe/cart-before.mp4',
+      after: '/videos/projects/rytual-cafe/cart-after.mp4',
     },
     liveStore: { url: null, isPrivate: false, publicPreviewPassword: null },
     metrics: [],

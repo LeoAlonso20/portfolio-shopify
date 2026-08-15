@@ -10,6 +10,7 @@ import SectionHeader from './SectionHeader.astro';
 import { projects } from '../config/projects';
 import { homePath, siteConfig, type Locale } from '../config/site';
 import { getUi } from '../i18n/ui';
+import { publicAssetPath } from '../lib/assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 interface Props {
@@ -20,6 +21,7 @@ const { locale } = Astro.props;
 const copy = getUi(locale);
 const pathname = homePath(locale);
 const alternatePath = locale === 'en' ? '/es' : '/';
+const hasAboutSignature = Boolean(publicAssetPath(siteConfig.assets.aboutSignature));
 const entries = (await getCollection('caseStudies'))
   .filter((entry) => entry.data.locale === locale)
   .sort((a, b) => projects[a.data.projectKey].order - projects[b.data.projectKey].order);
@@ -153,6 +155,8 @@ const entries = (await getCollection('caseStudies'))
             after={copy.comparison.after}
             beforeSrc={projects['rytual-cafe'].assets.before}
             afterSrc={projects['rytual-cafe'].assets.after}
+            beforeVideoSrc={projects['rytual-cafe'].videos.before}
+            afterVideoSrc={projects['rytual-cafe'].videos.after}
             rangeLabel={copy.comparison.rangeLabel}
             ariaLabel={copy.accessibility.comparison}
             projectHint={copy.comparison.projectHint}
@@ -258,6 +262,24 @@ const entries = (await getCollection('caseStudies'))
           <div class="about-copy reveal" data-reveal="soft" style="--reveal-delay: 105ms">
             {copy.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
           </div>
+          {
+            hasAboutSignature && (
+              <div
+                class="about-signature-wrap reveal"
+                data-reveal="soft"
+                style="--reveal-delay: 130ms"
+              >
+                <AssetImage
+                  src={siteConfig.assets.aboutSignature}
+                  alt=""
+                  width={1370}
+                  height={512}
+                  sizes="(max-width: 768px) 14rem, 18rem"
+                  class="about-signature"
+                />
+              </div>
+            )
+          }
           <dl class="about-details reveal" data-reveal="soft" style="--reveal-delay: 155ms">
             <div>
               <dt><Icon name="Code" size={17} />{copy.about.role}</dt>
@@ -777,6 +799,19 @@ const entries = (await getCollection('caseStudies'))
     margin-top: 2rem;
     color: var(--color-text-muted);
     font-size: var(--text-lead);
+  }
+
+  .about-signature-wrap {
+    width: min(18rem, 58vw);
+    margin-top: 1.9rem;
+    opacity: 0.86;
+  }
+
+  :global(.about-signature) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 18px rgb(255 255 255 / 7%));
   }
 
   .about-details {
