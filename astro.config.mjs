@@ -5,11 +5,18 @@ import tailwindcss from '@tailwindcss/vite';
 import { loadEnv } from 'vite';
 
 const env = loadEnv(process.env.NODE_ENV ?? '', process.cwd(), '');
-const vercelUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL ?? env.VERCEL_PROJECT_PRODUCTION_URL;
+/** @param {string | undefined} value */
+const cleanUrl = (value) => {
+  const url = value?.trim();
+  if (!url) return null;
+  return url.startsWith('http') ? url : `https://${url}`;
+};
 const site =
-  process.env.SITE_URL ??
-  env.SITE_URL ??
-  (vercelUrl ? `https://${vercelUrl}` : 'http://localhost:4321');
+  cleanUrl(process.env.SITE_URL) ??
+  cleanUrl(env.SITE_URL) ??
+  cleanUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL) ??
+  cleanUrl(env.VERCEL_PROJECT_PRODUCTION_URL) ??
+  'http://localhost:4321';
 
 export default defineConfig({
   site,
