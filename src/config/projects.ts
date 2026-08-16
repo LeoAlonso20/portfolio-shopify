@@ -72,7 +72,12 @@ export const projects: Record<ProjectSlug, ProjectConfig> = {
       card: '/videos/projects/velor/card.mp4',
     },
     liveStore: { url: null, isPrivate: false, publicPreviewPassword: null },
-    metrics: [],
+    metrics: [
+      {
+        value: '95+',
+        label: { en: 'Lighthouse performance', es: 'Rendimiento en Lighthouse' },
+      },
+    ],
   },
   'rytual-cafe': {
     slug: 'rytual-cafe',
