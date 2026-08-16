@@ -14,7 +14,6 @@ export const siteConfig = {
   siteUrl: rawSiteUrl.replace(/\/$/, ''),
   defaultLocale: 'en' as const,
   email: 'alonsoleadrowork@gmail.com',
-  phone: '+54 9 3572 671602',
   social: {
     linkedin: 'https://www.linkedin.com/in/leandro-alonso-work',
     github: 'https://github.com/LeoAlonso20',
@@ -29,15 +28,6 @@ export const siteConfig = {
     portrait: '/images/leandro/portrait.webp',
   },
 } as const;
-
-const whatsappMessages: Record<Locale, string> = {
-  en: "Hi Leandro, I'd like to talk about a Shopify project.",
-  es: 'Hola Leandro, me gustaría conversar sobre un proyecto de Shopify.',
-};
-
-export function getWhatsAppUrl(locale: Locale): string {
-  return `https://wa.me/5493572671602?text=${encodeURIComponent(whatsappMessages[locale])}`;
-}
 
 export function absoluteUrl(pathname: string): string {
   return new URL(pathname, `${siteConfig.siteUrl}/`).toString();

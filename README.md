@@ -149,9 +149,9 @@ The CTA remains hidden while `url` is `null`. Only publish a preview password wh
 
 ## Contact details
 
-Identity, email and social links are centralized in `src/config/site.ts`. Localized WhatsApp messages are created by `getWhatsAppUrl()` in the same file.
+Identity, email and social links are centralized in `src/config/site.ts`. Public contact is email-only.
 
-> **Required before production:** verify `alonsoleadrowork@gmail.com`, the LinkedIn URL, GitHub URL and WhatsApp number against Leandro's current public contact information.
+> **Required before production:** verify `alonsoleadrowork@gmail.com`, the LinkedIn URL and GitHub URL against Leandro's current public contact information.
 
 ## SEO and canonical URL
 

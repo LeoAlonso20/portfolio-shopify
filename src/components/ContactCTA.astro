@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { getUi } from '../i18n/ui';
-import { getWhatsAppUrl, siteConfig, type Locale } from '../config/site';
+import { siteConfig, type Locale } from '../config/site';
 
 interface Props {
   locale: Locale;
@@ -31,17 +31,6 @@ const copy = getUi(locale);
           href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(locale === 'en' ? 'Shopify project inquiry' : 'Consulta sobre proyecto Shopify')}`}
         >
           <Icon name="Mail" size={18} />{copy.contact.primary}
-        </a>
-        <a
-          class="button button--secondary"
-          data-contact="whatsapp"
-          href={getWhatsAppUrl(locale)}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon name="MessageCircle" size={18} />{copy.contact.whatsapp}<span class="sr-only"
-            >({copy.accessibility.external})</span
-          >
         </a>
         {!compact && <p>{copy.contact.response}</p>}
       </div>

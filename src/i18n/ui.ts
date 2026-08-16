@@ -202,8 +202,7 @@ export const ui = {
       title: 'Let’s build a Shopify experience that performs.',
       body: "Whether you need a complete storefront, a better cart, a custom feature or performance improvements, let's make your store faster, easier to use and better prepared to convert.",
       primary: 'Start a project',
-      whatsapp: 'Message on WhatsApp',
-      response: 'Direct contact · No sales form',
+      response: 'Email contact only · No sales form',
     },
     footer: {
       tagline: 'Software Engineer & Shopify Developer',
@@ -430,8 +429,7 @@ export const ui = {
       title: 'Construyamos una experiencia Shopify que realmente funcione.',
       body: 'Ya sea que necesites una tienda completa, un mejor carrito, una funcionalidad a medida o mejorar el rendimiento, hagamos que tu tienda sea más rápida, más fácil de usar y esté mejor preparada para convertir.',
       primary: 'Hablemos de tu proyecto',
-      whatsapp: 'Hablar por WhatsApp',
-      response: 'Contacto directo · Sin formularios',
+      response: 'Contacto solo por email · Sin formularios',
     },
     footer: {
       tagline: 'Software Engineer & Shopify Developer',

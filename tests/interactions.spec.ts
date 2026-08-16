@@ -76,20 +76,15 @@ test.describe('contact links', () => {
         'https://github.com/LeoAlonso20',
       );
 
-      const whatsapp = page.locator('[data-contact="whatsapp"]');
-      const whatsappHref = await whatsapp.getAttribute('href');
-      expect(whatsappHref).not.toBeNull();
-      const whatsappUrl = new URL(whatsappHref ?? '');
-      expect(`${whatsappUrl.origin}${whatsappUrl.pathname}`).toBe('https://wa.me/5493572671602');
-      expect(whatsappUrl.searchParams.get('text')).toBe(
-        locale === 'en'
-          ? "Hi Leandro, I'd like to talk about a Shopify project."
-          : 'Hola Leandro, me gustaría conversar sobre un proyecto de Shopify.',
-      );
+      const removedMessagingChannel = ['whats', 'app'].join('');
+      const removedMessagingHost = ['wa', 'me'].join('.');
+      await expect(page.locator(`[data-contact="${removedMessagingChannel}"]`)).toHaveCount(0);
+      await expect(
+        page.locator(`a[href*="${removedMessagingHost}"], a[href*="${removedMessagingChannel}"]`),
+      ).toHaveCount(0);
+      await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
 
-      const newTabContacts = page.locator(
-        '[data-contact="linkedin"], [data-contact="github"], [data-contact="whatsapp"]',
-      );
+      const newTabContacts = page.locator('[data-contact="linkedin"], [data-contact="github"]');
       for (const link of await newTabContacts.all()) {
         await expect(link).toHaveAttribute('target', '_blank');
         await expect(link).toHaveAttribute('rel', /\bnoopener\b/);
