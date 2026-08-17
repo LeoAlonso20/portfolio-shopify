@@ -97,6 +97,14 @@ export const ui = {
             'Custom frontend experiences for brands that need more flexibility, performance or control than a traditional storefront can provide.',
           detail: 'Custom frontends · Integrations · Modern architecture',
         },
+        {
+          number: '06',
+          icon: 'SearchCheck',
+          title: 'AI-ready Shopify SEO',
+          description:
+            'Prepare your store to be easier for AI search engines and shopping agents to crawl, understand and match with real customer intent.',
+          detail: 'Crawlability · Product schema · Data-rich product content',
+        },
       ],
     },
     comparison: {
@@ -323,6 +331,14 @@ export const ui = {
           description:
             'Experiencias frontend a medida para marcas que necesitan más flexibilidad, rendimiento o control que el que ofrece una tienda tradicional.',
           detail: 'Frontends a medida · Integraciones · Arquitectura moderna',
+        },
+        {
+          number: '06',
+          icon: 'SearchCheck',
+          title: 'SEO Shopify preparado para IA',
+          description:
+            'Preparo tu tienda para que sea más fácil de rastrear, entender y asociar con intención real de compra por buscadores y agentes de IA.',
+          detail: 'Rastreabilidad · Schema de producto · Contenido rico en datos',
         },
       ],
     },
