@@ -7,7 +7,7 @@ test.describe('motion system', () => {
   );
 
   test('reveals important content once and keeps the final state', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/shopify');
 
     const service = page.locator('.service-row').first();
     await service.scrollIntoViewIfNeeded();
@@ -26,7 +26,7 @@ test.describe('motion system', () => {
     page,
   }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
+    await page.goto('/shopify');
 
     await expect(page.locator('html')).toHaveAttribute('data-motion', 'reduced');
     await expect(page.locator('[data-reveal-ready]')).toHaveCount(0);
@@ -50,19 +50,19 @@ test.describe('motion system', () => {
       });
     });
 
-    await page.goto('/');
+    await page.goto('/shopify');
     const cardTitle = page.locator('[data-project-slug="nocturna"] h3');
     await expect(cardTitle).toHaveCSS('view-transition-name', 'project-nocturna-title');
 
     await cardTitle.click();
-    await expect(page).toHaveURL(/\/work\/nocturna$/);
+    await expect(page).toHaveURL(/\/shopify\/work\/nocturna$/);
     await expect(page.getByRole('heading', { level: 1 })).toHaveCSS(
       'view-transition-name',
       'project-nocturna-title',
     );
 
     await page.goBack();
-    await expect(page).toHaveURL(/\/$/);
+    await expect(page).toHaveURL(/\/shopify$/);
     await expect(page.locator('[data-project-slug="nocturna"] h3')).toBeVisible();
 
     const navigationEvents = await page.evaluate(
@@ -85,7 +85,7 @@ test.describe('motion system', () => {
     });
     const page = await context.newPage();
 
-    await page.goto('/');
+    await page.goto('/shopify');
     const inputCapabilities = await page.evaluate(() => ({
       fineHover: matchMedia('(hover: hover) and (pointer: fine)').matches,
       coarsePointer: matchMedia('(pointer: coarse)').matches,

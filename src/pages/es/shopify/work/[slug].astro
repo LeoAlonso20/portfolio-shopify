@@ -1,10 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import CaseStudyPage from '../../components/CaseStudyPage.astro';
-import { projects, projectSlugs } from '../../config/projects';
+import CaseStudyPage from '../../../../components/CaseStudyPage.astro';
+import { projects, projectSlugs } from '../../../../config/projects';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('caseStudies', ({ data }) => data.locale === 'en');
+  const entries = await getCollection('caseStudies', ({ data }) => data.locale === 'es');
 
   return projectSlugs.map((slug) => {
     const entry = entries.find((candidate) => candidate.data.projectKey === slug);
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
     );
 
     if (!entry || !nextEntry) {
-      throw new Error(`Missing English case-study content for ${slug}`);
+      throw new Error(`Missing Spanish case-study content for ${slug}`);
     }
 
     return { params: { slug }, props: { entry, nextEntry } };
@@ -23,4 +23,4 @@ export async function getStaticPaths() {
 const { entry, nextEntry } = Astro.props;
 ---
 
-<CaseStudyPage locale="en" {entry} {nextEntry} />
+<CaseStudyPage locale="es" {entry} {nextEntry} />

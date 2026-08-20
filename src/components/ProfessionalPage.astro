@@ -1,0 +1,965 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AssetImage from './AssetImage.astro';
+import Icon from './Icon.astro';
+import { professionalCopy, professionalPath } from '../config/professional';
+import { siteConfig, type Locale } from '../config/site';
+import { publicAssetPath } from '../lib/assets';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = professionalCopy[locale];
+const pathname = professionalPath(locale);
+const alternatePath = professionalPath(locale === 'en' ? 'es' : 'en');
+const hasAboutSignature = Boolean(publicAssetPath(siteConfig.assets.aboutSignature));
+const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+  locale === 'en' ? 'Professional profile inquiry' : 'Consulta sobre perfil profesional',
+)}`;
+---
+
+<BaseLayout
+  {locale}
+  title={copy.seo.title}
+  description={copy.seo.description}
+  {pathname}
+  {alternatePath}
+  headerVariant="professional"
+>
+  <main id="main-content" class="professional-page">
+    <section class="professional-hero">
+      <div class="professional-shell container">
+        <div class="professional-hero-copy">
+          <p class="professional-eyebrow reveal" data-reveal="soft">{copy.hero.eyebrow}</p>
+          <h1 class="reveal" data-reveal="soft" style="--reveal-delay: 55ms">
+            {copy.hero.title}
+          </h1>
+          <p class="professional-lead reveal" data-reveal="soft" style="--reveal-delay: 110ms">
+            {copy.hero.intro}
+          </p>
+          <div class="professional-actions reveal" data-reveal="soft" style="--reveal-delay: 165ms">
+            <a class="professional-button professional-button--primary" href="#professional-work">
+              {copy.hero.primary}<Icon name="ArrowRight" size={16} />
+            </a>
+            <a class="professional-button professional-button--secondary" href={emailHref}>
+              {copy.hero.secondary}<Icon name="Mail" size={16} />
+            </a>
+          </div>
+        </div>
+
+        <aside class="professional-card reveal" data-reveal="scale" aria-label={copy.hero.eyebrow}>
+          <div class="professional-card-top">
+            <span><Icon name="Code" size={18} /></span>
+            <p>{siteConfig.name}</p>
+          </div>
+          <dl>
+            {
+              copy.highlights.map((item, index) => (
+                <div style={`--reveal-delay: ${220 + index * 45}ms`}>
+                  <dt>{item.label}</dt>
+                  <dd>{item.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <section class="professional-section professional-section--bordered" id="role">
+      <div class="professional-split container">
+        <div class="professional-section-heading reveal" data-reveal="soft">
+          <p class="professional-eyebrow">{copy.role.eyebrow}</p>
+          <h2>{copy.role.title}</h2>
+        </div>
+        <div class="professional-panel reveal" data-reveal="soft" style="--reveal-delay: 90ms">
+          <p class="role-meta">{copy.role.meta}</p>
+          <p>{copy.role.body}</p>
+          <ul class="professional-check-list">
+            {
+              copy.role.points.map((point) => (
+                <li>
+                  <Icon name="Check" size={15} />
+                  {point}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="professional-section professional-section--education professional-section--bordered"
+      id="education"
+    >
+      <div class="container">
+        <div class="education-grid">
+          <div class="education-copy reveal" data-reveal="soft">
+            <p class="professional-eyebrow">{copy.education.eyebrow}</p>
+            <h2>{copy.education.title}</h2>
+            <p>{copy.education.body}</p>
+          </div>
+          <article class="education-card reveal" data-reveal="scale" style="--reveal-delay: 90ms">
+            <span class="education-icon"><Icon name="GraduationCap" size={26} /></span>
+            <p>{copy.education.eyebrow}</p>
+            <h3>{copy.education.degree}</h3>
+            <span class="education-institution">{copy.education.institution}</span>
+            <ul>
+              {copy.education.pillars.map((pillar) => <li>{pillar}</li>)}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="professional-section professional-section--about professional-section--bordered"
+      id="about"
+    >
+      <div class="professional-about-grid container">
+        <div class="professional-portrait reveal" data-reveal="clip">
+          <AssetImage
+            src={siteConfig.assets.portrait}
+            alt={copy.about.portraitAlt}
+            width={1600}
+            height={2000}
+            sizes="(max-width: 768px) calc(100vw - 40px), 38vw"
+            class="professional-portrait-image"
+            depth
+          >
+            <div
+              class="professional-portrait-fallback"
+              role="img"
+              aria-label={copy.about.portraitLabel}
+            >
+              <div class="professional-portrait-initials" aria-hidden="true">LA</div>
+              <div class="professional-portrait-lines" aria-hidden="true">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="professional-portrait-status"><i></i>{copy.about.portraitStatus}</span>
+            </div>
+          </AssetImage>
+        </div>
+
+        <div class="professional-about-content">
+          <p class="professional-eyebrow reveal" data-reveal="soft">{copy.about.eyebrow}</p>
+          <h2 class="reveal" data-reveal="soft" style="--reveal-delay: 55ms">
+            {copy.about.title}
+          </h2>
+          <div
+            class="professional-about-copy reveal"
+            data-reveal="soft"
+            style="--reveal-delay: 105ms"
+          >
+            {copy.about.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+          {
+            hasAboutSignature && (
+              <div
+                class="professional-signature-wrap reveal"
+                data-reveal="soft"
+                style="--reveal-delay: 130ms"
+              >
+                <AssetImage
+                  src={siteConfig.assets.aboutSignature}
+                  alt=""
+                  width={1370}
+                  height={512}
+                  sizes="(max-width: 768px) 14rem, 18rem"
+                  class="professional-signature"
+                />
+              </div>
+            )
+          }
+          <dl
+            class="professional-about-details reveal"
+            data-reveal="soft"
+            style="--reveal-delay: 155ms"
+          >
+            <div>
+              <dt><Icon name="Code" size={17} />{copy.about.roleLabel}</dt>
+              <dd>{copy.about.role}<span>Caramel Point</span></dd>
+            </div>
+            <div>
+              <dt><Icon name="GraduationCap" size={17} />{copy.about.educationLabel}</dt>
+              <dd>{copy.education.degree}<span>{copy.education.institution}</span></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="professional-section professional-section--bordered" id="expertise">
+      <div class="container">
+        <div class="professional-heading-wide reveal" data-reveal="soft">
+          <p class="professional-eyebrow">{copy.expertise.eyebrow}</p>
+          <h2>{copy.expertise.title}</h2>
+          <p>{copy.expertise.intro}</p>
+        </div>
+        <div class="expertise-grid">
+          {
+            copy.expertise.groups.map((group, index) => (
+              <article
+                class="expertise-card reveal"
+                data-reveal="scale"
+                style={`--reveal-delay: ${index * 55}ms`}
+              >
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="professional-section professional-section--bordered" id="professional-work">
+      <div class="container">
+        <div class="professional-heading-wide reveal" data-reveal="soft">
+          <p class="professional-eyebrow">{copy.projects.eyebrow}</p>
+          <h2>{copy.projects.title}</h2>
+          <p>{copy.projects.intro}</p>
+        </div>
+        <div class="professional-projects">
+          {
+            copy.projects.items.map((project, index) => (
+              <article
+                class="professional-project reveal"
+                data-reveal="soft"
+                style={`--reveal-delay: ${index * 45}ms`}
+              >
+                <div class="project-index">{String(index + 1).padStart(2, '0')}</div>
+                <div class="project-body">
+                  <div class="project-meta">
+                    <span>{project.type}</span>
+                  </div>
+                  <h3>{project.name}</h3>
+                  <p>{project.summary}</p>
+                  <strong>{project.impact}</strong>
+                  <ul>
+                    {project.tags.map((tag) => (
+                      <li>{tag}</li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="professional-section professional-contact" id="professional-contact">
+      <div class="professional-contact-shell reveal container" data-reveal="scale">
+        <div>
+          <p class="professional-eyebrow">{copy.contact.eyebrow}</p>
+          <h2>{copy.contact.title}</h2>
+          <p>{copy.contact.body}</p>
+        </div>
+        <a class="professional-button professional-button--primary" href={emailHref}>
+          {copy.contact.cta}<Icon name="Mail" size={16} />
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .professional-page {
+    --professional-accent: #38bdf8;
+    --professional-accent-strong: #7dd3fc;
+    --professional-accent-deep: #0ea5e9;
+    --professional-line: rgb(125 211 252 / 15%);
+    --professional-surface: rgb(10 18 24 / 86%);
+    --professional-soft: rgb(56 189 248 / 9%);
+    background:
+      linear-gradient(180deg, rgb(56 189 248 / 4%), transparent 28rem),
+      radial-gradient(circle at 80% 18%, rgb(56 189 248 / 7%), transparent 25rem), var(--color-bg);
+  }
+
+  .professional-hero {
+    padding-block: clamp(9rem, 12vw, 13rem) clamp(5rem, 8vw, 8rem);
+  }
+
+  .professional-shell {
+    display: grid;
+    align-items: end;
+    grid-template-columns: minmax(0, 1.15fr) minmax(20rem, 0.85fr);
+    gap: clamp(3rem, 7vw, 7rem);
+  }
+
+  .professional-eyebrow {
+    color: var(--professional-accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .professional-hero h1 {
+    max-width: 10.5ch;
+    margin-top: 1.3rem;
+    font-size: clamp(3rem, 6.8vw, 7rem);
+    font-weight: 590;
+    letter-spacing: -0.065em;
+    line-height: 0.96;
+    text-wrap: balance;
+  }
+
+  .professional-lead {
+    max-width: 43rem;
+    margin-top: 1.55rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .professional-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .professional-button {
+    position: relative;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 730;
+    padding: 0.82rem 1.05rem;
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease,
+      translate var(--duration-fast) var(--ease-standard);
+  }
+
+  .professional-button--primary {
+    background: var(--professional-accent);
+    color: #041016;
+  }
+
+  .professional-button--secondary {
+    border-color: var(--professional-line);
+    background: rgb(255 255 255 / 3%);
+    color: var(--color-text-soft);
+  }
+
+  .professional-card,
+  .professional-panel,
+  .education-card,
+  .expertise-card,
+  .professional-project,
+  .professional-contact-shell {
+    border: 1px solid var(--professional-line);
+    background: var(--professional-surface);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .professional-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    padding: clamp(1.2rem, 2.6vw, 2rem);
+  }
+
+  .professional-card::before {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(120deg, var(--professional-soft), transparent 42%),
+      linear-gradient(rgb(255 255 255 / 2%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 2%) 1px, transparent 1px);
+    background-size:
+      auto,
+      34px 34px,
+      34px 34px;
+    content: '';
+    pointer-events: none;
+  }
+
+  .professional-card-top,
+  .professional-card dl {
+    position: relative;
+    z-index: 1;
+  }
+
+  .professional-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-text-soft);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+
+  .professional-card-top span {
+    display: grid;
+    width: 2.45rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border-radius: 50%;
+    background: rgb(56 189 248 / 13%);
+    color: var(--professional-accent);
+  }
+
+  .professional-card dl {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 4rem;
+  }
+
+  .professional-card dl > div {
+    border-top: 1px solid var(--professional-line);
+    padding-top: 0.9rem;
+  }
+
+  .professional-card dt,
+  .project-meta,
+  .education-card > p {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .professional-card dd {
+    margin-top: 0.25rem;
+    color: var(--color-text);
+    font-size: clamp(1.15rem, 2vw, 1.65rem);
+    font-weight: 680;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  .professional-section {
+    padding-block: clamp(5.5rem, 8vw, 9rem);
+  }
+
+  .professional-section--bordered {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .professional-split,
+  .education-grid {
+    display: grid;
+    align-items: start;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+  }
+
+  .professional-section-heading h2,
+  .professional-heading-wide h2,
+  .education-copy h2,
+  .professional-contact h2 {
+    margin-top: 1rem;
+    font-size: var(--text-h2);
+    font-weight: 580;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .professional-panel {
+    border-radius: var(--radius-lg);
+    padding: clamp(1.3rem, 3vw, 2.4rem);
+  }
+
+  .professional-panel > p,
+  .professional-heading-wide > p,
+  .education-copy > p,
+  .professional-contact p {
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .professional-panel > .role-meta {
+    margin-bottom: 0.9rem;
+    color: var(--professional-accent);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+  }
+
+  .professional-check-list {
+    display: grid;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+    list-style: none;
+  }
+
+  .professional-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: var(--color-text-soft);
+  }
+
+  .professional-check-list :global(svg) {
+    flex: 0 0 auto;
+    margin-top: 0.3rem;
+    color: var(--professional-accent);
+  }
+
+  .professional-section--education {
+    background: linear-gradient(120deg, rgb(56 189 248 / 4%), transparent 48%);
+  }
+
+  .education-copy > p {
+    max-width: 42rem;
+    margin-top: 1.35rem;
+  }
+
+  .education-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    padding: clamp(1.5rem, 3vw, 2.8rem);
+  }
+
+  .education-card::after {
+    position: absolute;
+    right: 1.1rem;
+    bottom: 1rem;
+    color: rgb(255 255 255 / 4%);
+    content: 'EDU';
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 780;
+    letter-spacing: -0.08em;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .education-icon {
+    display: grid;
+    width: 3.7rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid rgb(56 189 248 / 24%);
+    border-radius: 50%;
+    background: rgb(56 189 248 / 10%);
+    color: var(--professional-accent);
+    line-height: 0;
+  }
+
+  .education-icon :global(svg) {
+    display: block;
+    width: 1.625rem;
+    height: 1.625rem;
+  }
+
+  .education-card > p {
+    margin-top: 2rem;
+    color: var(--professional-accent);
+  }
+
+  .education-card h3 {
+    position: relative;
+    z-index: 1;
+    max-width: 14ch;
+    margin-top: 0.65rem;
+    font-size: clamp(2rem, 4vw, 4.25rem);
+    font-weight: 590;
+    letter-spacing: -0.07em;
+    line-height: 0.98;
+  }
+
+  .education-institution {
+    position: relative;
+    z-index: 1;
+    display: block;
+    max-width: 32rem;
+    margin-top: 1rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .education-card ul {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 2rem;
+    list-style: none;
+  }
+
+  .education-card li,
+  .professional-project li,
+  .expertise-card li {
+    border: 1px solid var(--professional-line);
+    border-radius: var(--radius-pill);
+    background: rgb(255 255 255 / 3%);
+    color: var(--color-text-soft);
+    font-size: var(--text-xs);
+    padding: 0.38rem 0.62rem;
+  }
+
+  .professional-about-grid {
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(20rem, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(3rem, 9vw, 9rem);
+  }
+
+  .professional-portrait {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    aspect-ratio: 0.82;
+    place-items: center;
+    border: 1px solid var(--professional-line);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, transparent 0 48%, rgb(56 189 248 / 5%) 48% 52%, transparent 52%),
+      radial-gradient(circle at 50% 35%, rgb(56 189 248 / 9%), transparent 30%), #081016;
+    box-shadow: var(--shadow-lg);
+  }
+
+  :global(.professional-portrait-image),
+  .professional-portrait-fallback {
+    width: 100%;
+    height: 100%;
+  }
+
+  :global(.professional-portrait-image) {
+    object-fit: cover;
+    transform: translate3d(0, var(--depth-y, 0), 0) scale(1.035);
+  }
+
+  .professional-portrait-fallback {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .professional-portrait-fallback::before,
+  .professional-portrait-fallback::after {
+    position: absolute;
+    border: 1px solid rgb(56 189 248 / 10%);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .professional-portrait-fallback::before {
+    width: 65%;
+    aspect-ratio: 1;
+  }
+
+  .professional-portrait-fallback::after {
+    width: 84%;
+    aspect-ratio: 1;
+  }
+
+  .professional-portrait-initials {
+    position: relative;
+    z-index: 1;
+    color: var(--color-text-soft);
+    font-size: clamp(4rem, 10vw, 9rem);
+    font-weight: 240;
+    letter-spacing: -0.12em;
+    line-height: 1;
+    opacity: 0.48;
+  }
+
+  .professional-portrait-lines {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .professional-portrait-lines span {
+    display: block;
+    width: 2.6rem;
+    height: 1px;
+    background: var(--color-line-strong);
+  }
+
+  .professional-portrait-lines span:nth-child(2) {
+    width: 1.75rem;
+    justify-self: end;
+    background: var(--professional-accent);
+  }
+
+  .professional-portrait-status {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--professional-line);
+    border-radius: var(--radius-pill);
+    background: rgb(6 12 17 / 78%);
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.53rem;
+    padding: 0.42rem 0.62rem;
+  }
+
+  .professional-portrait-status i {
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--professional-accent);
+  }
+
+  .professional-about-content h2 {
+    max-width: 12ch;
+    margin-top: 1rem;
+    font-size: var(--text-h2);
+    font-weight: 580;
+    letter-spacing: -0.06em;
+    line-height: 1;
+    text-wrap: balance;
+  }
+
+  .professional-about-copy {
+    display: grid;
+    max-width: 42rem;
+    gap: 1.15rem;
+    margin-top: 2rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .professional-signature-wrap {
+    width: min(18rem, 58vw);
+    margin-top: 1.9rem;
+    opacity: 0.86;
+  }
+
+  :global(.professional-signature) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 18px rgb(56 189 248 / 8%));
+  }
+
+  .professional-about-details {
+    display: grid;
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--professional-line);
+    grid-template-columns: 0.85fr 1.3fr;
+  }
+
+  .professional-about-details > div {
+    padding: 1.25rem 1.25rem 0 0;
+  }
+
+  .professional-about-details > div + div {
+    border-left: 1px solid var(--professional-line);
+    padding-left: 1.25rem;
+  }
+
+  .professional-about-details dt {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+    font-weight: 620;
+  }
+
+  .professional-about-details dt :global(svg) {
+    color: var(--professional-accent);
+  }
+
+  .professional-about-details dd {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-xs);
+  }
+
+  .professional-about-details dd span {
+    color: var(--color-text-subtle);
+  }
+
+  .professional-heading-wide {
+    max-width: 58rem;
+  }
+
+  .professional-heading-wide > p {
+    margin-top: 1.25rem;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.85rem;
+    margin-top: 3rem;
+  }
+
+  .expertise-card {
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+  }
+
+  .expertise-card h3 {
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+
+  .expertise-card ul,
+  .professional-project ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1rem;
+    list-style: none;
+  }
+
+  .professional-projects {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 3.25rem;
+  }
+
+  .professional-project {
+    display: grid;
+    align-items: start;
+    border-radius: var(--radius-lg);
+    grid-template-columns: 4.5rem 1fr;
+    padding: clamp(1rem, 2.4vw, 1.55rem);
+    transition:
+      border-color var(--duration-fast) ease,
+      translate var(--duration-fast) var(--ease-standard),
+      box-shadow var(--duration-fast) var(--ease-standard);
+  }
+
+  .project-index {
+    color: var(--professional-accent);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+  }
+
+  .project-meta {
+    color: var(--professional-accent);
+  }
+
+  .professional-project h3 {
+    margin-top: 0.4rem;
+    font-size: var(--text-h3);
+    font-weight: 610;
+    letter-spacing: -0.045em;
+    line-height: 1.05;
+  }
+
+  .professional-project p {
+    max-width: 62rem;
+    margin-top: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .professional-project strong {
+    display: block;
+    margin-top: 0.8rem;
+    color: var(--color-text-soft);
+    font-size: var(--text-sm);
+  }
+
+  .professional-contact {
+    padding-bottom: clamp(6rem, 9vw, 10rem);
+  }
+
+  .professional-contact-shell {
+    display: grid;
+    align-items: end;
+    border-radius: var(--radius-xl);
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    padding: clamp(1.6rem, 4vw, 4rem);
+  }
+
+  .professional-contact p {
+    max-width: 52rem;
+    margin-top: 1rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .professional-button:hover,
+    .professional-project:hover {
+      border-color: rgb(56 189 248 / 34%);
+      box-shadow:
+        var(--shadow-lg),
+        0 18px 60px rgb(56 189 248 / 10%);
+      translate: 0 -0.16rem;
+    }
+  }
+
+  @media (max-width: 64rem) {
+    .professional-shell,
+    .professional-split,
+    .education-grid,
+    .professional-about-grid,
+    .professional-contact-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .expertise-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 42rem) {
+    .professional-hero {
+      padding-top: 8rem;
+    }
+
+    .professional-actions {
+      display: grid;
+    }
+
+    .professional-button {
+      width: 100%;
+    }
+
+    .expertise-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .professional-portrait {
+      width: min(100%, 35rem);
+      aspect-ratio: 1;
+    }
+
+    .professional-about-details {
+      grid-template-columns: 1fr;
+    }
+
+    .professional-about-details > div + div {
+      border-top: 1px solid var(--professional-line);
+      border-left: 0;
+      margin-top: 1rem;
+      padding-left: 0;
+    }
+
+    .professional-project {
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+    }
+
+    .professional-card dl {
+      margin-top: 2.8rem;
+    }
+  }
+</style>

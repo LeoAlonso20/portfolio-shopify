@@ -1,41 +1,70 @@
 ---
 import Icon from './Icon.astro';
 import AssetImage from './AssetImage.astro';
+import { professionalCopy, professionalPath } from '../config/professional';
 import { getUi } from '../i18n/ui';
-import { homePath, siteConfig, type Locale } from '../config/site';
+import { shopifyPath, siteConfig, type Locale } from '../config/site';
 
 interface Props {
   locale: Locale;
   alternatePath: string;
+  pathname: string;
   isHome?: boolean;
+  variant?: 'shopify' | 'professional';
 }
 
-const { locale, alternatePath, isHome = false } = Astro.props;
+const { locale, alternatePath, pathname, isHome = false, variant = 'shopify' } = Astro.props;
 const copy = getUi(locale);
-const root = homePath(locale);
+const professionalNav = professionalCopy[locale].nav;
+const root = variant === 'professional' ? professionalPath(locale) : shopifyPath(locale);
+const logoSrc =
+  variant === 'professional' ? siteConfig.assets.professionalLogo : siteConfig.assets.signature;
+const brandLabel =
+  variant === 'professional' ? professionalCopy[locale].hero.title : copy.footer.tagline;
 const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${section}`);
+const navItems =
+  variant === 'professional'
+    ? [
+        { href: `${pathname}#professional-work`, label: professionalNav.work },
+        { href: `${pathname}#expertise`, label: professionalNav.expertise },
+        { href: `${pathname}#education`, label: professionalNav.education },
+        { href: `${pathname}#about`, label: professionalNav.about },
+      ]
+    : [
+        { href: sectionHref('work'), label: copy.nav.work },
+        { href: sectionHref('services'), label: copy.nav.services },
+        { href: sectionHref('about'), label: copy.nav.about },
+      ];
+const cta =
+  variant === 'professional'
+    ? {
+        href: `mailto:${siteConfig.email}?subject=${encodeURIComponent(
+          locale === 'en' ? 'Professional profile inquiry' : 'Consulta sobre perfil profesional',
+        )}`,
+        label: professionalNav.contact,
+        icon: 'Mail',
+      }
+    : { href: sectionHref('contact'), label: copy.nav.cta, icon: 'ArrowUpRight' };
 ---
 
-<header class="site-header" data-site-header>
+<header class="site-header" data-site-header data-variant={variant}>
   <div class="header-shell">
-    <a class="brand" href={root} aria-label={`Leandro Alonso — ${copy.footer.tagline}`}>
+    <a class="brand" href={root} aria-label={`Leandro Alonso — ${brandLabel}`}>
       <AssetImage
-        src={siteConfig.assets.signature}
+        src={logoSrc}
         alt=""
         width={240}
-        height={80}
+        height={96}
         sizes="72px"
         loading="eager"
-        class="brand-signature"
+        class={`brand-signature brand-signature--${variant}`}
       >
         <span class="brand-mark" aria-hidden="true">LA</span>
       </AssetImage>
     </a>
 
     <nav class="desktop-nav" aria-label={copy.accessibility.primaryNav}>
-      <a href={sectionHref('work')}>{copy.nav.work}</a>
-      <a href={sectionHref('services')}>{copy.nav.services}</a>
-      <a href={sectionHref('about')}>{copy.nav.about}</a>
+      {navItems.map((item) => <a href={item.href}>{item.label}</a>)}
     </nav>
 
     <div class="desktop-actions">
@@ -54,9 +83,9 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
           aria-current={locale === 'es' ? 'page' : undefined}>ES</a
         >
       </nav>
-      <a class="header-cta" href={sectionHref('contact')}>
-        <span>{copy.nav.cta}</span>
-        <Icon name="ArrowUpRight" size={16} />
+      <a class="header-cta" href={cta.href}>
+        <span>{cta.label}</span>
+        <Icon name={cta.icon} size={16} />
       </a>
     </div>
 
@@ -78,9 +107,14 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
         aria-label={copy.accessibility.mobileNav}
       >
         <nav aria-label={copy.accessibility.mobileNav}>
-          <a href={sectionHref('work')}><span>01</span>{copy.nav.work}</a>
-          <a href={sectionHref('services')}><span>02</span>{copy.nav.services}</a>
-          <a href={sectionHref('about')}><span>03</span>{copy.nav.about}</a>
+          {
+            navItems.map((item, index) => (
+              <a href={item.href}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                {item.label}
+              </a>
+            ))
+          }
         </nav>
         <div class="mobile-panel-footer">
           <nav class="language-switcher" aria-label={copy.accessibility.language}>
@@ -98,8 +132,8 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
               aria-current={locale === 'es' ? 'page' : undefined}>Español</a
             >
           </nav>
-          <a class="button button--primary" href={sectionHref('contact')}>
-            {copy.nav.cta}<Icon name="ArrowUpRight" size={17} />
+          <a class="button button--primary" href={cta.href}>
+            {cta.label}<Icon name={cta.icon} size={17} />
           </a>
         </div>
       </div>
@@ -109,6 +143,10 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
 
 <style>
   .site-header {
+    --header-accent: var(--color-accent);
+    --header-accent-strong: var(--color-accent-strong);
+    --header-cta-text: #10140c;
+    --header-mobile-glow: rgb(181 255 50 / 8%);
     position: fixed;
     z-index: 100;
     top: 0;
@@ -116,6 +154,13 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     left: 0;
     padding: 0.85rem var(--gutter) 0;
     pointer-events: none;
+  }
+
+  .site-header[data-variant='professional'] {
+    --header-accent: #38bdf8;
+    --header-accent-strong: #7dd3fc;
+    --header-cta-text: #041016;
+    --header-mobile-glow: rgb(56 189 248 / 8%);
   }
 
   .header-shell {
@@ -155,10 +200,10 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     width: 2.22rem;
     height: 2.22rem;
     place-items: center;
-    border: 1px solid rgb(201 255 68 / 30%);
+    border: 1px solid color-mix(in srgb, var(--header-accent) 30%, transparent);
     border-radius: 0.45rem;
-    background: rgb(201 255 68 / 6%);
-    color: var(--color-accent);
+    background: color-mix(in srgb, var(--header-accent) 6%, transparent);
+    color: var(--header-accent);
     font-family: var(--font-mono);
     font-size: 0.67rem;
     font-weight: 720;
@@ -170,6 +215,10 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     height: 2.22rem;
     object-fit: contain;
     object-position: left center;
+  }
+
+  :global(.brand-signature--professional) {
+    width: min(7.5rem, 22vw);
   }
 
   .brand-name {
@@ -200,7 +249,7 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     bottom: 0.46rem;
     left: 0.85rem;
     height: 1px;
-    background: var(--color-accent);
+    background: var(--header-accent);
     content: '';
     scale: 0 1;
     transform-origin: right;
@@ -239,7 +288,7 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
   }
 
   .language-switcher a[aria-current='page']::before {
-    color: var(--color-accent);
+    color: var(--header-accent);
     content: '• ';
   }
 
@@ -251,8 +300,8 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     align-items: center;
     gap: 0.55rem;
     border-radius: var(--radius-sm);
-    background: var(--color-accent);
-    color: #10140c;
+    background: var(--header-accent);
+    color: var(--header-cta-text);
     font-size: 0.79rem;
     font-weight: 740;
     padding-inline: 1rem;
@@ -309,7 +358,8 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     justify-content: space-between;
     padding: 8rem var(--gutter) 2rem;
     background:
-      radial-gradient(circle at 85% 10%, rgb(181 255 50 / 8%), transparent 18rem), rgb(5 7 5 / 98%);
+      radial-gradient(circle at 85% 10%, var(--header-mobile-glow), transparent 18rem),
+      rgb(5 7 5 / 98%);
   }
 
   .mobile-panel > nav {
@@ -329,7 +379,7 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
   }
 
   .mobile-panel > nav > a span {
-    color: var(--color-accent);
+    color: var(--header-accent);
     font-family: var(--font-mono);
     font-size: 0.66rem;
     letter-spacing: 0;
@@ -338,6 +388,12 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
   .mobile-panel-footer {
     display: grid;
     gap: 1.4rem;
+  }
+
+  .site-header[data-variant='professional'] .mobile-panel-footer .button--primary {
+    background: var(--header-accent);
+    box-shadow: 0 0 0 0 rgb(56 189 248 / 0%);
+    color: var(--header-cta-text);
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -352,12 +408,17 @@ const sectionHref = (section: string) => (isHome ? `#${section}` : `${root}#${se
     }
 
     .header-cta:hover {
-      background: var(--color-accent-strong);
+      background: var(--header-accent-strong);
       translate: 0 -1px;
     }
 
     .header-cta:hover :global(svg) {
       transform: translate3d(0.13rem, -0.13rem, 0);
+    }
+
+    .site-header[data-variant='professional'] .mobile-panel-footer .button--primary:hover {
+      background: var(--header-accent-strong);
+      box-shadow: 0 12px 34px rgb(56 189 248 / 17%);
     }
   }
 

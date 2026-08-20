@@ -1,0 +1,487 @@
+---
+import AssetImage from './AssetImage.astro';
+import Icon from './Icon.astro';
+import { gatewayCopy } from '../config/gateway';
+import { professionalPath } from '../config/professional';
+import { landingPath, shopifyPath, siteConfig, type Locale } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const copy = gatewayCopy[locale];
+const pathname = landingPath(locale);
+const alternatePath = landingPath(locale === 'en' ? 'es' : 'en');
+
+const choices = [
+  {
+    key: 'shopify',
+    href: shopifyPath(locale),
+    logo: siteConfig.assets.signature,
+    icon: 'Store',
+    copy: copy.choices.shopify,
+  },
+  {
+    key: 'professional',
+    href: professionalPath(locale),
+    logo: siteConfig.assets.professionalLogo,
+    icon: 'Code',
+    copy: copy.choices.professional,
+  },
+] as const;
+---
+
+<BaseLayout
+  {locale}
+  title={copy.seo.title}
+  description={copy.seo.description}
+  {pathname}
+  {alternatePath}
+  pageTheme="gateway"
+  showChrome={false}
+>
+  <header class="gateway-header" aria-label={copy.headerLabel}>
+    <div class="gateway-header-shell container">
+      <div class="gateway-identity" aria-label="Leandro Alonso">
+        <span>LA</span><i></i>
+      </div>
+      <nav class="gateway-languages" aria-label={locale === 'en' ? 'Language' : 'Idioma'}>
+        <a
+          href={locale === 'en' ? pathname : alternatePath}
+          lang="en"
+          hreflang="en"
+          aria-current={locale === 'en' ? 'page' : undefined}>EN</a
+        >
+        <span aria-hidden="true">/</span>
+        <a
+          href={locale === 'es' ? pathname : alternatePath}
+          lang="es"
+          hreflang="es"
+          aria-current={locale === 'es' ? 'page' : undefined}>ES</a
+        >
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="gateway-page">
+    <section class="gateway-hero container">
+      <div class="gateway-intro">
+        <p class="gateway-eyebrow reveal" data-reveal="soft">{copy.eyebrow}</p>
+        <h1 class="reveal" data-reveal="soft" style="--reveal-delay: 55ms">{copy.title}</h1>
+        <p class="gateway-lead reveal" data-reveal="soft" style="--reveal-delay: 105ms">
+          {copy.intro}
+        </p>
+      </div>
+
+      <div class="gateway-choices">
+        {
+          choices.map((choice, index) => (
+            <a
+              class={`gateway-choice gateway-choice--${choice.key} reveal`}
+              data-reveal="scale"
+              href={choice.href}
+              style={`--reveal-delay: ${150 + index * 65}ms`}
+            >
+              <div class="choice-topline">
+                <span>{choice.copy.index}</span>
+                <span>{choice.copy.eyebrow}</span>
+              </div>
+
+              <div class="choice-brand" aria-hidden="true">
+                <AssetImage
+                  src={choice.logo}
+                  alt=""
+                  width={240}
+                  height={96}
+                  sizes="128px"
+                  class={`choice-logo choice-logo--${choice.key}`}
+                >
+                  <span class="choice-logo-fallback">LA</span>
+                </AssetImage>
+                <span class="choice-icon">
+                  <Icon name={choice.icon} size={19} />
+                </span>
+              </div>
+
+              <div class="choice-copy">
+                <h2>{choice.copy.title}</h2>
+                <p>{choice.copy.description}</p>
+                <ul aria-label={choice.copy.eyebrow}>
+                  {choice.copy.tags.map((tag) => (
+                    <li>{tag}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <span class="choice-cta">
+                {choice.copy.cta}
+                <Icon name="ArrowRight" size={17} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+
+  <footer class="gateway-footer">
+    <div class="container">
+      <p>Leandro Alonso</p>
+      <span>{copy.footer}</span>
+    </div>
+  </footer>
+</BaseLayout>
+
+<style>
+  .gateway-header {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding-top: 1.4rem;
+  }
+
+  .gateway-header-shell,
+  .gateway-footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .gateway-identity {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 0.28rem;
+    font-size: 1.1rem;
+    font-weight: 760;
+    letter-spacing: -0.08em;
+  }
+
+  .gateway-identity i {
+    width: 0.38rem;
+    aspect-ratio: 1;
+    margin-bottom: 0.38rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c8ff45 0 48%, #38bdf8 52% 100%);
+  }
+
+  .gateway-languages {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.07em;
+  }
+
+  .gateway-languages a {
+    display: grid;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+    place-items: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .gateway-languages a[aria-current='page'] {
+    color: var(--color-text);
+  }
+
+  .gateway-page {
+    position: relative;
+    min-height: 100svh;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 10% 20%, rgb(200 255 69 / 7%), transparent 25rem),
+      radial-gradient(circle at 90% 78%, rgb(56 189 248 / 8%), transparent 28rem),
+      linear-gradient(115deg, rgb(200 255 69 / 2%), transparent 42%, rgb(56 189 248 / 2%)),
+      var(--color-bg);
+  }
+
+  .gateway-page::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 1.4%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 1.4%) 1px, transparent 1px);
+    background-size: 72px 72px;
+    content: '';
+    mask-image: linear-gradient(to bottom, black, transparent 78%);
+    pointer-events: none;
+  }
+
+  .gateway-hero {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-height: 100svh;
+    align-content: center;
+    padding-block: clamp(8rem, 12vw, 11rem) clamp(5rem, 8vw, 7rem);
+  }
+
+  .gateway-intro {
+    display: grid;
+    max-width: 70rem;
+    grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+    column-gap: clamp(2rem, 7vw, 7rem);
+  }
+
+  .gateway-eyebrow {
+    color: var(--color-text-soft);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 650;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    grid-column: 1 / -1;
+  }
+
+  .gateway-intro h1 {
+    max-width: 12ch;
+    margin-top: 1rem;
+    font-size: clamp(2.8rem, 5.2vw, 5.8rem);
+    font-weight: 570;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  .gateway-lead {
+    align-self: end;
+    margin-bottom: 0.45rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-lead);
+  }
+
+  .gateway-choices {
+    display: grid;
+    margin-top: clamp(3rem, 6vw, 5rem);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .gateway-choice {
+    --choice-accent: #c8ff45;
+    --choice-accent-rgb: 200 255 69;
+    position: relative;
+    display: flex;
+    min-height: 31rem;
+    overflow: hidden;
+    flex-direction: column;
+    border: 1px solid rgb(var(--choice-accent-rgb) / 18%);
+    border-radius: var(--radius-xl);
+    background:
+      linear-gradient(145deg, rgb(var(--choice-accent-rgb) / 8%), transparent 42%),
+      rgb(10 14 11 / 92%);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(1.35rem, 3vw, 2.2rem);
+    transition:
+      border-color var(--duration-normal) ease,
+      box-shadow var(--duration-normal) var(--ease-standard),
+      translate var(--duration-normal) var(--ease-standard);
+  }
+
+  .gateway-choice::after {
+    position: absolute;
+    right: -4rem;
+    bottom: -5rem;
+    width: 17rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(var(--choice-accent-rgb) / 8%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 2.8rem rgb(var(--choice-accent-rgb) / 2.4%),
+      0 0 0 5.6rem rgb(var(--choice-accent-rgb) / 1.5%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .gateway-choice--professional {
+    --choice-accent: #38bdf8;
+    --choice-accent-rgb: 56 189 248;
+    background:
+      linear-gradient(145deg, rgb(var(--choice-accent-rgb) / 9%), transparent 42%),
+      rgb(8 14 18 / 94%);
+  }
+
+  .choice-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--choice-accent);
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .choice-brand {
+    display: flex;
+    min-height: 5rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.6rem;
+  }
+
+  :global(.choice-logo) {
+    width: auto;
+    max-width: min(9rem, 45%);
+    height: 3.5rem;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .choice-logo-fallback,
+  .choice-icon {
+    display: grid;
+    place-items: center;
+    border: 1px solid rgb(var(--choice-accent-rgb) / 24%);
+    background: rgb(var(--choice-accent-rgb) / 8%);
+    color: var(--choice-accent);
+  }
+
+  .choice-logo-fallback {
+    width: 4rem;
+    height: 3.5rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
+  .choice-icon {
+    width: 2.8rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
+  .choice-copy {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+  }
+
+  .choice-copy h2 {
+    max-width: 12ch;
+    font-size: clamp(2rem, 3.5vw, 3.8rem);
+    font-weight: 580;
+    letter-spacing: -0.06em;
+    line-height: 0.98;
+  }
+
+  .choice-copy > p {
+    max-width: 36rem;
+    margin-top: 1rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .choice-copy ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin-top: 1.25rem;
+    list-style: none;
+  }
+
+  .choice-copy li {
+    border: 1px solid rgb(var(--choice-accent-rgb) / 16%);
+    border-radius: var(--radius-pill);
+    background: rgb(255 255 255 / 2.5%);
+    color: var(--color-text-soft);
+    font-size: var(--text-xs);
+    padding: 0.35rem 0.62rem;
+  }
+
+  .choice-cta {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.8rem;
+    color: var(--choice-accent);
+    font-size: var(--text-sm);
+    font-weight: 720;
+  }
+
+  .choice-cta :global(svg) {
+    transition: transform var(--duration-normal) var(--ease-standard);
+  }
+
+  .gateway-footer {
+    border-top: 1px solid var(--color-line);
+    background: var(--color-bg);
+    padding-block: 1.4rem;
+  }
+
+  .gateway-footer p {
+    color: var(--color-text-soft);
+    font-weight: 660;
+  }
+
+  .gateway-footer span {
+    color: var(--color-text-subtle);
+    font-size: var(--text-xs);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .gateway-languages a:hover {
+      color: var(--color-text);
+    }
+
+    .gateway-choice:hover {
+      border-color: rgb(var(--choice-accent-rgb) / 42%);
+      box-shadow:
+        var(--shadow-lg),
+        0 24px 80px rgb(var(--choice-accent-rgb) / 10%);
+      translate: 0 -0.25rem;
+    }
+
+    .gateway-choice:hover .choice-cta :global(svg) {
+      transform: translateX(0.22rem);
+    }
+  }
+
+  @media (max-width: 60rem) {
+    .gateway-intro {
+      grid-template-columns: 1fr;
+    }
+
+    .gateway-lead {
+      max-width: 44rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0;
+    }
+
+    .gateway-choices {
+      grid-template-columns: 1fr;
+    }
+
+    .gateway-choice {
+      min-height: 27rem;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .gateway-hero {
+      padding-top: 7rem;
+    }
+
+    .gateway-intro h1 {
+      font-size: clamp(2.55rem, 12vw, 4rem);
+    }
+
+    .gateway-choice {
+      min-height: 25rem;
+    }
+
+    .gateway-footer > div {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+  }
+</style>

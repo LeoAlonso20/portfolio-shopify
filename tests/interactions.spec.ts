@@ -9,7 +9,7 @@ function headerLanguageLink(page: Page, currentLocale: Locale, targetLocale: Loc
   const linkName = targetLocale === 'en' ? 'EN' : 'ES';
 
   return page
-    .locator('[data-site-header] .desktop-actions')
+    .locator('.gateway-header, [data-site-header] .desktop-actions')
     .getByRole('navigation', { name: navigationName })
     .locator(`a[lang="${targetLocale}"]`)
     .filter({ hasText: linkName });
@@ -38,10 +38,10 @@ test.describe('project navigation', () => {
     test(`${locale.toUpperCase()} project cards open every matching case study`, async ({
       page,
     }) => {
-      const homePath = locale === 'en' ? '/' : '/es';
+      const homePath = locale === 'en' ? '/shopify' : '/es/shopify';
 
       for (const slug of projectSlugs) {
-        const expectedPath = locale === 'en' ? `/work/${slug}` : `/es/work/${slug}`;
+        const expectedPath = locale === 'en' ? `/shopify/work/${slug}` : `/es/shopify/work/${slug}`;
         await page.goto(homePath);
 
         const projectLink = page.locator(`[data-project-slug="${slug}"]`).getByRole('link');
@@ -54,10 +54,32 @@ test.describe('project navigation', () => {
   }
 });
 
+test('portfolio logos stay inside their current portfolio instead of opening the gateway', async ({
+  page,
+}) => {
+  for (const route of [
+    { path: '/shopify', expectedRoot: '/shopify' },
+    { path: '/shopify/work/nocturna', expectedRoot: '/shopify' },
+    { path: '/profesional', expectedRoot: '/profesional' },
+    { path: '/es/shopify', expectedRoot: '/es/shopify' },
+    { path: '/es/profesional', expectedRoot: '/es/profesional' },
+  ]) {
+    await page.goto(route.path);
+    await expect(page.locator('[data-site-header] .brand')).toHaveAttribute(
+      'href',
+      route.expectedRoot,
+    );
+    await expect(page.locator('.site-footer .footer-name')).toHaveAttribute(
+      'href',
+      route.expectedRoot,
+    );
+  }
+});
+
 test.describe('contact links', () => {
   for (const locale of ['en', 'es'] as const) {
     test(`${locale.toUpperCase()} exposes valid direct contact destinations`, async ({ page }) => {
-      await page.goto(locale === 'en' ? '/' : '/es');
+      await page.goto(locale === 'en' ? '/shopify' : '/es/shopify');
 
       const emailLinks = page.locator('[data-contact="email"]');
       expect(await emailLinks.count()).toBeGreaterThan(0);
@@ -100,7 +122,7 @@ test.describe('mobile navigation', () => {
       page,
     }) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(locale === 'en' ? '/' : '/es');
+      await page.goto(locale === 'en' ? '/shopify' : '/es/shopify');
 
       const menu = page.locator('[data-mobile-menu]');
       const toggle = page.getByTestId('mobile-nav-toggle');
@@ -139,7 +161,7 @@ test.describe('mobile navigation', () => {
 });
 
 test('before/after slider supports keyboard comparison', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/shopify');
 
   const comparison = page.getByTestId('before-after');
   const slider = page.getByRole('slider', {
@@ -168,7 +190,7 @@ test('before/after slider supports keyboard comparison', async ({ page }) => {
 });
 
 test('before/after slider can be dragged directly from the visual handle', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/shopify');
 
   const comparison = page.getByTestId('before-after');
   const frame = comparison.locator('.comparison-frame');

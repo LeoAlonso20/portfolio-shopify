@@ -5,6 +5,7 @@ The portfolio renders CSS-based interface concepts until verified assets are sup
 Use optimized SVG, AVIF or WebP exports at these predictable locations:
 
 - `public/images/brand/signature.svg` — transparent signature/logo, ideally a tightly cropped SVG or 1200 × 300 transparent PNG/WebP.
+- `public/images/brand/professional-logo.svg` — independent professional portfolio logo, transparent and tightly cropped; SVG is recommended. Until supplied, the interface displays an `LA` fallback.
 - `public/images/leandro/portrait.webp` — portrait, recommended 1600 × 2000 (4:5), minimum 1200 px wide.
 - `public/images/projects/nocturna/card.webp` — card image, 1800 × 1240 (approximately 1.45:1).
 - `public/images/projects/nocturna/hero.webp` — case-study hero, 2400 × 1500 (8:5).

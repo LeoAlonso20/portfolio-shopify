@@ -40,7 +40,9 @@ test.describe('WCAG 2.2 AA automated checks', () => {
       page,
     }, testInfo) => {
       await page.setViewportSize({ width: 390, height: 844 });
-      await page.goto(locale === 'en' ? '/' : '/es', { waitUntil: 'networkidle' });
+      await page.goto(locale === 'en' ? '/shopify' : '/es/shopify', {
+        waitUntil: 'networkidle',
+      });
       await page.getByTestId('mobile-nav-toggle').click();
       await expect(page.getByTestId('mobile-nav-panel')).toBeVisible();
       await expectNoAxeViolations(page, testInfo);

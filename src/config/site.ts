@@ -24,6 +24,7 @@ export const siteConfig = {
   },
   assets: {
     signature: '/images/brand/signature.svg',
+    professionalLogo: '/images/brand/professional-logo.svg',
     aboutSignature: '/images/brand/about-signature.png',
     portrait: '/images/leandro/portrait.webp',
   },
@@ -33,10 +34,14 @@ export function absoluteUrl(pathname: string): string {
   return new URL(pathname, `${siteConfig.siteUrl}/`).toString();
 }
 
-export function homePath(locale: Locale): string {
+export function landingPath(locale: Locale): string {
   return locale === 'en' ? '/' : '/es';
 }
 
+export function shopifyPath(locale: Locale): string {
+  return locale === 'en' ? '/shopify' : '/es/shopify';
+}
+
 export function workPath(locale: Locale, slug: string): string {
-  return locale === 'en' ? `/work/${slug}` : `/es/work/${slug}`;
+  return locale === 'en' ? `/shopify/work/${slug}` : `/es/shopify/work/${slug}`;
 }

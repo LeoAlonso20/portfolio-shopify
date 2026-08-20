@@ -8,7 +8,7 @@ import Icon from './Icon.astro';
 import ProjectCard from './ProjectCard.astro';
 import SectionHeader from './SectionHeader.astro';
 import { projects } from '../config/projects';
-import { homePath, siteConfig, type Locale } from '../config/site';
+import { shopifyPath, siteConfig, type Locale } from '../config/site';
 import { getUi } from '../i18n/ui';
 import { publicAssetPath } from '../lib/assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -19,8 +19,8 @@ interface Props {
 
 const { locale } = Astro.props;
 const copy = getUi(locale);
-const pathname = homePath(locale);
-const alternatePath = locale === 'en' ? '/es' : '/';
+const pathname = shopifyPath(locale);
+const alternatePath = shopifyPath(locale === 'en' ? 'es' : 'en');
 const hasAboutSignature = Boolean(publicAssetPath(siteConfig.assets.aboutSignature));
 const entries = (await getCollection('caseStudies'))
   .filter((entry) => entry.data.locale === locale)

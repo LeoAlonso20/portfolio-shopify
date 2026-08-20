@@ -91,17 +91,21 @@ src/
 
 English is the default locale:
 
-- `/`
-- `/work/nocturna`
-- `/work/velor`
-- `/work/rytual-cafe`
+- `/` — portfolio selector
+- `/shopify`
+- `/profesional`
+- `/shopify/work/nocturna`
+- `/shopify/work/velor`
+- `/shopify/work/rytual-cafe`
 
 Spanish uses the `/es` prefix:
 
-- `/es`
-- `/es/work/nocturna`
-- `/es/work/velor`
-- `/es/work/rytual-cafe`
+- `/es` — selector de portfolios
+- `/es/shopify`
+- `/es/profesional`
+- `/es/shopify/work/nocturna`
+- `/es/shopify/work/velor`
+- `/es/shopify/work/rytual-cafe`
 
 Reusable UI copy is centralized in `src/i18n/ui.ts`; localized case-study narratives live in `src/content/case-studies/{locale}`. The language selector maps to the corresponding logical route. Each page emits localized metadata, canonical URLs, `en`/`es` hreflang entries and `x-default`.
 
@@ -124,6 +128,7 @@ The initial release uses purpose-built CSS interface concepts because no final c
 Expected replacements:
 
 - `public/images/brand/signature.svg` — tightly cropped signature/logo
+- `public/images/brand/professional-logo.svg` — professional portfolio logo (SVG recommended)
 - `public/images/leandro/portrait.webp` — 4:5 portrait, recommended 1600 × 2000
 - `public/images/projects/nocturna/{card,hero}.webp`
 - `public/images/projects/velor/{card,hero}.webp`

@@ -29,11 +29,13 @@ test.describe('responsive overflow', () => {
     });
   }
 
-  test('homepage remains within the page at the required layout widths', async ({ page }) => {
+  test('Shopify homepage remains within the page at the required layout widths', async ({
+    page,
+  }) => {
     for (const width of [375, 430, 768, 1024, 1280, 1440, 1728]) {
       await page.setViewportSize({ width, height: width < 768 ? 844 : 900 });
-      await page.goto('/');
-      await expectNoPageOverflow(page, `homepage at ${width}px`);
+      await page.goto('/shopify');
+      await expectNoPageOverflow(page, `Shopify homepage at ${width}px`);
     }
   });
 
@@ -42,14 +44,14 @@ test.describe('responsive overflow', () => {
   }) => {
     const cases = [
       {
-        path: '/',
+        path: '/shopify',
         primary: 'Start a project',
         secondary: 'View Shopify work',
         desktopMaxHeroHeight: 520,
         mobileMaxHeroHeight: 560,
       },
       {
-        path: '/es',
+        path: '/es/shopify',
         primary: 'Hablemos de tu proyecto',
         secondary: 'Ver proyectos Shopify',
         desktopMaxHeroHeight: 560,
@@ -97,9 +99,81 @@ test.describe('responsive overflow', () => {
         );
 
         expect(clippedText).toEqual([]);
-        await expect(page.locator('.service-row')).toHaveCount(5);
+        await expect(page.locator('.service-row')).toHaveCount(6);
         await expect(page.locator('[data-project-slug]')).toHaveCount(3);
       }
+    }
+  });
+
+  test('gateway clearly exposes both portfolio choices without linking back to itself', async ({
+    page,
+  }) => {
+    for (const route of [
+      { path: '/', shopify: '/shopify', professional: '/profesional' },
+      { path: '/es', shopify: '/es/shopify', professional: '/es/profesional' },
+    ]) {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(route.path, { waitUntil: 'networkidle' });
+
+      await expect(page.locator('body')).toHaveAttribute('data-theme', 'gateway');
+      await expect(page.locator('.gateway-choice--shopify')).toHaveAttribute('href', route.shopify);
+      await expect(page.locator('.gateway-choice--professional')).toHaveAttribute(
+        'href',
+        route.professional,
+      );
+      await expect(page.locator('[data-site-header]')).toHaveCount(0);
+      await expectNoPageOverflow(page, `${route.path} gateway at 390px`);
+    }
+  });
+
+  test('professional theme keeps its cyan identity and profile content on mobile', async ({
+    page,
+  }) => {
+    for (const path of ['/profesional', '/es/profesional']) {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(path, { waitUntil: 'networkidle' });
+
+      await expect(page.locator('body')).toHaveAttribute('data-theme', 'professional');
+      await expect(page.locator('.professional-project')).toHaveCount(7);
+      await expect(page.locator('.professional-portrait-image')).toHaveAttribute(
+        'src',
+        '/images/leandro/portrait.webp',
+      );
+      await expect(page.locator('.professional-signature')).toHaveAttribute(
+        'src',
+        '/images/brand/about-signature.png',
+      );
+
+      const iconAlignment = await page.locator('.education-icon').evaluate((container) => {
+        const icon = container.querySelector('svg');
+        const containerBox = container.getBoundingClientRect();
+        const iconBox = icon?.getBoundingClientRect();
+
+        return {
+          x: iconBox
+            ? Math.abs(
+                containerBox.left + containerBox.width / 2 - (iconBox.left + iconBox.width / 2),
+              )
+            : Number.POSITIVE_INFINITY,
+          y: iconBox
+            ? Math.abs(
+                containerBox.top + containerBox.height / 2 - (iconBox.top + iconBox.height / 2),
+              )
+            : Number.POSITIVE_INFINITY,
+        };
+      });
+      expect(iconAlignment.x).toBeLessThanOrEqual(1);
+      expect(iconAlignment.y).toBeLessThanOrEqual(1);
+
+      const selectionColor = await page
+        .locator('.professional-hero h1')
+        .evaluate((heading) => getComputedStyle(heading, '::selection').backgroundColor);
+      expect(selectionColor).toBe('rgb(56, 189, 248)');
+
+      await page.getByTestId('mobile-nav-toggle').click();
+      const mobileEmail = page.getByTestId('mobile-nav-panel').locator('.button--primary');
+      await expect(mobileEmail).toHaveCSS('background-color', 'rgb(56, 189, 248)');
+      await expectNoPageOverflow(page, `${path} professional drawer at 390px`);
     }
   });
 });

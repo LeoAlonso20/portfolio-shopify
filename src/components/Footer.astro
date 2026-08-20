@@ -1,32 +1,48 @@
 ---
 import Icon from './Icon.astro';
+import { professionalCopy, professionalPath } from '../config/professional';
 import { getUi } from '../i18n/ui';
-import { homePath, siteConfig, type Locale } from '../config/site';
+import { shopifyPath, siteConfig, type Locale } from '../config/site';
 
 interface Props {
   locale: Locale;
   alternatePath: string;
+  pathname: string;
+  variant?: 'shopify' | 'professional';
 }
 
-const { locale, alternatePath } = Astro.props;
+const { locale, alternatePath, pathname, variant = 'shopify' } = Astro.props;
 const copy = getUi(locale);
-const root = homePath(locale);
+const professional = professionalCopy[locale];
+const root = variant === 'professional' ? professionalPath(locale) : shopifyPath(locale);
 const year = new Date().getFullYear();
+const footerTagline = variant === 'professional' ? professional.hero.title : copy.footer.tagline;
+const footerNav =
+  variant === 'professional'
+    ? [
+        { href: `${pathname}#professional-work`, label: professional.nav.work },
+        { href: `${pathname}#expertise`, label: professional.nav.expertise },
+        { href: `${pathname}#education`, label: professional.nav.education },
+        { href: `${pathname}#about`, label: professional.nav.about },
+      ]
+    : [
+        { href: `${root}#work`, label: copy.nav.work },
+        { href: `${root}#services`, label: copy.nav.services },
+        { href: `${root}#about`, label: copy.nav.about },
+      ];
 ---
 
-<footer class="site-footer">
+<footer class="site-footer" data-variant={variant}>
   <div class="footer-grid container">
     <div class="footer-brand">
       <a href={root} class="footer-name">Leandro Alonso<span>.</span></a>
-      <p>{copy.footer.tagline}</p>
+      <p>{footerTagline}</p>
     </div>
 
     <div class="footer-column">
       <p class="footer-label">{copy.footer.explore}</p>
       <nav aria-label={copy.footer.explore}>
-        <a href={`${root}#work`}>{copy.nav.work}</a>
-        <a href={`${root}#services`}>{copy.nav.services}</a>
-        <a href={`${root}#about`}>{copy.nav.about}</a>
+        {footerNav.map((item) => <a href={item.href}>{item.label}</a>)}
       </nav>
     </div>
 
@@ -78,8 +94,13 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
+    --footer-accent: var(--color-accent);
     border-top: 1px solid var(--color-line);
     padding-block: 4.25rem 2rem;
+  }
+
+  .site-footer[data-variant='professional'] {
+    --footer-accent: #38bdf8;
   }
 
   .footer-grid {
@@ -101,7 +122,7 @@ const year = new Date().getFullYear();
   }
 
   .footer-name span {
-    color: var(--color-accent);
+    color: var(--footer-accent);
   }
 
   .footer-label {
@@ -129,7 +150,7 @@ const year = new Date().getFullYear();
   }
 
   .footer-column a:hover {
-    color: var(--color-accent);
+    color: var(--footer-accent);
   }
 
   .footer-bottom {
@@ -160,7 +181,7 @@ const year = new Date().getFullYear();
   }
 
   .footer-languages a[aria-current='page'] {
-    color: var(--color-accent);
+    color: var(--footer-accent);
   }
 
   @media (max-width: 47.99rem) {

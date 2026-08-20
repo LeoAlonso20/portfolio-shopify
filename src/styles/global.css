@@ -104,6 +104,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body[data-theme='professional'] {
+  --color-accent: #38bdf8;
+  --color-accent-strong: #7dd3fc;
+  --color-accent-deep: #0ea5e9;
+  --color-focus: #7dd3fc;
+  --color-line: rgb(125 211 252 / 12%);
+  --color-line-strong: rgb(125 211 252 / 22%);
+  --shadow-accent: 0 18px 60px rgb(56 189 248 / 12%);
+  background:
+    radial-gradient(circle at 84% 8%, rgb(56 189 248 / 5%), transparent 28rem),
+    radial-gradient(circle at 10% 33%, rgb(14 165 233 / 3%), transparent 26rem), var(--color-bg);
+}
+
 body::before {
   position: fixed;
   z-index: -1;

@@ -13,6 +13,9 @@ interface Props {
   pathname: string;
   alternatePath: string;
   isHome?: boolean;
+  headerVariant?: 'shopify' | 'professional';
+  pageTheme?: 'shopify' | 'professional' | 'gateway';
+  showChrome?: boolean;
   ogType?: 'website' | 'article';
   indexable?: boolean;
 }
@@ -24,6 +27,9 @@ const {
   pathname,
   alternatePath,
   isHome = false,
+  headerVariant = 'shopify',
+  pageTheme = headerVariant,
+  showChrome = true,
   ogType = 'website',
   indexable = true,
 } = Astro.props;
@@ -99,11 +105,15 @@ const structuredData = {
     <ClientRouter fallback="animate" />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
-  <body>
+  <body data-theme={pageTheme}>
     <a class="skip-link" href="#main-content">{copy.accessibility.skip}</a>
-    <Header {locale} {alternatePath} {isHome} />
+    {
+      showChrome && (
+        <Header {locale} {alternatePath} {isHome} pathname={pathname} variant={headerVariant} />
+      )
+    }
     <slot />
-    <Footer {locale} {alternatePath} />
+    {showChrome && <Footer {locale} {alternatePath} pathname={pathname} variant={headerVariant} />}
 
     <script>
       let pageController: AbortController | undefined;

@@ -5,7 +5,7 @@ import AssetVideo from './AssetVideo.astro';
 import Icon from './Icon.astro';
 import ProjectVisual from './ProjectVisual.astro';
 import { projects } from '../config/projects';
-import { homePath, type Locale, workPath } from '../config/site';
+import { shopifyPath, type Locale, workPath } from '../config/site';
 import { getUi } from '../i18n/ui';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
@@ -61,7 +61,7 @@ const contentSections = [
   <main id="main-content" class="case-study">
     <section class="case-hero">
       <div class="container">
-        <a class="case-back" href={`${homePath(locale)}#work`}>
+        <a class="case-back" href={`${shopifyPath(locale)}#work`}>
           <Icon name="ArrowRight" size={14} />{copy.caseStudy.backToWork}
         </a>
         <div class="case-title-grid">

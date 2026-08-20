@@ -1,7 +1,7 @@
 export type Locale = 'en' | 'es';
 
 export interface LogicalRoute {
-  id: 'home' | 'nocturna' | 'velor' | 'rytual-cafe';
+  id: 'gateway' | 'shopify' | 'professional' | 'nocturna' | 'velor' | 'rytual-cafe';
   en: string;
   es: string;
   heading: string | RegExp;
@@ -21,18 +21,40 @@ export const origin = 'http://localhost:4321';
 
 export const logicalRoutes: readonly LogicalRoute[] = [
   {
-    id: 'home',
+    id: 'gateway',
     en: '/',
     es: '/es',
+    heading: /Choose the work most relevant to you|Elegí el trabajo más relevante para vos/,
+  },
+  {
+    id: 'shopify',
+    en: '/shopify',
+    es: '/es/shopify',
     heading:
       /High-performance Shopify stores built for better shopping experiences|Tiendas Shopify de alto rendimiento/,
   },
-  { id: 'nocturna', en: '/work/nocturna', es: '/es/work/nocturna', heading: 'Nocturna' },
-  { id: 'velor', en: '/work/velor', es: '/es/work/velor', heading: 'Velor' },
+  {
+    id: 'professional',
+    en: '/profesional',
+    es: '/es/profesional',
+    heading: /Systems Engineer & Software Developer|Ingeniero en Sistemas/,
+  },
+  {
+    id: 'nocturna',
+    en: '/shopify/work/nocturna',
+    es: '/es/shopify/work/nocturna',
+    heading: 'Nocturna',
+  },
+  {
+    id: 'velor',
+    en: '/shopify/work/velor',
+    es: '/es/shopify/work/velor',
+    heading: 'Velor',
+  },
   {
     id: 'rytual-cafe',
-    en: '/work/rytual-cafe',
-    es: '/es/work/rytual-cafe',
+    en: '/shopify/work/rytual-cafe',
+    es: '/es/shopify/work/rytual-cafe',
     heading: 'Rytual Cafe',
   },
 ] as const;
