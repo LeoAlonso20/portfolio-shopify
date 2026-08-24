@@ -116,6 +116,43 @@ test.describe('contact links', () => {
   }
 });
 
+test.describe('professional certificates', () => {
+  const certificates = [
+    {
+      pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+      preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+    },
+    {
+      pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+      preview: '/images/certificates/vanilla-javascript-no-framework.png',
+    },
+  ];
+
+  for (const locale of ['en', 'es'] as const) {
+    test(`${locale.toUpperCase()} exposes both certificate previews and PDFs`, async ({ page }) => {
+      await page.goto(locale === 'en' ? '/profesional' : '/es/profesional');
+
+      const cards = page.locator('[data-certificate]');
+      await expect(cards).toHaveCount(certificates.length);
+
+      for (const [index, certificate] of certificates.entries()) {
+        const card = cards.nth(index);
+        await expect(card.locator('.certificate-preview-image')).toHaveAttribute(
+          'src',
+          certificate.preview,
+        );
+
+        for (const link of await card.locator('a').all()) {
+          await expect(link).toHaveAttribute('href', certificate.pdf);
+          await expect(link).toHaveAttribute('target', '_blank');
+          await expect(link).toHaveAttribute('rel', /\bnoopener\b/);
+          await expect(link).toHaveAttribute('rel', /\bnoreferrer\b/);
+        }
+      }
+    });
+  }
+});
+
 test.describe('mobile navigation', () => {
   for (const locale of ['en', 'es'] as const) {
     test(`${locale.toUpperCase()} menu opens, closes with Escape and follows an anchor`, async ({

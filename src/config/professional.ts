@@ -14,6 +14,7 @@ export const professionalCopy = {
       work: 'Work',
       expertise: 'Expertise',
       education: 'Education',
+      certificates: 'Training',
       about: 'About',
       contact: 'Email',
     },
@@ -53,6 +54,40 @@ export const professionalCopy = {
         'Analytical problem solving',
         'Software architecture fundamentals',
         'Systems thinking applied to product work',
+      ],
+    },
+    certificates: {
+      eyebrow: 'Continuous learning',
+      title: 'Recent training, grounded in the fundamentals.',
+      intro:
+        'I keep sharpening the technical foundations behind my day-to-day work. These recent courses reflect a deliberate focus on understanding the platform deeply, from the JavaScript runtime to the browser itself.',
+      issuerLabel: 'Issued by',
+      completedLabel: 'Completed',
+      openLabel: 'Open certificate',
+      previewLabel: 'View full certificate for',
+      items: [
+        {
+          title: 'Advanced JavaScript — The Hard Parts v3',
+          issuer: 'Master.dev',
+          completed: 'August 2026',
+          description:
+            'Advanced JavaScript course focused on the language fundamentals and runtime concepts behind modern frontend development. Strengthened my understanding of execution context, closures, asynchronous programming, promises, and JavaScript internals.',
+          pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+          preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+          previewAlt:
+            'Master.dev certificate for Advanced JavaScript — The Hard Parts v3 awarded to Leandro Alonso',
+        },
+        {
+          title: 'Vanilla JavaScript — You Might Not Need a Framework',
+          issuer: 'Master.dev',
+          completed: 'August 2026',
+          description:
+            'Advanced JavaScript course focused on building robust web applications with native browser APIs and modern Vanilla JS. Covered DOM APIs, Web Components, browser capabilities, performance, and architectural decisions around when a framework is — and isn’t — necessary.',
+          pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+          preview: '/images/certificates/vanilla-javascript-no-framework.png',
+          previewAlt:
+            'Master.dev certificate for Vanilla JavaScript — You Might Not Need a Framework awarded to Leandro Alonso',
+        },
       ],
     },
     expertise: {
@@ -174,6 +209,7 @@ export const professionalCopy = {
       work: 'Proyectos',
       expertise: 'Experiencia técnica',
       education: 'Educación',
+      certificates: 'Formación',
       about: 'Sobre mí',
       contact: 'Email',
     },
@@ -213,6 +249,40 @@ export const professionalCopy = {
         'Resolución analítica de problemas',
         'Fundamentos de arquitectura de software',
         'Pensamiento sistémico aplicado a producto',
+      ],
+    },
+    certificates: {
+      eyebrow: 'Aprendizaje continuo',
+      title: 'Formación reciente, con foco en los fundamentos.',
+      intro:
+        'Sigo profundizando las bases técnicas que sostienen mi trabajo cotidiano. Estas formaciones reflejan una búsqueda intencional por comprender la plataforma en profundidad: desde el runtime de JavaScript hasta las capacidades nativas del navegador.',
+      issuerLabel: 'Emitido por',
+      completedLabel: 'Completado',
+      openLabel: 'Abrir certificado',
+      previewLabel: 'Ver certificado completo de',
+      items: [
+        {
+          title: 'Advanced JavaScript — The Hard Parts v3',
+          issuer: 'Master.dev',
+          completed: 'Agosto de 2026',
+          description:
+            'Formación avanzada en JavaScript centrada en los fundamentos del lenguaje y los conceptos de runtime que sostienen el desarrollo frontend moderno. Profundicé en contexto de ejecución, closures, programación asincrónica, promesas y funcionamiento interno de JavaScript.',
+          pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+          preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+          previewAlt:
+            'Certificado de Master.dev de Advanced JavaScript — The Hard Parts v3 otorgado a Leandro Alonso',
+        },
+        {
+          title: 'Vanilla JavaScript — You Might Not Need a Framework',
+          issuer: 'Master.dev',
+          completed: 'Agosto de 2026',
+          description:
+            'Formación avanzada orientada a construir aplicaciones web robustas con APIs nativas del navegador y JavaScript moderno. Abordé DOM APIs, Web Components, capacidades del navegador, rendimiento y decisiones de arquitectura sobre cuándo un framework es —y cuándo no es— necesario.',
+          pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+          preview: '/images/certificates/vanilla-javascript-no-framework.png',
+          previewAlt:
+            'Certificado de Master.dev de Vanilla JavaScript — You Might Not Need a Framework otorgado a Leandro Alonso',
+        },
       ],
     },
     expertise: {
