@@ -47,6 +47,26 @@ test.describe('localized routes and metadata', () => {
         route.locale === 'en' ? 'en_US' : 'es_AR',
       );
 
+      const isShopifyRoute = ['shopify', 'nocturna', 'velor', 'rytual-cafe'].includes(route.id);
+      if (isShopifyRoute) {
+        await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+          'content',
+          absoluteUrl('/images/social/og-shopify.png'),
+        );
+        await expect(page.locator('meta[property="og:image:width"]')).toHaveAttribute(
+          'content',
+          '1200',
+        );
+        await expect(page.locator('meta[property="og:image:height"]')).toHaveAttribute(
+          'content',
+          '630',
+        );
+        await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+          'content',
+          'summary_large_image',
+        );
+      }
+
       expect(issues.consoleErrors, `Console errors on ${route.path}`).toEqual([]);
       expect(issues.pageErrors, `Unhandled page errors on ${route.path}`).toEqual([]);
       expect(issues.failedLocalRequests, `Failed local requests on ${route.path}`).toEqual([]);

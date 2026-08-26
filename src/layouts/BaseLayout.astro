@@ -17,6 +17,8 @@ interface Props {
   pageTheme?: 'shopify' | 'professional' | 'gateway';
   showChrome?: boolean;
   ogType?: 'website' | 'article';
+  ogImage?: string | null;
+  ogImageAlt?: string;
   indexable?: boolean;
 }
 
@@ -37,6 +39,13 @@ const copy = getUi(locale);
 const canonical = absoluteUrl(pathname);
 const englishPath = locale === 'en' ? pathname : alternatePath;
 const spanishPath = locale === 'es' ? pathname : alternatePath;
+const ogImage =
+  Astro.props.ogImage ?? (pageTheme === 'shopify' ? '/images/social/og-shopify.png' : null);
+const ogImageAlt =
+  Astro.props.ogImageAlt ??
+  (locale === 'es'
+    ? 'Desarrollo Shopify a medida por Leandro Alonso'
+    : 'Custom Shopify development by Leandro Alonso');
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -96,9 +105,22 @@ const structuredData = {
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'es_AR'} />
     <meta property="og:locale:alternate" content={locale === 'en' ? 'es_AR' : 'en_US'} />
-    <meta name="twitter:card" content="summary" />
+    {
+      ogImage && (
+        <>
+          <meta property="og:image" content={absoluteUrl(ogImage)} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:type" content="image/png" />
+          <meta property="og:image:alt" content={ogImageAlt} />
+        </>
+      )
+    }
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={absoluteUrl(ogImage)} />}
+    {ogImage && <meta name="twitter:image:alt" content={ogImageAlt} />}
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />

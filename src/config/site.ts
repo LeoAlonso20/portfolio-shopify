@@ -13,7 +13,7 @@ export const siteConfig = {
   title: 'Software Engineer & Shopify Developer',
   siteUrl: rawSiteUrl.replace(/\/$/, ''),
   defaultLocale: 'en' as const,
-  email: 'alonsoleadrowork@gmail.com',
+  email: 'alonsoleandrowork@gmail.com',
   social: {
     linkedin: 'https://www.linkedin.com/in/leandro-alonso-work',
     github: 'https://github.com/LeoAlonso20',

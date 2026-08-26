@@ -17,7 +17,7 @@ export interface LocalizedRoute {
   heading: string | RegExp;
 }
 
-export const origin = 'http://localhost:4321';
+export const origin = 'http://127.0.0.1:4321';
 
 export const logicalRoutes: readonly LogicalRoute[] = [
   {

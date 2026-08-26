@@ -86,7 +86,7 @@ test.describe('contact links', () => {
       for (const href of await emailLinks.evaluateAll((links) =>
         links.map((link) => link.getAttribute('href') ?? ''),
       )) {
-        expect(href).toMatch(/^mailto:alonsoleadrowork@gmail\.com(?:\?|$)/);
+        expect(href).toMatch(/^mailto:alonsoleandrowork@gmail\.com(?:\?|$)/);
       }
 
       await expect(page.locator('[data-contact="linkedin"]')).toHaveAttribute(
