@@ -1,0 +1,199 @@
+---
+import SectionHeader from './SectionHeader.astro';
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  items: readonly FaqItem[];
+}
+
+const { eyebrow, title, intro, items } = Astro.props;
+---
+
+<section id="faq" class="section faq-section section--bordered" aria-labelledby="faq-title">
+  <div class="faq-layout container">
+    <div class="faq-heading">
+      <SectionHeader {eyebrow} {title} {intro} wide id="faq-title" />
+    </div>
+
+    <div class="faq-list">
+      {
+        items.map((item, index) => (
+          <details
+            class="faq-item reveal"
+            data-faq-item
+            data-reveal="soft"
+            style={`--reveal-delay: ${index * 45}ms`}
+          >
+            <summary>
+              <span class="faq-number">{String(index + 1).padStart(2, '0')}</span>
+              <span class="faq-question">{item.question}</span>
+              <span class="faq-toggle" aria-hidden="true" />
+            </summary>
+            <div class="faq-answer">
+              <p>{item.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-section {
+    background: linear-gradient(180deg, transparent, rgb(13 18 14 / 34%), transparent);
+  }
+
+  .faq-layout {
+    display: grid;
+    align-items: start;
+    grid-template-columns: minmax(18rem, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .faq-heading {
+    position: sticky;
+    top: 8rem;
+  }
+
+  .faq-list {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-line);
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+
+  .faq-item summary {
+    display: grid;
+    min-height: 6.25rem;
+    cursor: pointer;
+    align-items: center;
+    grid-template-columns: 2.5rem minmax(0, 1fr) 2.75rem;
+    gap: 1rem;
+    list-style: none;
+    padding-block: 1.45rem;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary:focus-visible {
+    border-radius: var(--radius-sm);
+    outline: 2px solid var(--color-focus);
+    outline-offset: 4px;
+  }
+
+  .faq-number {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.59rem;
+  }
+
+  .faq-question {
+    font-size: clamp(1.08rem, 0.99rem + 0.36vw, 1.34rem);
+    font-weight: 590;
+    letter-spacing: -0.035em;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  .faq-toggle {
+    position: relative;
+    display: grid;
+    width: 2.45rem;
+    height: 2.45rem;
+    place-items: center;
+    border: 1px solid var(--color-line);
+    border-radius: 50%;
+    background: rgb(200 255 69 / 3%);
+    justify-self: end;
+    transition:
+      rotate var(--duration-fast) var(--ease-standard),
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease;
+  }
+
+  .faq-toggle::before,
+  .faq-toggle::after {
+    position: absolute;
+    width: 0.72rem;
+    height: 1px;
+    background: var(--color-accent);
+    content: '';
+  }
+
+  .faq-toggle::after {
+    rotate: 90deg;
+  }
+
+  .faq-item[open] {
+    border-color: rgb(200 255 69 / 22%);
+    background: rgb(200 255 69 / 2.5%);
+  }
+
+  .faq-item[open] .faq-toggle {
+    rotate: 45deg;
+    border-color: rgb(200 255 69 / 30%);
+    background: rgb(200 255 69 / 8%);
+  }
+
+  .faq-answer {
+    padding: 0 4.25rem 1.8rem 3.5rem;
+  }
+
+  .faq-answer p {
+    max-width: 46rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.75;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .faq-item:hover {
+      border-color: rgb(200 255 69 / 18%);
+    }
+
+    .faq-item:hover .faq-toggle {
+      border-color: rgb(200 255 69 / 25%);
+      background: rgb(200 255 69 / 6%);
+    }
+  }
+
+  @media (max-width: 61.99rem) {
+    .faq-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-heading {
+      position: static;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .faq-item summary {
+      min-height: 5.6rem;
+      grid-template-columns: minmax(0, 1fr) 2.5rem;
+      gap: 0.8rem;
+    }
+
+    .faq-number {
+      display: none;
+    }
+
+    .faq-answer {
+      padding: 0 3.3rem 1.5rem 0;
+    }
+  }
+</style>

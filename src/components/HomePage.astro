@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BeforeAfter from './BeforeAfter.astro';
 import AssetImage from './AssetImage.astro';
 import ContactCTA from './ContactCTA.astro';
+import FaqSection from './FaqSection.astro';
 import HeroVisual from './HeroVisual.astro';
 import Icon from './Icon.astro';
 import ProjectCard from './ProjectCard.astro';
@@ -319,6 +320,13 @@ const entries = (await getCollection('caseStudies'))
         </div>
       </div>
     </section>
+
+    <FaqSection
+      eyebrow={copy.faq.eyebrow}
+      title={copy.faq.title}
+      intro={copy.faq.intro}
+      items={copy.faq.items}
+    />
 
     <ContactCTA {locale} />
   </main>

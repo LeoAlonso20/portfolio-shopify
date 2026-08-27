@@ -36,7 +36,7 @@ test.describe('localized routes and metadata', () => {
       );
       await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveAttribute(
         'href',
-        absoluteUrl(route.englishPath),
+        absoluteUrl(route.spanishPath),
       );
       await expect(page.locator('meta[property="og:url"]')).toHaveAttribute(
         'content',

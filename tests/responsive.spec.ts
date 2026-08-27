@@ -87,7 +87,7 @@ test.describe('responsive overflow', () => {
         const clippedText = await page.evaluate(() =>
           Array.from(
             document.querySelectorAll(
-              '.service-row h3, .service-row p, .service-row small, .project-card-body p, .project-card-meta, .project-card-title-row',
+              '.service-row h3, .service-row p, .service-row small, .project-card-body p, .project-card-meta, .project-card-title-row, .faq-question, .faq-answer p',
             ),
           )
             .map((element) => ({
@@ -101,6 +101,7 @@ test.describe('responsive overflow', () => {
         expect(clippedText).toEqual([]);
         await expect(page.locator('.service-row')).toHaveCount(6);
         await expect(page.locator('[data-project-slug]')).toHaveCount(3);
+        await expect(page.locator('[data-faq-item]')).toHaveCount(6);
       }
     }
   });

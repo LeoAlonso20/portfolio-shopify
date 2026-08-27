@@ -85,6 +85,43 @@ const structuredData = {
 <html lang={locale}>
   <head>
     <meta charset="UTF-8" />
+    <script is:inline define:vars={{ locale, alternatePath }}>
+      (() => {
+        const storageKey = 'preferred-locale';
+        const supportedLocales = ['en', 'es'];
+        let savedLocale = null;
+
+        try {
+          const value = window.localStorage.getItem(storageKey);
+          if (supportedLocales.includes(value)) savedLocale = value;
+        } catch {
+          // Language detection still works when storage is unavailable.
+        }
+
+        let preferredLocale = savedLocale;
+
+        // A prefixed Spanish URL is an explicit choice. System detection is only
+        // needed for unprefixed routes, which currently contain the English pages.
+        if (!preferredLocale && locale === 'en') {
+          const browserLanguages = Array.from(navigator.languages ?? []);
+          if (!browserLanguages.length && navigator.language) {
+            browserLanguages.push(navigator.language);
+          }
+
+          preferredLocale =
+            browserLanguages
+              .map((language) => language.toLowerCase().split(/[-_]/)[0])
+              .find((language) => supportedLocales.includes(language)) ?? 'es';
+        }
+
+        if (preferredLocale && preferredLocale !== locale) {
+          const target = new URL(alternatePath, window.location.origin);
+          target.search = window.location.search;
+          target.hash = window.location.hash;
+          window.location.replace(target.href);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#060806" />
@@ -96,7 +133,7 @@ const structuredData = {
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="en" href={absoluteUrl(englishPath)} />
     <link rel="alternate" hreflang="es" href={absoluteUrl(spanishPath)} />
-    <link rel="alternate" hreflang="x-default" href={absoluteUrl(englishPath)} />
+    <link rel="alternate" hreflang="x-default" href={absoluteUrl(spanishPath)} />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Leandro Alonso" />
@@ -162,6 +199,23 @@ const structuredData = {
         };
         updateHeader();
         window.addEventListener('scroll', updateHeader, { passive: true, signal });
+
+        document.querySelectorAll<HTMLAnchorElement>('a[data-locale]').forEach((link) => {
+          link.addEventListener(
+            'click',
+            () => {
+              const selectedLocale = link.dataset.locale;
+              if (selectedLocale !== 'en' && selectedLocale !== 'es') return;
+
+              try {
+                window.localStorage.setItem('preferred-locale', selectedLocale);
+              } catch {
+                // The link remains functional when storage is unavailable.
+              }
+            },
+            { signal },
+          );
+        });
 
         const mobileMenu = document.querySelector<HTMLDetailsElement>('[data-mobile-menu]');
         const mobileSummary = mobileMenu?.querySelector<HTMLElement>('summary');

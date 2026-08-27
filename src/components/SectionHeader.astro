@@ -5,14 +5,16 @@ interface Props {
   intro?: string;
   wide?: boolean;
   class?: string;
+  id?: string;
 }
 
-const { eyebrow, title, intro, wide = false, class: className } = Astro.props;
+const { eyebrow, title, intro, wide = false, class: className, id } = Astro.props;
 ---
 
 <div class:list={['section-copy', className]}>
   <p class="eyebrow reveal" data-reveal="soft">{eyebrow}</p>
   <h2
+    {id}
     class:list={['section-heading reveal', { 'section-heading--wide': wide }]}
     data-reveal="soft"
     style="--reveal-delay: 55ms"

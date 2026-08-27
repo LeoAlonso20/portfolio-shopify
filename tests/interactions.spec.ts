@@ -116,6 +116,31 @@ test.describe('contact links', () => {
   }
 });
 
+test.describe('Shopify frequently asked questions', () => {
+  for (const locale of ['en', 'es'] as const) {
+    test(`${locale.toUpperCase()} FAQ exposes accessible native accordions`, async ({ page }) => {
+      await page.goto(locale === 'en' ? '/shopify' : '/es/shopify');
+
+      const faq = page.locator('#faq');
+      const items = faq.locator('[data-faq-item]');
+      await expect(faq.getByRole('heading', { level: 2 })).toBeVisible();
+      await expect(items).toHaveCount(6);
+
+      const firstItem = items.first();
+      const firstSummary = firstItem.locator('summary');
+      await expect(firstItem).not.toHaveAttribute('open', '');
+      await firstSummary.click();
+      await expect(firstItem).toHaveAttribute('open', '');
+      await expect(firstItem.locator('.faq-answer')).toBeVisible();
+
+      const secondItem = items.nth(1);
+      await secondItem.locator('summary').focus();
+      await page.keyboard.press('Enter');
+      await expect(secondItem).toHaveAttribute('open', '');
+    });
+  }
+});
+
 test.describe('professional certificates', () => {
   const certificates = [
     {

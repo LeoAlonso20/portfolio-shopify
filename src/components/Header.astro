@@ -72,6 +72,7 @@ const cta =
       <nav class="language-switcher" aria-label={copy.accessibility.language}>
         <a
           href={locale === 'en' ? Astro.url.pathname : alternatePath}
+          data-locale="en"
           lang="en"
           hreflang="en"
           aria-current={locale === 'en' ? 'page' : undefined}>EN</a
@@ -79,6 +80,7 @@ const cta =
         <span aria-hidden="true">/</span>
         <a
           href={locale === 'es' ? Astro.url.pathname : alternatePath}
+          data-locale="es"
           lang="es"
           hreflang="es"
           aria-current={locale === 'es' ? 'page' : undefined}>ES</a
@@ -121,6 +123,7 @@ const cta =
           <nav class="language-switcher" aria-label={copy.accessibility.language}>
             <a
               href={locale === 'en' ? Astro.url.pathname : alternatePath}
+              data-locale="en"
               lang="en"
               hreflang="en"
               aria-current={locale === 'en' ? 'page' : undefined}>English</a
@@ -128,6 +131,7 @@ const cta =
             <span aria-hidden="true">/</span>
             <a
               href={locale === 'es' ? Astro.url.pathname : alternatePath}
+              data-locale="es"
               lang="es"
               hreflang="es"
               aria-current={locale === 'es' ? 'page' : undefined}>Español</a

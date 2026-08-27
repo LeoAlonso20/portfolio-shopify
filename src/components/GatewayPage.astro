@@ -50,6 +50,7 @@ const choices = [
       <nav class="gateway-languages" aria-label={locale === 'en' ? 'Language' : 'Idioma'}>
         <a
           href={locale === 'en' ? pathname : alternatePath}
+          data-locale="en"
           lang="en"
           hreflang="en"
           aria-current={locale === 'en' ? 'page' : undefined}>EN</a
@@ -57,6 +58,7 @@ const choices = [
         <span aria-hidden="true">/</span>
         <a
           href={locale === 'es' ? pathname : alternatePath}
+          data-locale="es"
           lang="es"
           hreflang="es"
           aria-current={locale === 'es' ? 'page' : undefined}>ES</a

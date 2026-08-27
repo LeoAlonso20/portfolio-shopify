@@ -205,6 +205,44 @@ export const ui = {
         },
       ],
     },
+    faq: {
+      eyebrow: 'Frequently asked questions',
+      title: 'What you may want to know before we start.',
+      intro:
+        'Clear answers about scope, store management, timing and how a Shopify project begins.',
+      items: [
+        {
+          question: 'Can you work on an existing Shopify store?',
+          answer:
+            'Yes. I can improve a focused part of your current store—such as a product page, cart, custom section or performance—without rebuilding everything. I first review the theme, apps and current limitations to define the right scope.',
+        },
+        {
+          question: 'Do you also build complete Shopify stores?',
+          answer:
+            'Yes. I develop complete storefronts shaped around the brand, product catalog and buying journey, with a mobile-first experience and practical content management from Shopify.',
+        },
+        {
+          question: 'Will the custom sections remain editable from Shopify?',
+          answer:
+            'That is the goal. I build sections and features with settings and blocks in the theme editor so your team can manage routine content changes without touching code. The exact controls are agreed as part of the scope.',
+        },
+        {
+          question: 'Do you work with clients in other countries?',
+          answer:
+            'Yes. I work remotely from Argentina and can collaborate with brands and teams in different time zones through clear written communication, defined milestones and regular progress updates.',
+        },
+        {
+          question: 'Do you provide support after launch?',
+          answer:
+            'Each project can include a post-launch support period for adjustments related to the delivered scope. Ongoing improvements or maintenance can also be defined separately when the store needs continued support.',
+        },
+        {
+          question: 'How are budget and timeline defined?',
+          answer:
+            'After reviewing what you need, I propose a clear scope with deliverables, timing and cost. A focused improvement and a complete storefront require very different plans, so the estimate is based on the actual work rather than a generic package.',
+        },
+      ],
+    },
     contact: {
       eyebrow: 'Have a project in mind?',
       title: 'Let’s build a Shopify experience that performs.',
@@ -437,6 +475,44 @@ export const ui = {
           title: 'Menos dependencia de apps',
           description:
             'Cuando una funcionalidad puntual puede reemplazar otra app en el storefront, la tienda queda más liviana y más fácil de manejar.',
+        },
+      ],
+    },
+    faq: {
+      eyebrow: 'Preguntas frecuentes',
+      title: 'Lo que quizás quieras saber antes de empezar.',
+      intro:
+        'Respuestas claras sobre el alcance, la gestión de la tienda, los plazos y cómo comienza un proyecto Shopify.',
+      items: [
+        {
+          question: '¿Trabajás sobre tiendas Shopify existentes?',
+          answer:
+            'Sí. Puedo mejorar una parte puntual de tu tienda actual —como una página de producto, el carrito, una sección a medida o el rendimiento— sin necesidad de rehacerla completa. Primero reviso el tema, las aplicaciones y las limitaciones actuales para definir el alcance correcto.',
+        },
+        {
+          question: '¿También desarrollás tiendas Shopify completas?',
+          answer:
+            'Sí. Desarrollo tiendas completas alrededor de la marca, el catálogo y el recorrido de compra, con una experiencia pensada primero para mobile y una gestión práctica desde Shopify.',
+        },
+        {
+          question: '¿Las secciones a medida quedan editables desde Shopify?',
+          answer:
+            'Ese es el objetivo. Desarrollo secciones y funcionalidades con opciones y bloques en el editor de temas para que tu equipo pueda gestionar los cambios cotidianos sin modificar código. Los controles exactos se definen como parte del alcance.',
+        },
+        {
+          question: '¿Trabajás con clientes de otros países?',
+          answer:
+            'Sí. Trabajo de forma remota desde Argentina y puedo colaborar con marcas y equipos de diferentes zonas horarias mediante comunicación escrita clara, etapas definidas y seguimiento regular del proyecto.',
+        },
+        {
+          question: '¿Ofrecés soporte después de la entrega?',
+          answer:
+            'Cada proyecto puede incluir un período de soporte posterior a la entrega para ajustes relacionados con el alcance desarrollado. Las mejoras continuas o el mantenimiento también pueden definirse por separado cuando la tienda lo necesita.',
+        },
+        {
+          question: '¿Cómo se definen el presupuesto y los plazos?',
+          answer:
+            'Después de revisar lo que necesitás, propongo un alcance claro con entregables, plazos y costo. Una mejora puntual y una tienda completa requieren planes muy diferentes, por eso la estimación se basa en el trabajo real y no en un paquete genérico.',
         },
       ],
     },
