@@ -102,6 +102,7 @@ test.describe('responsive overflow', () => {
         await expect(page.locator('.service-row')).toHaveCount(6);
         await expect(page.locator('[data-project-slug]')).toHaveCount(3);
         await expect(page.locator('[data-faq-item]')).toHaveCount(6);
+        await expect(page.locator('[data-evolution-step]')).toHaveCount(5);
       }
     }
   });

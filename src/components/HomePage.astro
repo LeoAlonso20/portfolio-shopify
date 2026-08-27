@@ -8,6 +8,7 @@ import HeroVisual from './HeroVisual.astro';
 import Icon from './Icon.astro';
 import ProjectCard from './ProjectCard.astro';
 import SectionHeader from './SectionHeader.astro';
+import StoreEvolution from './StoreEvolution.astro';
 import { projects } from '../config/projects';
 import { shopifyPath, siteConfig, type Locale } from '../config/site';
 import { getUi } from '../i18n/ui';
@@ -193,41 +194,15 @@ const entries = (await getCollection('caseStudies'))
       </div>
     </section>
 
-    <section class="section engineering-section section--bordered">
-      <div class="engineering-layout container">
-        <div>
-          <SectionHeader
-            eyebrow={copy.engineering.eyebrow}
-            title={copy.engineering.title}
-            intro={copy.engineering.intro}
-            wide
-          />
-          <div class="stack reveal" data-reveal="soft" style="--reveal-delay: 130ms">
-            <p>{copy.engineering.stackLabel}</p>
-            <ul>
-              {copy.engineering.stack.map((item) => <li>{item}</li>)}
-            </ul>
-          </div>
-        </div>
-        <div class="principles-grid">
-          {
-            copy.engineering.items.map((item, index) => (
-              <article
-                class="principle reveal"
-                data-reveal="scale"
-                style={`--reveal-delay: ${index * 55}ms`}
-              >
-                <span>
-                  <Icon name={item.icon} size={20} />
-                </span>
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-              </article>
-            ))
-          }
-        </div>
-      </div>
-    </section>
+    <StoreEvolution
+      {locale}
+      eyebrow={copy.evolution.eyebrow}
+      title={copy.evolution.title}
+      intro={copy.evolution.intro}
+      conceptLabel={copy.evolution.conceptLabel}
+      progressLabel={copy.evolution.progressLabel}
+      items={copy.evolution.items}
+    />
 
     <section id="about" class="section about-section section--bordered">
       <div class="about-grid container">
@@ -593,91 +568,6 @@ const entries = (await getCollection('caseStudies'))
     gap: 1rem;
   }
 
-  .engineering-section {
-    overflow: hidden;
-  }
-
-  .engineering-layout {
-    display: grid;
-    align-items: start;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: clamp(3rem, 8vw, 8rem);
-  }
-
-  .stack {
-    margin-top: 3rem;
-    border-top: 1px solid var(--color-line);
-    padding-top: 1.25rem;
-  }
-
-  .stack > p {
-    color: var(--color-text-subtle);
-    font-family: var(--font-mono);
-    font-size: 0.56rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .stack ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    list-style: none;
-  }
-
-  .stack li {
-    border: 1px solid var(--color-line);
-    border-radius: var(--radius-pill);
-    color: var(--color-text-muted);
-    font-family: var(--font-mono);
-    font-size: 0.57rem;
-    padding: 0.42rem 0.65rem;
-  }
-
-  .principles-grid {
-    display: grid;
-    border-top: 1px solid var(--color-line);
-    border-left: 1px solid var(--color-line);
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .principle {
-    min-height: 15rem;
-    border-right: 1px solid var(--color-line);
-    border-bottom: 1px solid var(--color-line);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    transition: background-color var(--duration-normal) ease;
-  }
-
-  .principle:last-child {
-    grid-column: 1 / -1;
-  }
-
-  .principle > span {
-    display: grid;
-    width: 2.65rem;
-    height: 2.65rem;
-    place-items: center;
-    border-radius: 0.55rem;
-    background: rgb(200 255 69 / 8%);
-    color: var(--color-accent);
-  }
-
-  .principle h3 {
-    margin-top: 1.75rem;
-    font-size: 1.12rem;
-    font-weight: 630;
-    letter-spacing: -0.03em;
-  }
-
-  .principle p {
-    max-width: 26rem;
-    margin-top: 0.65rem;
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-  }
-
   .about-grid {
     display: grid;
     align-items: center;
@@ -910,7 +800,6 @@ const entries = (await getCollection('caseStudies'))
       background: rgb(200 255 69 / 8%);
     }
 
-    .principle:hover,
     .why-item:hover {
       border-color: rgb(200 255 69 / 17%);
       background: rgb(200 255 69 / 3%);
@@ -958,7 +847,6 @@ const entries = (await getCollection('caseStudies'))
     }
 
     .services-layout,
-    .engineering-layout,
     .about-grid {
       grid-template-columns: 1fr;
     }
@@ -1025,18 +913,12 @@ const entries = (await getCollection('caseStudies'))
       display: none;
     }
 
-    .principles-grid,
     .why-grid {
       grid-template-columns: 1fr;
     }
 
-    .principle,
     .why-item {
       min-height: auto;
-    }
-
-    .principle:last-child {
-      grid-column: auto;
     }
 
     .about-details {

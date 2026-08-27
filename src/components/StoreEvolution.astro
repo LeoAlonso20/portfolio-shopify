@@ -1,0 +1,451 @@
+---
+import ConceptStoreVisual from './ConceptStoreVisual.astro';
+import SectionHeader from './SectionHeader.astro';
+
+interface EvolutionItem {
+  title: string;
+  description: string;
+  detail: string;
+}
+
+interface Props {
+  locale: 'en' | 'es';
+  eyebrow: string;
+  title: string;
+  intro: string;
+  conceptLabel: string;
+  progressLabel: string;
+  items: readonly EvolutionItem[];
+}
+
+const { locale, eyebrow, title, intro, conceptLabel, progressLabel, items } = Astro.props;
+const total = items.length;
+---
+
+<section
+  id="store-evolution"
+  class="section evolution-section section--bordered"
+  aria-labelledby="store-evolution-title"
+  data-store-evolution
+  data-active-stage="0"
+>
+  <div class="container">
+    <div class="evolution-heading">
+      <SectionHeader {eyebrow} {title} {intro} id="store-evolution-title" wide />
+      <p class="concept-label reveal" data-reveal="soft" style="--reveal-delay: 150ms">
+        <span></span>{conceptLabel}
+      </p>
+    </div>
+
+    <div class="evolution-story">
+      <div class="evolution-visual-column" aria-hidden="true">
+        <div class="evolution-sticky">
+          <div class="visual-progress">
+            <p>{progressLabel}</p>
+            <div>
+              <strong data-evolution-current>01</strong>
+              <i></i>
+              <span>{String(total).padStart(2, '0')}</span>
+            </div>
+          </div>
+          <div class="visual-stack">
+            {
+              items.map((_, index) => (
+                <div class="evolution-frame" data-evolution-frame-shell={index}>
+                  <ConceptStoreVisual stage={index} {locale} />
+                </div>
+              ))
+            }
+          </div>
+          <div class="visual-caption">
+            <span>NEXO / CONCEPT 01</span>
+            <span>SHOPIFY STOREFRONT</span>
+          </div>
+        </div>
+      </div>
+
+      <ol class="evolution-steps">
+        {
+          items.map((item, index) => (
+            <li
+              class="evolution-step"
+              data-evolution-step={index}
+              aria-current={index === 0 ? 'step' : undefined}
+            >
+              <article>
+                <div class="step-index">
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <i />
+                </div>
+                <p class="step-detail">{item.detail}</p>
+                <h3>{item.title}</h3>
+                <p class="step-description">{item.description}</p>
+              </article>
+              <div class="mobile-stage" aria-hidden="true">
+                <ConceptStoreVisual stage={index} {locale} />
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .evolution-section {
+    position: relative;
+    overflow: clip;
+    background:
+      radial-gradient(circle at 18% 26%, rgb(200 255 69 / 7%), transparent 25rem),
+      linear-gradient(
+        180deg,
+        transparent,
+        rgb(10 14 10 / 58%) 18%,
+        rgb(10 14 10 / 42%) 82%,
+        transparent
+      );
+  }
+
+  .evolution-section::after {
+    position: absolute;
+    z-index: -1;
+    top: 18%;
+    left: max(-14rem, -15vw);
+    width: 32rem;
+    aspect-ratio: 1;
+    border: 1px solid rgb(200 255 69 / 6%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 5rem rgb(200 255 69 / 1.5%),
+      0 0 0 10rem rgb(200 255 69 / 1%);
+    content: '';
+  }
+
+  .evolution-heading {
+    display: grid;
+    align-items: end;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+  }
+
+  .concept-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .concept-label span {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 1rem rgb(200 255 69 / 52%);
+  }
+
+  .evolution-story {
+    display: grid;
+    align-items: start;
+    margin-top: clamp(3.5rem, 7vw, 6.5rem);
+    grid-template-columns: minmax(0, 1.24fr) minmax(20rem, 0.76fr);
+    gap: clamp(3rem, 7vw, 7rem);
+  }
+
+  .evolution-visual-column {
+    min-width: 0;
+    height: 100%;
+  }
+
+  .evolution-sticky {
+    position: sticky;
+    top: clamp(6.5rem, 11vh, 8.5rem);
+  }
+
+  .visual-progress,
+  .visual-progress > div,
+  .visual-caption {
+    display: flex;
+    align-items: center;
+  }
+
+  .visual-progress {
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .visual-progress p,
+  .visual-caption {
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .visual-progress > div {
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+  }
+
+  .visual-progress strong {
+    color: var(--color-accent);
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  .visual-progress span {
+    color: var(--color-text-subtle);
+    font-size: 0.55rem;
+  }
+
+  .visual-progress i {
+    width: 2.75rem;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--color-accent) var(--stage-progress, 20%),
+      var(--color-line-strong) var(--stage-progress, 20%)
+    );
+    transition: background var(--duration-normal) ease;
+  }
+
+  .visual-stack {
+    position: relative;
+    overflow: visible;
+    width: 100%;
+    aspect-ratio: 1.35;
+    perspective: 75rem;
+  }
+
+  .visual-stack::before {
+    position: absolute;
+    z-index: -1;
+    inset: 8% -6% -10% 5%;
+    border-radius: 50%;
+    background: rgb(164 255 43 / 9%);
+    filter: blur(4.5rem);
+    content: '';
+    opacity: 0.75;
+  }
+
+  .evolution-frame {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translate3d(0, 1rem, -2rem) rotateX(1deg);
+    transform-origin: 50% 100%;
+    transition:
+      opacity 420ms var(--ease-standard),
+      transform 680ms var(--ease-out),
+      filter 420ms ease;
+    filter: blur(0.35rem) brightness(0.72);
+    pointer-events: none;
+  }
+
+  :global([data-active-stage='0']) .evolution-frame[data-evolution-frame-shell='0'],
+  :global([data-active-stage='1']) .evolution-frame[data-evolution-frame-shell='1'],
+  :global([data-active-stage='2']) .evolution-frame[data-evolution-frame-shell='2'],
+  :global([data-active-stage='3']) .evolution-frame[data-evolution-frame-shell='3'],
+  :global([data-active-stage='4']) .evolution-frame[data-evolution-frame-shell='4'] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0deg);
+    filter: none;
+    pointer-events: auto;
+  }
+
+  .visual-caption {
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-inline: 0.15rem;
+    font-size: 0.42rem;
+  }
+
+  .evolution-steps {
+    list-style: none;
+  }
+
+  .evolution-step {
+    position: relative;
+    display: flex;
+    min-height: min(68vh, 40rem);
+    align-items: center;
+    border-left: 1px solid var(--color-line);
+    padding: 4rem 0 4rem clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .evolution-step:first-child {
+    padding-top: 1rem;
+  }
+
+  .evolution-step:last-child {
+    padding-bottom: 1rem;
+  }
+
+  .evolution-step::before {
+    position: absolute;
+    top: 50%;
+    left: -0.28rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1px solid var(--color-line-strong);
+    border-radius: 50%;
+    background: var(--color-bg);
+    content: '';
+    translate: 0 -50%;
+    transition:
+      background-color var(--duration-normal) ease,
+      border-color var(--duration-normal) ease,
+      box-shadow var(--duration-normal) ease;
+  }
+
+  .evolution-step[aria-current='step']::before {
+    border-color: var(--color-accent);
+    background: var(--color-accent);
+    box-shadow:
+      0 0 0 0.36rem rgb(200 255 69 / 7%),
+      0 0 1.2rem rgb(200 255 69 / 45%);
+  }
+
+  .evolution-step article {
+    opacity: 0.38;
+    transform: translateX(0);
+    transition:
+      opacity 360ms ease,
+      transform 520ms var(--ease-out);
+  }
+
+  .evolution-step[aria-current='step'] article {
+    opacity: 1;
+    transform: translateX(0.45rem);
+  }
+
+  .step-index {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .step-index span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+  }
+
+  .step-index i {
+    width: 2.6rem;
+    height: 1px;
+    background: var(--color-line-strong);
+  }
+
+  .step-detail {
+    margin-top: 1.1rem;
+    color: var(--color-text-subtle);
+    font-family: var(--font-mono);
+    font-size: 0.51rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .evolution-step h3 {
+    max-width: 12ch;
+    margin-top: 0.85rem;
+    font-size: clamp(1.65rem, 1.15rem + 1.15vw, 2.5rem);
+    font-weight: 540;
+    letter-spacing: -0.055em;
+    line-height: 1;
+  }
+
+  .step-description {
+    max-width: 31rem;
+    margin-top: 1rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.68;
+  }
+
+  .mobile-stage {
+    display: none;
+  }
+
+  @media (max-width: 61.99rem) {
+    .evolution-heading {
+      align-items: start;
+      grid-template-columns: 1fr;
+    }
+
+    .evolution-story {
+      display: block;
+      margin-top: 3.25rem;
+    }
+
+    .evolution-visual-column {
+      display: none;
+    }
+
+    .evolution-step,
+    .evolution-step:first-child,
+    .evolution-step:last-child {
+      display: block;
+      min-height: 0;
+      border-left: 0;
+      padding: 0 0 clamp(4rem, 12vw, 7rem);
+    }
+
+    .evolution-step::before {
+      display: none;
+    }
+
+    .evolution-step article,
+    .evolution-step[aria-current='step'] article {
+      opacity: 1;
+      transform: none;
+    }
+
+    .evolution-step h3 {
+      max-width: 18ch;
+    }
+
+    .step-description {
+      max-width: 42rem;
+    }
+
+    .mobile-stage {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1.35;
+      margin-top: 1.75rem;
+    }
+  }
+
+  @media (max-width: 47.99rem) {
+    .concept-label {
+      align-items: flex-start;
+    }
+
+    .concept-label span {
+      flex: 0 0 auto;
+      margin-top: 0.15rem;
+    }
+
+    .mobile-stage {
+      aspect-ratio: 1.12;
+    }
+
+    .step-index i {
+      flex: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .evolution-frame,
+    .evolution-step article,
+    .evolution-step::before {
+      transition: none;
+    }
+  }
+</style>

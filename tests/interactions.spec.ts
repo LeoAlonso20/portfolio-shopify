@@ -141,6 +141,54 @@ test.describe('Shopify frequently asked questions', () => {
   }
 });
 
+test.describe('Shopify concept store evolution', () => {
+  for (const locale of ['en', 'es'] as const) {
+    test(`${locale.toUpperCase()} advances the concept store as each step reaches the viewport`, async ({
+      page,
+    }) => {
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await page.goto(locale === 'en' ? '/shopify' : '/es/shopify');
+
+      const evolution = page.locator('[data-store-evolution]');
+      const steps = evolution.locator('[data-evolution-step]');
+      await expect(steps).toHaveCount(5);
+      await expect(evolution).toHaveAttribute('data-active-stage', '0');
+      await expect(evolution.locator('[data-evolution-current]')).toHaveText('01');
+
+      const fourthStep = steps.nth(3);
+      await fourthStep.evaluate((element) => {
+        const rect = element.getBoundingClientRect();
+        window.scrollTo({ top: window.scrollY + rect.top - window.innerHeight * 0.4 });
+      });
+
+      await expect(evolution).toHaveAttribute('data-active-stage', '3');
+      await expect(evolution.locator('[data-evolution-current]')).toHaveText('04');
+      await expect(steps.nth(3)).toHaveAttribute('aria-current', 'step');
+      await expect(steps.nth(0)).not.toHaveAttribute('aria-current', 'step');
+    });
+  }
+
+  test('reduced motion keeps the story functional without visual transitions', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/shopify');
+
+    const evolution = page.locator('[data-store-evolution]');
+    const transitionDuration = await evolution
+      .locator('.evolution-frame')
+      .first()
+      .evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
+    expect(transitionDuration).toBeLessThanOrEqual(0.001);
+
+    const finalStep = evolution.locator('[data-evolution-step="4"]');
+    await finalStep.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      window.scrollTo({ top: window.scrollY + rect.top - window.innerHeight * 0.4 });
+    });
+    await expect(evolution).toHaveAttribute('data-active-stage', '4');
+  });
+});
+
 test.describe('professional certificates', () => {
   const certificates = [
     {

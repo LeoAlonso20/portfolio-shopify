@@ -180,6 +180,7 @@ const structuredData = {
       let sectionObserver: IntersectionObserver | undefined;
       let metricObserver: IntersectionObserver | undefined;
       let videoObserver: IntersectionObserver | undefined;
+      let evolutionObserver: IntersectionObserver | undefined;
 
       function initializePage() {
         pageController?.abort();
@@ -187,6 +188,7 @@ const structuredData = {
         sectionObserver?.disconnect();
         metricObserver?.disconnect();
         videoObserver?.disconnect();
+        evolutionObserver?.disconnect();
         pageController = new AbortController();
         const { signal } = pageController;
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -354,6 +356,48 @@ const structuredData = {
             { signal },
           );
         });
+
+        const evolutionSections = Array.from(
+          document.querySelectorAll<HTMLElement>('[data-store-evolution]'),
+        );
+        const setEvolutionStage = (section: HTMLElement, index: number) => {
+          const steps = Array.from(section.querySelectorAll<HTMLElement>('[data-evolution-step]'));
+          const boundedIndex = Math.max(0, Math.min(index, steps.length - 1));
+          section.dataset.activeStage = String(boundedIndex);
+          section.style.setProperty(
+            '--stage-progress',
+            `${((boundedIndex + 1) / steps.length) * 100}%`,
+          );
+          const currentStage = section.querySelector<HTMLElement>('[data-evolution-current]');
+          if (currentStage) {
+            currentStage.textContent = String(boundedIndex + 1).padStart(2, '0');
+          }
+          steps.forEach((step, stepIndex) => {
+            if (stepIndex === boundedIndex) step.setAttribute('aria-current', 'step');
+            else step.removeAttribute('aria-current');
+          });
+        };
+
+        evolutionSections.forEach((section) => setEvolutionStage(section, 0));
+        if (evolutionSections.length) {
+          evolutionObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const step = entry.target as HTMLElement;
+                const section = step.closest<HTMLElement>('[data-store-evolution]');
+                const index = Number(step.dataset.evolutionStep);
+                if (section && Number.isFinite(index)) setEvolutionStage(section, index);
+              });
+            },
+            { rootMargin: '-34% 0px -48% 0px', threshold: 0 },
+          );
+          evolutionSections.forEach((section) => {
+            section.querySelectorAll<HTMLElement>('[data-evolution-step]').forEach((step) => {
+              evolutionObserver?.observe(step);
+            });
+          });
+        }
 
         document.querySelectorAll<HTMLElement>('[data-tilt]').forEach((element) => {
           if (!finePointer || reducedMotion) return;

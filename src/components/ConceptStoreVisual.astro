@@ -1,0 +1,1261 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  stage: number;
+  locale: 'en' | 'es';
+}
+
+const { stage, locale } = Astro.props;
+
+const ui =
+  locale === 'es'
+    ? {
+        concept: 'TIENDA CONCEPTUAL',
+        shop: 'Comprar',
+        story: 'Filosofía',
+        heroEyebrow: 'CUIDADO ESENCIAL · 01',
+        heroTitle: 'Menos pasos.\nMás intención.',
+        heroBody: 'Una fórmula diaria, presentada con claridad.',
+        explore: 'Explorar producto',
+        productEyebrow: 'SERUM FACIAL · 30 ML',
+        productName: 'Daily Reset',
+        productBody: 'Hidratación ligera y una rutina más simple, todos los días.',
+        add: 'Agregar al carrito',
+        benefitOne: 'Textura liviana',
+        benefitTwo: 'Uso diario',
+        cart: 'Tu carrito',
+        cartItem: 'Daily Reset · 30 ml',
+        cartNote: 'Envío sin cargo desbloqueado',
+        subtotal: 'Subtotal',
+        checkout: 'Ir al checkout',
+        performance: 'PERFORMANCE FIRST',
+        performanceTitle: 'Una experiencia rápida también vende claridad.',
+        loading: 'Carga diferida',
+        scripts: 'JavaScript con criterio',
+        dependencies: 'Menos dependencias',
+        editor: 'Editor de temas',
+        home: 'Inicio',
+        announcement: 'Barra de anuncio',
+        hero: 'Hero de producto',
+        benefits: 'Beneficios',
+        featured: 'Producto destacado',
+        editable: 'Contenido editable',
+        saved: 'Guardado',
+      }
+    : {
+        concept: 'CONCEPT STOREFRONT',
+        shop: 'Shop',
+        story: 'Philosophy',
+        heroEyebrow: 'ESSENTIAL CARE · 01',
+        heroTitle: 'Fewer steps.\nMore intention.',
+        heroBody: 'One daily formula, presented with clarity.',
+        explore: 'Explore product',
+        productEyebrow: 'FACE SERUM · 30 ML',
+        productName: 'Daily Reset',
+        productBody: 'Lightweight hydration and a simpler routine, every day.',
+        add: 'Add to cart',
+        benefitOne: 'Light texture',
+        benefitTwo: 'Daily use',
+        cart: 'Your cart',
+        cartItem: 'Daily Reset · 30 ml',
+        cartNote: 'Free shipping unlocked',
+        subtotal: 'Subtotal',
+        checkout: 'Go to checkout',
+        performance: 'PERFORMANCE FIRST',
+        performanceTitle: 'A fast experience also sells clarity.',
+        loading: 'Lazy loading',
+        scripts: 'Intentional JavaScript',
+        dependencies: 'Fewer dependencies',
+        editor: 'Theme editor',
+        home: 'Home page',
+        announcement: 'Announcement bar',
+        hero: 'Product hero',
+        benefits: 'Benefits',
+        featured: 'Featured product',
+        editable: 'Editable content',
+        saved: 'Saved',
+      };
+---
+
+<div
+  class:list={['concept-store', `concept-store--${stage}`]}
+  data-concept-frame={stage}
+  aria-hidden="true"
+>
+  <div class="concept-window-bar">
+    <div class="window-dots"><i></i><i></i><i></i></div>
+    <div class="window-address"><span></span>NEXO / {ui.concept}</div>
+    <div class="window-state">{String(stage + 1).padStart(2, '0')}</div>
+  </div>
+
+  {
+    stage !== 4 ? (
+      <div class="store-shell">
+        <header class="store-nav">
+          <strong>NEXO</strong>
+          <nav>
+            <span>{ui.shop}</span>
+            <span>{ui.story}</span>
+          </nav>
+          <div class="store-tools">
+            <span class="tool-circle" />
+            <span class="bag-icon" />
+          </div>
+        </header>
+
+        {stage === 0 && (
+          <div class="brand-stage">
+            <img
+              src="/images/concept-store/nexo-serum-hero.jpg"
+              alt=""
+              width="1122"
+              height="1402"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="brand-shade" />
+            <div class="brand-copy">
+              <span>{ui.heroEyebrow}</span>
+              <h3>
+                {ui.heroTitle.split('\n').map((line) => (
+                  <>
+                    {line}
+                    <br />
+                  </>
+                ))}
+              </h3>
+              <p>{ui.heroBody}</p>
+              <b>
+                {ui.explore}
+                <Icon name="ArrowRight" size={12} />
+              </b>
+            </div>
+            <div class="brand-index">
+              <span>01</span>
+              <i />
+              <span>03</span>
+            </div>
+          </div>
+        )}
+
+        {stage === 1 && (
+          <div class="product-stage">
+            <div class="product-photo">
+              <img
+                src="/images/concept-store/nexo-serum-detail.jpg"
+                alt=""
+                width="1536"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              />
+              <span>01 / 03</span>
+            </div>
+            <div class="product-copy">
+              <span class="micro-label">{ui.productEyebrow}</span>
+              <h3>{ui.productName}</h3>
+              <strong>$48</strong>
+              <p>{ui.productBody}</p>
+              <div class="benefit-list">
+                <span>
+                  <Icon name="Check" size={11} />
+                  {ui.benefitOne}
+                </span>
+                <span>
+                  <Icon name="Check" size={11} />
+                  {ui.benefitTwo}
+                </span>
+              </div>
+              <button type="button" tabindex="-1">
+                {ui.add}
+                <Icon name="ArrowRight" size={12} />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {stage === 2 && (
+          <div class="cart-stage">
+            <div class="cart-backdrop">
+              <img
+                src="/images/concept-store/nexo-serum-detail.jpg"
+                alt=""
+                width="1536"
+                height="1024"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <span>{ui.productEyebrow}</span>
+                <strong>{ui.productName}</strong>
+              </div>
+            </div>
+            <aside class="cart-drawer">
+              <div class="cart-heading">
+                <strong>{ui.cart}</strong>
+                <span>1</span>
+                <i />
+              </div>
+              <div class="shipping-note">
+                <Icon name="Check" size={11} />
+                {ui.cartNote}
+              </div>
+              <div class="cart-product">
+                <img
+                  src="/images/concept-store/nexo-serum-hero.jpg"
+                  alt=""
+                  width="1122"
+                  height="1402"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div>
+                  <strong>{ui.cartItem}</strong>
+                  <span>1 × $48</span>
+                </div>
+              </div>
+              <div class="cart-progress">
+                <i />
+              </div>
+              <div class="cart-footer">
+                <div>
+                  <span>{ui.subtotal}</span>
+                  <strong>$48</strong>
+                </div>
+                <button type="button" tabindex="-1">
+                  {ui.checkout}
+                  <Icon name="ArrowRight" size={12} />
+                </button>
+              </div>
+            </aside>
+          </div>
+        )}
+
+        {stage === 3 && (
+          <div class="performance-stage">
+            <img
+              src="/images/concept-store/nexo-serum-hero.jpg"
+              alt=""
+              width="1122"
+              height="1402"
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="performance-shade" />
+            <div class="performance-copy">
+              <span>{ui.performance}</span>
+              <h3>{ui.performanceTitle}</h3>
+              <div class="performance-list">
+                <div>
+                  <i />
+                  <p>{ui.loading}</p>
+                  <b>ON</b>
+                </div>
+                <div>
+                  <i />
+                  <p>{ui.scripts}</p>
+                  <b>LEAN</b>
+                </div>
+                <div>
+                  <i />
+                  <p>{ui.dependencies}</p>
+                  <b>−03</b>
+                </div>
+              </div>
+            </div>
+            <div class="speed-orbit">
+              <span>98</span>
+              <small>FAST</small>
+            </div>
+          </div>
+        )}
+      </div>
+    ) : (
+      <div class="editor-stage">
+        <header class="editor-header">
+          <div>
+            <>
+              <span class="editor-shopify">S</span>
+              <strong>{ui.editor}</strong>
+            </>
+          </div>
+          <span class="saved-state">
+            <i />
+            {ui.saved}
+          </span>
+        </header>
+        <div class="editor-body">
+          <aside class="editor-panel">
+            <div class="editor-page">
+              <>
+                <Icon name="PanelsTopLeft" size={12} />
+                <span>{ui.home}</span>
+              </>
+            </div>
+            <p>{ui.editable}</p>
+            {[ui.announcement, ui.hero, ui.benefits, ui.featured].map((item, index) => (
+              <div class:list={['editor-row', { 'editor-row--active': index === 1 }]}>
+                <span class="drag-handle">••</span>
+                <i />
+                <strong>{item}</strong>
+                <b>›</b>
+              </div>
+            ))}
+            <button type="button" tabindex="-1">
+              ＋
+            </button>
+          </aside>
+          <div class="editor-preview">
+            <div class="preview-browser">
+              <>
+                <i />
+                <i />
+                <i />
+                <span>nexo.myshopify.com</span>
+              </>
+            </div>
+            <div class="preview-store">
+              <header>
+                <>
+                  <strong>NEXO</strong>
+                  <span>SHOP&nbsp;&nbsp; STORY&nbsp;&nbsp; ◯</span>
+                </>
+              </header>
+              <img
+                src="/images/concept-store/nexo-serum-hero.jpg"
+                alt=""
+                width="1122"
+                height="1402"
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <>
+                  <span>{ui.heroEyebrow}</span>
+                  <strong>{ui.heroTitle.split('\n')[0]}</strong>
+                </>
+              </div>
+              <i class="selected-outline">
+                <b>{ui.hero}</b>
+              </i>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .concept-store {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgb(223 255 210 / 16%);
+    border-radius: 1.1rem;
+    background: #080a08;
+    box-shadow:
+      0 2rem 6rem rgb(0 0 0 / 55%),
+      inset 0 1px rgb(255 255 255 / 4%);
+    color: #f5f5ef;
+  }
+
+  .concept-window-bar {
+    display: grid;
+    height: 2rem;
+    align-items: center;
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
+    background: linear-gradient(180deg, #161916, #0c0e0c);
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: 0.7rem;
+  }
+
+  .window-dots {
+    display: flex;
+    gap: 0.26rem;
+  }
+
+  .window-dots i {
+    width: 0.35rem;
+    height: 0.35rem;
+    border: 1px solid rgb(255 255 255 / 14%);
+    border-radius: 50%;
+    background: #242824;
+  }
+
+  .window-address {
+    display: flex;
+    min-width: 12rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.38rem;
+    border: 1px solid rgb(255 255 255 / 7%);
+    border-radius: 999px;
+    color: rgb(235 240 230 / 42%);
+    font-family: var(--font-mono);
+    font-size: 0.35rem;
+    letter-spacing: 0.09em;
+    padding: 0.24rem 0.75rem;
+  }
+
+  .window-address span {
+    width: 0.26rem;
+    height: 0.26rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0.5rem rgb(200 255 69 / 65%);
+  }
+
+  .window-state {
+    justify-self: end;
+    color: rgb(235 240 230 / 30%);
+    font-family: var(--font-mono);
+    font-size: 0.38rem;
+  }
+
+  .store-shell,
+  .editor-stage {
+    height: calc(100% - 2rem);
+  }
+
+  .store-shell {
+    display: grid;
+    grid-template-rows: 2.75rem 1fr;
+  }
+
+  .store-nav {
+    position: relative;
+    z-index: 4;
+    display: grid;
+    align-items: center;
+    border-bottom: 1px solid rgb(255 255 255 / 9%);
+    background: rgb(7 8 7 / 92%);
+    grid-template-columns: 1fr auto 1fr;
+    padding-inline: 1rem;
+  }
+
+  .store-nav > strong {
+    font-size: 0.68rem;
+    font-weight: 750;
+    letter-spacing: 0.18em;
+  }
+
+  .store-nav nav {
+    display: flex;
+    gap: 1.1rem;
+    color: rgb(245 245 239 / 58%);
+    font-size: 0.47rem;
+  }
+
+  .store-tools {
+    display: flex;
+    align-items: center;
+    justify-self: end;
+    gap: 0.65rem;
+  }
+
+  .tool-circle {
+    width: 0.55rem;
+    height: 0.55rem;
+    border: 1px solid rgb(255 255 255 / 52%);
+    border-radius: 50%;
+  }
+
+  .bag-icon {
+    position: relative;
+    width: 0.55rem;
+    height: 0.65rem;
+    border: 1px solid rgb(255 255 255 / 52%);
+  }
+
+  .bag-icon::before {
+    position: absolute;
+    top: -0.24rem;
+    left: 0.11rem;
+    width: 0.25rem;
+    height: 0.24rem;
+    border: 1px solid rgb(255 255 255 / 52%);
+    border-bottom: 0;
+    border-radius: 999px 999px 0 0;
+    content: '';
+  }
+
+  .brand-stage,
+  .cart-stage,
+  .performance-stage {
+    position: relative;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .brand-stage > img,
+  .performance-stage > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .brand-stage > img {
+    object-position: 58% 58%;
+  }
+
+  .brand-shade,
+  .performance-shade {
+    position: absolute;
+    inset: 0;
+  }
+
+  .brand-shade {
+    background: linear-gradient(
+      90deg,
+      rgb(4 5 4 / 94%) 0 34%,
+      rgb(4 5 4 / 42%) 58%,
+      transparent 82%
+    );
+  }
+
+  .brand-copy {
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    width: 44%;
+    translate: 0 -48%;
+  }
+
+  .brand-copy > span,
+  .micro-label,
+  .performance-copy > span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.4rem;
+    letter-spacing: 0.11em;
+  }
+
+  .brand-copy h3 {
+    margin-top: 0.65rem;
+    font-size: clamp(1.45rem, 3vw, 2.35rem);
+    font-weight: 500;
+    letter-spacing: -0.07em;
+    line-height: 0.88;
+  }
+
+  .brand-copy p {
+    width: 80%;
+    margin-top: 0.8rem;
+    color: rgb(245 245 239 / 58%);
+    font-size: 0.54rem;
+    line-height: 1.5;
+  }
+
+  .brand-copy b {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    border-bottom: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    font-size: 0.47rem;
+    font-weight: 620;
+    padding-bottom: 0.22rem;
+  }
+
+  .brand-index {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgb(255 255 255 / 44%);
+    font-family: var(--font-mono);
+    font-size: 0.35rem;
+  }
+
+  .brand-index i {
+    width: 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-accent) 34%, rgb(255 255 255 / 18%) 34%);
+  }
+
+  .product-stage {
+    display: grid;
+    min-height: 0;
+    background: #ecece4;
+    color: #0a0c0a;
+    grid-template-columns: 1.18fr 0.82fr;
+  }
+
+  .product-photo {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .product-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 47% center;
+  }
+
+  .product-photo > span {
+    position: absolute;
+    bottom: 0.7rem;
+    left: 0.75rem;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 999px;
+    background: rgb(0 0 0 / 50%);
+    color: rgb(255 255 255 / 72%);
+    font-family: var(--font-mono);
+    font-size: 0.35rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .product-copy {
+    display: flex;
+    min-width: 0;
+    justify-content: center;
+    flex-direction: column;
+    padding: clamp(1rem, 4vw, 2.35rem);
+  }
+
+  .product-copy .micro-label {
+    color: #68831e;
+  }
+
+  .product-copy h3 {
+    margin-top: 0.7rem;
+    font-size: clamp(1.45rem, 3vw, 2.35rem);
+    font-weight: 520;
+    letter-spacing: -0.065em;
+    line-height: 0.95;
+  }
+
+  .product-copy > strong {
+    margin-top: 0.55rem;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+  }
+
+  .product-copy > p {
+    margin-top: 0.9rem;
+    color: rgb(10 12 10 / 62%);
+    font-size: 0.56rem;
+    line-height: 1.55;
+  }
+
+  .benefit-list {
+    display: grid;
+    gap: 0.32rem;
+    margin-top: 0.8rem;
+  }
+
+  .benefit-list span {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgb(10 12 10 / 68%);
+    font-size: 0.48rem;
+  }
+
+  .benefit-list :global(svg) {
+    color: #6b8c16;
+  }
+
+  .product-copy button,
+  .cart-footer button {
+    display: flex;
+    min-height: 2.1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    border: 0;
+    background: #111411;
+    color: #f5f5ef;
+    font-size: 0.5rem;
+    font-weight: 650;
+  }
+
+  .cart-stage {
+    background: #171a17;
+  }
+
+  .cart-backdrop {
+    position: absolute;
+    inset: 0;
+    opacity: 0.32;
+  }
+
+  .cart-backdrop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cart-backdrop::after {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 45%);
+    content: '';
+  }
+
+  .cart-backdrop > div {
+    position: absolute;
+    z-index: 1;
+    bottom: 1.2rem;
+    left: 1.4rem;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .cart-backdrop span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.36rem;
+  }
+
+  .cart-backdrop strong {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .cart-drawer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: 54%;
+    height: 100%;
+    flex-direction: column;
+    background: #f1f1e9;
+    box-shadow: -2rem 0 5rem rgb(0 0 0 / 42%);
+    color: #101310;
+    padding: 1.1rem;
+  }
+
+  .cart-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    border-bottom: 1px solid rgb(0 0 0 / 12%);
+    padding-bottom: 0.85rem;
+  }
+
+  .cart-heading strong {
+    font-size: 0.9rem;
+    font-weight: 620;
+  }
+
+  .cart-heading span {
+    display: grid;
+    width: 1rem;
+    height: 1rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #d8ff76;
+    font-family: var(--font-mono);
+    font-size: 0.38rem;
+  }
+
+  .cart-heading i {
+    width: 0.75rem;
+    height: 1px;
+    margin-left: auto;
+    rotate: 45deg;
+    background: #111;
+  }
+
+  .cart-heading i::after {
+    display: block;
+    width: 100%;
+    height: 1px;
+    rotate: 90deg;
+    background: #111;
+    content: '';
+  }
+
+  .shipping-note {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    border-radius: 0.3rem;
+    background: #e0efbd;
+    color: #3f5312;
+    font-size: 0.43rem;
+    padding: 0.48rem;
+  }
+
+  .cart-product {
+    display: grid;
+    align-items: center;
+    margin-top: 0.8rem;
+    grid-template-columns: 3.1rem 1fr;
+    gap: 0.65rem;
+  }
+
+  .cart-product img {
+    width: 3.1rem;
+    height: 3.7rem;
+    object-fit: cover;
+    object-position: center 60%;
+  }
+
+  .cart-product div {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .cart-product strong {
+    font-size: 0.5rem;
+    font-weight: 650;
+  }
+
+  .cart-product span,
+  .cart-footer span {
+    color: rgb(16 19 16 / 55%);
+    font-family: var(--font-mono);
+    font-size: 0.4rem;
+  }
+
+  .cart-progress {
+    overflow: hidden;
+    height: 0.2rem;
+    margin-top: 0.85rem;
+    border-radius: 999px;
+    background: rgb(0 0 0 / 9%);
+  }
+
+  .cart-progress i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #91bd2b;
+  }
+
+  .cart-footer {
+    margin-top: auto;
+    border-top: 1px solid rgb(0 0 0 / 12%);
+    padding-top: 0.8rem;
+  }
+
+  .cart-footer > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cart-footer strong {
+    font-family: var(--font-mono);
+    font-size: 0.52rem;
+  }
+
+  .performance-stage > img {
+    object-position: 65% 56%;
+    filter: saturate(0.74) brightness(0.68);
+  }
+
+  .performance-shade {
+    background:
+      linear-gradient(90deg, #050605 0 43%, rgb(5 6 5 / 55%) 63%, transparent),
+      linear-gradient(0deg, rgb(0 0 0 / 55%), transparent 50%);
+  }
+
+  .performance-copy {
+    position: absolute;
+    top: 50%;
+    left: 6%;
+    width: 56%;
+    translate: 0 -50%;
+  }
+
+  .performance-copy h3 {
+    max-width: 13ch;
+    margin-top: 0.65rem;
+    font-size: clamp(1.25rem, 2.7vw, 2.15rem);
+    font-weight: 490;
+    letter-spacing: -0.065em;
+    line-height: 0.98;
+  }
+
+  .performance-list {
+    width: 88%;
+    margin-top: 1rem;
+    border-top: 1px solid rgb(255 255 255 / 12%);
+  }
+
+  .performance-list > div {
+    display: grid;
+    align-items: center;
+    border-bottom: 1px solid rgb(255 255 255 / 12%);
+    grid-template-columns: 0.35rem 1fr auto;
+    gap: 0.45rem;
+    padding-block: 0.43rem;
+  }
+
+  .performance-list i {
+    width: 0.28rem;
+    height: 0.28rem;
+    border-radius: 50%;
+    background: var(--color-accent);
+    box-shadow: 0 0 0.4rem rgb(200 255 69 / 52%);
+  }
+
+  .performance-list p {
+    color: rgb(245 245 239 / 66%);
+    font-size: 0.45rem;
+  }
+
+  .performance-list b {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.38rem;
+    font-weight: 500;
+  }
+
+  .speed-orbit {
+    position: absolute;
+    right: 8%;
+    bottom: 9%;
+    display: grid;
+    width: 5.2rem;
+    aspect-ratio: 1;
+    place-content: center;
+    border: 1px solid rgb(200 255 69 / 38%);
+    border-radius: 50%;
+    background: rgb(4 5 4 / 72%);
+    text-align: center;
+    box-shadow:
+      0 0 0 0.45rem rgb(200 255 69 / 4%),
+      0 0 2.5rem rgb(200 255 69 / 10%);
+  }
+
+  .speed-orbit::before,
+  .speed-orbit::after {
+    position: absolute;
+    border: 1px solid rgb(200 255 69 / 11%);
+    border-radius: 50%;
+    content: '';
+  }
+
+  .speed-orbit::before {
+    inset: -0.6rem;
+  }
+  .speed-orbit::after {
+    inset: 0.45rem;
+  }
+
+  .speed-orbit span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 1.35rem;
+    line-height: 1;
+  }
+
+  .speed-orbit small {
+    color: rgb(245 245 239 / 48%);
+    font-family: var(--font-mono);
+    font-size: 0.3rem;
+    letter-spacing: 0.12em;
+  }
+
+  .editor-stage {
+    display: grid;
+    grid-template-rows: 2.35rem 1fr;
+    background: #171918;
+  }
+
+  .editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(255 255 255 / 8%);
+    padding-inline: 0.75rem;
+  }
+
+  .editor-header > div,
+  .saved-state {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .editor-shopify {
+    display: grid;
+    width: 1.15rem;
+    height: 1.15rem;
+    place-items: center;
+    border-radius: 0.22rem;
+    background: #7ab928;
+    color: white;
+    font-size: 0.54rem;
+    font-weight: 800;
+  }
+
+  .editor-header strong {
+    font-size: 0.53rem;
+    font-weight: 560;
+  }
+
+  .saved-state {
+    color: rgb(245 245 239 / 48%);
+    font-size: 0.4rem;
+  }
+
+  .saved-state i {
+    width: 0.3rem;
+    height: 0.3rem;
+    border-radius: 50%;
+    background: #7ab928;
+  }
+
+  .editor-body {
+    display: grid;
+    min-height: 0;
+    grid-template-columns: minmax(8.8rem, 32%) 1fr;
+  }
+
+  .editor-panel {
+    border-right: 1px solid rgb(255 255 255 / 8%);
+    background: #1e201f;
+    padding: 0.65rem;
+  }
+
+  .editor-page,
+  .editor-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .editor-page {
+    gap: 0.4rem;
+    border: 1px solid rgb(255 255 255 / 9%);
+    border-radius: 0.32rem;
+    background: #292c29;
+    color: rgb(255 255 255 / 74%);
+    font-size: 0.43rem;
+    padding: 0.45rem;
+  }
+
+  .editor-panel > p {
+    margin: 0.75rem 0 0.35rem;
+    color: rgb(255 255 255 / 31%);
+    font-family: var(--font-mono);
+    font-size: 0.34rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .editor-row {
+    gap: 0.35rem;
+    border-radius: 0.3rem;
+    color: rgb(255 255 255 / 58%);
+    padding: 0.43rem 0.25rem;
+  }
+
+  .editor-row--active {
+    outline: 1px solid rgb(200 255 69 / 55%);
+    background: rgb(200 255 69 / 7%);
+    color: white;
+  }
+
+  .drag-handle {
+    color: rgb(255 255 255 / 22%);
+    font-size: 0.34rem;
+    rotate: 90deg;
+  }
+
+  .editor-row i {
+    width: 0.65rem;
+    height: 0.55rem;
+    border: 1px solid rgb(255 255 255 / 22%);
+  }
+
+  .editor-row strong {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 0.4rem;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .editor-row b {
+    margin-left: auto;
+    color: rgb(255 255 255 / 26%);
+    font-size: 0.65rem;
+    font-weight: 400;
+  }
+
+  .editor-panel button {
+    width: 100%;
+    margin-top: 0.5rem;
+    border: 1px dashed rgb(255 255 255 / 16%);
+    border-radius: 0.3rem;
+    background: transparent;
+    color: rgb(255 255 255 / 42%);
+    padding: 0.35rem;
+  }
+
+  .editor-preview {
+    min-width: 0;
+    min-height: 0;
+    background:
+      linear-gradient(rgb(255 255 255 / 2%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 2%) 1px, transparent 1px), #111311;
+    background-size: 2rem 2rem;
+    padding: 0.8rem 1rem;
+  }
+
+  .preview-browser {
+    display: flex;
+    height: 1.25rem;
+    align-items: center;
+    gap: 0.2rem;
+    border: 1px solid rgb(255 255 255 / 9%);
+    border-bottom: 0;
+    border-radius: 0.35rem 0.35rem 0 0;
+    background: #262926;
+    padding-inline: 0.4rem;
+  }
+
+  .preview-browser i {
+    width: 0.22rem;
+    height: 0.22rem;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 19%);
+  }
+
+  .preview-browser span {
+    margin-inline: auto;
+    color: rgb(255 255 255 / 27%);
+    font-family: var(--font-mono);
+    font-size: 0.28rem;
+  }
+
+  .preview-store {
+    position: relative;
+    overflow: hidden;
+    height: calc(100% - 1.25rem);
+    border: 1px solid rgb(255 255 255 / 9%);
+    background: #070807;
+  }
+
+  .preview-store header {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(255 255 255 / 10%);
+    background: rgb(5 6 5 / 76%);
+    padding: 0.55rem 0.7rem;
+  }
+
+  .preview-store header strong {
+    font-size: 0.48rem;
+    letter-spacing: 0.14em;
+  }
+  .preview-store header span {
+    color: rgb(255 255 255 / 50%);
+    font-size: 0.3rem;
+  }
+
+  .preview-store > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% 58%;
+  }
+
+  .preview-store > div {
+    position: absolute;
+    z-index: 1;
+    bottom: 16%;
+    left: 7%;
+    display: grid;
+  }
+
+  .preview-store > div span {
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: 0.3rem;
+  }
+
+  .preview-store > div strong {
+    font-size: 1.25rem;
+    font-weight: 510;
+    letter-spacing: -0.06em;
+  }
+
+  .selected-outline {
+    position: absolute;
+    z-index: 3;
+    inset: 2.4rem 0.3rem 0.35rem;
+    border: 1px solid var(--color-accent);
+    box-shadow: inset 0 0 0 1px rgb(200 255 69 / 9%);
+  }
+
+  .selected-outline b {
+    position: absolute;
+    top: -0.7rem;
+    left: -1px;
+    background: var(--color-accent);
+    color: #0a0c0a;
+    font-size: 0.31rem;
+    font-style: normal;
+    font-weight: 700;
+    padding: 0.18rem 0.3rem;
+  }
+
+  @media (max-width: 47.99rem) {
+    .window-address {
+      min-width: 9rem;
+      font-size: 0.3rem;
+    }
+
+    .store-nav nav {
+      display: none;
+    }
+
+    .store-nav {
+      grid-template-columns: 1fr auto;
+    }
+
+    .brand-copy {
+      width: 56%;
+    }
+
+    .brand-copy h3,
+    .product-copy h3,
+    .performance-copy h3 {
+      font-size: 1.25rem;
+    }
+
+    .product-copy {
+      padding: 0.9rem;
+    }
+
+    .benefit-list {
+      display: none;
+    }
+
+    .cart-drawer {
+      width: 62%;
+    }
+
+    .editor-body {
+      grid-template-columns: 7.2rem 1fr;
+    }
+
+    .editor-preview {
+      padding: 0.55rem;
+    }
+  }
+</style>

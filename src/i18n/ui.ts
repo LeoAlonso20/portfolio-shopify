@@ -130,38 +130,45 @@ export const ui = {
       viewCaseStudy: 'View case study',
       metricLabel: 'Verified',
     },
-    engineering: {
-      eyebrow: 'Practical Shopify engineering',
-      title: "Custom doesn't have to mean complicated.",
-      intro: 'Fast. Maintainable. Merchant-editable. Built without unnecessary dependencies.',
+    evolution: {
+      eyebrow: 'Shopify, from strategy to storefront',
+      title: 'See how the same Shopify store evolves.',
+      intro:
+        'One concept store. Five improvements that change how it looks, sells and gets managed behind the scenes.',
+      conceptLabel: 'Original concept created for this portfolio',
+      progressLabel: 'Store evolution',
       items: [
         {
-          icon: 'SlidersHorizontal',
-          title: 'Custom-built. Still easy to manage.',
+          title: 'A distinctive brand experience',
           description:
-            'I build Shopify sections and features your team can configure from the Shopify editor — without calling a developer every time you need to change content.',
+            'The visual system, hierarchy and art direction give the store its own identity instead of making the brand fit a generic template.',
+          detail: 'Brand system · Art direction',
         },
         {
-          icon: 'Gauge',
-          title: 'Performance by default',
+          title: 'A clearer product page',
           description:
-            'Fast storefronts with intentional client-side JavaScript, fewer unnecessary dependencies and a smoother path to checkout.',
+            'Benefits, product information and the primary action are organized so customers can understand the offer and decide with less friction.',
+          detail: 'Product page · Ecommerce UX',
         },
         {
-          icon: 'Blocks',
-          title: 'Built to keep evolving',
+          title: 'A cart designed to convert',
           description:
-            'Clean, scalable implementations designed to grow with your store instead of becoming harder to maintain over time.',
+            'The cart makes the order, progress and next step immediately clear while leaving room for relevant offers without overwhelming the customer.',
+          detail: 'Cart drawer · Conversion',
         },
         {
-          icon: 'Smartphone',
-          title: 'Mobile-first ecommerce',
+          title: 'Better storefront performance',
           description:
-            'Shopping experiences designed intentionally for the devices your customers actually use — not desktop layouts squeezed onto smaller screens.',
+            'Intentional JavaScript, deferred assets and fewer dependencies keep the experience responsive and the path to checkout lighter.',
+          detail: 'Performance · Frontend engineering',
+        },
+        {
+          title: 'Editable from Shopify',
+          description:
+            'Custom sections remain practical for the team: content, order and key options can be managed directly from the theme editor.',
+          detail: 'Theme editor · Easy management',
         },
       ],
-      stackLabel: 'Selected tools',
-      stack: ['Shopify', 'Liquid', 'Astro', 'TypeScript', 'JavaScript', 'Node.js', 'GraphQL'],
     },
     about: {
       eyebrow: 'About',
@@ -403,38 +410,45 @@ export const ui = {
       viewCaseStudy: 'Ver caso de estudio',
       metricLabel: 'Verificado',
     },
-    engineering: {
-      eyebrow: 'Ingeniería Shopify práctica',
-      title: 'Lo personalizado no tiene por qué ser complicado.',
-      intro: 'Rápido. Mantenible. Editable desde Shopify. Sin dependencias innecesarias.',
+    evolution: {
+      eyebrow: 'Shopify, desde la estrategia hasta la tienda',
+      title: 'Así evoluciona una tienda Shopify.',
+      intro:
+        'Una misma tienda. Cinco mejoras que cambian cómo se ve, vende y se gestiona detrás de escena.',
+      conceptLabel: 'Concepto original creado para este portfolio',
+      progressLabel: 'Evolución de la tienda',
       items: [
         {
-          icon: 'SlidersHorizontal',
-          title: 'A medida, pero fácil de gestionar.',
+          title: 'Una identidad propia',
           description:
-            'Desarrollo secciones y funcionalidades que tu equipo puede configurar desde el editor de Shopify — sin depender de un desarrollador cada vez que necesita cambiar contenido.',
+            'El sistema visual, la jerarquía y la dirección de arte le dan a la tienda una identidad propia, sin obligar a la marca a entrar en una plantilla genérica.',
+          detail: 'Sistema visual · Dirección de arte',
         },
         {
-          icon: 'Gauge',
-          title: 'Rendimiento desde el inicio',
+          title: 'Un producto más claro',
           description:
-            'Tiendas rápidas, JavaScript utilizado con criterio, menos dependencias innecesarias y un camino más fluido hacia el checkout.',
+            'Los beneficios, la información y la acción principal se organizan para que el cliente entienda la propuesta y decida con menos fricción.',
+          detail: 'Página de producto · UX ecommerce',
         },
         {
-          icon: 'Blocks',
-          title: 'Preparado para seguir evolucionando',
+          title: 'Un carrito pensado para convertir',
           description:
-            'Implementaciones limpias y escalables, pensadas para crecer junto con tu tienda en lugar de volverse más difíciles de mantener con el tiempo.',
+            'El carrito deja claros el pedido, el progreso y el siguiente paso, con espacio para ofertas relevantes sin sobrecargar al cliente.',
+          detail: 'Carrito lateral · Conversión',
         },
         {
-          icon: 'Smartphone',
-          title: 'Ecommerce pensado para mobile',
+          title: 'Mejor rendimiento',
           description:
-            'Experiencias de compra diseñadas específicamente para los dispositivos que realmente usan tus clientes — no interfaces desktop simplemente adaptadas a una pantalla más chica.',
+            'JavaScript usado con criterio, recursos diferidos y menos dependencias mantienen la experiencia ágil y el camino al checkout más liviano.',
+          detail: 'Performance · Ingeniería frontend',
+        },
+        {
+          title: 'Editable desde Shopify',
+          description:
+            'Las secciones a medida siguen siendo prácticas para el equipo: el contenido, el orden y las opciones clave se gestionan desde el editor del tema.',
+          detail: 'Editor de temas · Gestión simple',
         },
       ],
-      stackLabel: 'Herramientas seleccionadas',
-      stack: ['Shopify', 'Liquid', 'Astro', 'TypeScript', 'JavaScript', 'Node.js', 'GraphQL'],
     },
     about: {
       eyebrow: 'Sobre mí',
