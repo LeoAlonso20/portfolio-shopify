@@ -199,10 +199,14 @@ test.describe('professional certificates', () => {
       pdf: '/certificates/vanilla-javascript-no-framework.pdf',
       preview: '/images/certificates/vanilla-javascript-no-framework.png',
     },
+    {
+      pdf: '/certificates/deep-javascript-v3.pdf',
+      preview: '/images/certificates/deep-javascript-v3.png',
+    },
   ];
 
   for (const locale of ['en', 'es'] as const) {
-    test(`${locale.toUpperCase()} exposes both certificate previews and PDFs`, async ({ page }) => {
+    test(`${locale.toUpperCase()} exposes all certificate previews and PDFs`, async ({ page }) => {
       await page.goto(locale === 'en' ? '/profesional' : '/es/profesional');
 
       const cards = page.locator('[data-certificate]');

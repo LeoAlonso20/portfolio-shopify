@@ -88,6 +88,17 @@ export const professionalCopy = {
           previewAlt:
             'Master.dev certificate for Vanilla JavaScript — You Might Not Need a Framework awarded to Leandro Alonso',
         },
+        {
+          title: 'Deep JavaScript — Foundations v3',
+          issuer: 'Master.dev',
+          completed: 'September 2026',
+          description:
+            "Advanced training focused on understanding JavaScript from first principles. I deepened my knowledge of types and coercion, scope and closures, this, prototypes, and the language's object model, with a focus on how JavaScript interprets and executes code.",
+          pdf: '/certificates/deep-javascript-v3.pdf',
+          preview: '/images/certificates/deep-javascript-v3.png',
+          previewAlt:
+            'Master.dev certificate for Deep JavaScript Foundations v3 awarded to Leandro Alonso',
+        },
       ],
     },
     expertise: {
@@ -282,6 +293,17 @@ export const professionalCopy = {
           preview: '/images/certificates/vanilla-javascript-no-framework.png',
           previewAlt:
             'Certificado de Master.dev de Vanilla JavaScript — You Might Not Need a Framework otorgado a Leandro Alonso',
+        },
+        {
+          title: 'Deep JavaScript — Foundations v3',
+          issuer: 'Master.dev',
+          completed: 'Septiembre de 2026',
+          description:
+            'Formación avanzada enfocada en comprender JavaScript desde sus fundamentos. Profundicé en tipos y coerción, scope y closures, this, prototypes y el modelo de objetos del lenguaje, con foco en entender cómo JavaScript interpreta y ejecuta el código.',
+          pdf: '/certificates/deep-javascript-v3.pdf',
+          preview: '/images/certificates/deep-javascript-v3.png',
+          previewAlt:
+            'Certificado de Master.dev de Deep JavaScript Foundations v3 otorgado a Leandro Alonso',
         },
       ],
     },

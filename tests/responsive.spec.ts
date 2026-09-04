@@ -137,9 +137,9 @@ test.describe('responsive overflow', () => {
 
       await expect(page.locator('body')).toHaveAttribute('data-theme', 'professional');
       await expect(page.locator('.professional-project')).toHaveCount(7);
-      await expect(page.locator('[data-certificate]')).toHaveCount(2);
-      await expect(page.locator('.certificate-preview-image')).toHaveCount(2);
-      await expect(page.locator('.certificate-link')).toHaveCount(2);
+      await expect(page.locator('[data-certificate]')).toHaveCount(3);
+      await expect(page.locator('.certificate-preview-image')).toHaveCount(3);
+      await expect(page.locator('.certificate-link')).toHaveCount(3);
       await expect(page.locator('.professional-portrait-image')).toHaveAttribute(
         'src',
         '/images/leandro/portrait.webp',
