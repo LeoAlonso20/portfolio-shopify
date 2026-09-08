@@ -203,6 +203,10 @@ test.describe('professional certificates', () => {
       pdf: '/certificates/deep-javascript-v3.pdf',
       preview: '/images/certificates/deep-javascript-v3.png',
     },
+    {
+      pdf: '/certificates/javascript-new-hard-parts.pdf',
+      preview: '/images/certificates/javascript-new-hard-parts.png',
+    },
   ];
 
   for (const locale of ['en', 'es'] as const) {
@@ -226,6 +230,32 @@ test.describe('professional certificates', () => {
           await expect(link).toHaveAttribute('rel', /\bnoreferrer\b/);
         }
       }
+    });
+  }
+});
+
+test.describe('localized professional résumé', () => {
+  for (const route of [
+    {
+      path: '/profesional',
+      label: 'View CV',
+      pdf: '/documents/EN_Leandro_Alonso_Resume_2026.pdf',
+    },
+    {
+      path: '/es/profesional',
+      label: 'Ver CV',
+      pdf: '/documents/ES_Leandro_Alonso_CV_2026_ES.pdf',
+    },
+  ]) {
+    test(`${route.path} links to the matching résumé language`, async ({ page }) => {
+      await page.goto(route.path);
+
+      const resume = page.locator('[data-professional-resume]');
+      await expect(resume).toHaveText(route.label);
+      await expect(resume).toHaveAttribute('href', route.pdf);
+      await expect(resume).toHaveAttribute('target', '_blank');
+      await expect(resume).toHaveAttribute('rel', /\bnoopener\b/);
+      await expect(resume).toHaveAttribute('rel', /\bnoreferrer\b/);
     });
   }
 });

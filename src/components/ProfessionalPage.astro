@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AssetImage from './AssetImage.astro';
 import Icon from './Icon.astro';
-import { professionalCopy, professionalPath } from '../config/professional';
+import { professionalCopy, professionalPath, professionalResumePath } from '../config/professional';
 import { siteConfig, type Locale } from '../config/site';
 import { publicAssetPath } from '../lib/assets';
 
@@ -13,6 +13,7 @@ interface Props {
 const { locale } = Astro.props;
 const copy = professionalCopy[locale];
 const pathname = professionalPath(locale);
+const resumeHref = professionalResumePath(locale);
 const alternatePath = professionalPath(locale === 'en' ? 'es' : 'en');
 const hasAboutSignature = Boolean(publicAssetPath(siteConfig.assets.aboutSignature));
 const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
@@ -42,6 +43,15 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
           <div class="professional-actions reveal" data-reveal="soft" style="--reveal-delay: 165ms">
             <a class="professional-button professional-button--primary" href="#professional-work">
               {copy.hero.primary}<Icon name="ArrowRight" size={16} />
+            </a>
+            <a
+              class="professional-button professional-button--secondary"
+              href={resumeHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-professional-resume
+            >
+              {copy.hero.resume}<Icon name="ExternalLink" size={16} />
             </a>
             <a class="professional-button professional-button--secondary" href={emailHref}>
               {copy.hero.secondary}<Icon name="Mail" size={16} />

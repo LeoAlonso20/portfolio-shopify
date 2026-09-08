@@ -3,6 +3,11 @@ import type { Locale } from './site';
 export const professionalPath = (locale: Locale) =>
   locale === 'en' ? '/profesional' : '/es/profesional';
 
+export const professionalResumePath = (locale: Locale) =>
+  locale === 'en'
+    ? '/documents/EN_Leandro_Alonso_Resume_2026.pdf'
+    : '/documents/ES_Leandro_Alonso_CV_2026_ES.pdf';
+
 export const professionalCopy = {
   en: {
     seo: {
@@ -24,6 +29,7 @@ export const professionalCopy = {
       intro:
         'I design and build modern mobile and web applications with a focus on performance, accessibility, clean architecture and interfaces that feel natural to use.',
       primary: 'View professional work',
+      resume: 'View CV',
       secondary: 'Email me',
     },
     highlights: [
@@ -98,6 +104,17 @@ export const professionalCopy = {
           preview: '/images/certificates/deep-javascript-v3.png',
           previewAlt:
             'Master.dev certificate for Deep JavaScript Foundations v3 awarded to Leandro Alonso',
+        },
+        {
+          title: 'Asynchronous JavaScript — The Hard Parts',
+          issuer: 'Master.dev',
+          completed: 'September 2026',
+          description:
+            'Advanced JavaScript course focused on understanding asynchronous execution from first principles. Strengthened my understanding of the event loop, callbacks, promises, browser APIs, and execution order, with a focus on how JavaScript coordinates synchronous and asynchronous work under the hood.',
+          pdf: '/certificates/javascript-new-hard-parts.pdf',
+          preview: '/images/certificates/javascript-new-hard-parts.png',
+          previewAlt:
+            'Master.dev certificate for Asynchronous JavaScript — The Hard Parts awarded to Leandro Alonso',
         },
       ],
     },
@@ -230,6 +247,7 @@ export const professionalCopy = {
       intro:
         'Diseño y construyo aplicaciones mobile y web modernas con foco en rendimiento, accesibilidad, arquitectura limpia e interfaces que se sienten naturales de usar.',
       primary: 'Ver proyectos profesionales',
+      resume: 'Ver CV',
       secondary: 'Escribirme',
     },
     highlights: [
@@ -304,6 +322,17 @@ export const professionalCopy = {
           preview: '/images/certificates/deep-javascript-v3.png',
           previewAlt:
             'Certificado de Master.dev de Deep JavaScript Foundations v3 otorgado a Leandro Alonso',
+        },
+        {
+          title: 'Asynchronous JavaScript — The Hard Parts',
+          issuer: 'Master.dev',
+          completed: 'Septiembre de 2026',
+          description:
+            'Formación avanzada en JavaScript enfocada en comprender la ejecución asincrónica desde sus fundamentos. Profundicé en el event loop, callbacks, promesas, APIs del navegador y orden de ejecución, con foco en cómo JavaScript coordina internamente el trabajo sincrónico y asincrónico.',
+          pdf: '/certificates/javascript-new-hard-parts.pdf',
+          preview: '/images/certificates/javascript-new-hard-parts.png',
+          previewAlt:
+            'Certificado de Master.dev de Asynchronous JavaScript — The Hard Parts otorgado a Leandro Alonso',
         },
       ],
     },
