@@ -207,6 +207,10 @@ test.describe('professional certificates', () => {
       pdf: '/certificates/javascript-new-hard-parts.pdf',
       preview: '/images/certificates/javascript-new-hard-parts.png',
     },
+    {
+      pdf: '/certificates/js-recent-parts-assessment.pdf',
+      preview: '/images/certificates/js-recent-parts-assessment.png',
+    },
   ];
 
   for (const locale of ['en', 'es'] as const) {

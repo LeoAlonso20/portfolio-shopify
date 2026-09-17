@@ -116,6 +116,17 @@ export const professionalCopy = {
           previewAlt:
             'Master.dev certificate for Asynchronous JavaScript — The Hard Parts awarded to Leandro Alonso',
         },
+        {
+          title: 'JavaScript: The Recent Parts',
+          issuer: 'Master.dev',
+          completed: 'September 2026',
+          description:
+            'Advanced JavaScript course focused on modern language features introduced in recent ECMAScript versions. Covered ES Modules, generators, destructuring, tagged template literals, advanced regular expressions, and other language enhancements, with an emphasis on understanding how these features work and when to use them effectively.',
+          pdf: '/certificates/js-recent-parts-assessment.pdf',
+          preview: '/images/certificates/js-recent-parts-assessment.png',
+          previewAlt:
+            'Master.dev certificate for JavaScript: The Recent Parts awarded to Leandro Alonso',
+        },
       ],
     },
     expertise: {
@@ -333,6 +344,17 @@ export const professionalCopy = {
           preview: '/images/certificates/javascript-new-hard-parts.png',
           previewAlt:
             'Certificado de Master.dev de Asynchronous JavaScript — The Hard Parts otorgado a Leandro Alonso',
+        },
+        {
+          title: 'JavaScript: Las funcionalidades recientes',
+          issuer: 'Master.dev',
+          completed: 'Septiembre de 2026',
+          description:
+            'Curso avanzado de JavaScript enfocado en funcionalidades modernas incorporadas en versiones recientes de ECMAScript. Profundicé en ES Modules, generadores, destructuring, tagged template literals, expresiones regulares avanzadas y otras mejoras del lenguaje, con foco en comprender cómo funcionan y cuándo utilizarlas de forma efectiva.',
+          pdf: '/certificates/js-recent-parts-assessment.pdf',
+          preview: '/images/certificates/js-recent-parts-assessment.png',
+          previewAlt:
+            'Certificado de Master.dev de JavaScript: Las funcionalidades recientes otorgado a Leandro Alonso',
         },
       ],
     },
