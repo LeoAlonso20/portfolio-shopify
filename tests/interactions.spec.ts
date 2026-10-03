@@ -192,24 +192,40 @@ test.describe('Shopify concept store evolution', () => {
 test.describe('professional certificates', () => {
   const certificates = [
     {
-      pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
-      preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+      pdf: '/certificates/hard-parts-ui-dev.pdf',
+      preview: '/images/certificates/hard-parts-ui-dev.png',
     },
     {
-      pdf: '/certificates/vanilla-javascript-no-framework.pdf',
-      preview: '/images/certificates/vanilla-javascript-no-framework.png',
-    },
-    {
-      pdf: '/certificates/deep-javascript-v3.pdf',
-      preview: '/images/certificates/deep-javascript-v3.png',
+      pdf: '/certificates/js-recent-parts-assessment.pdf',
+      preview: '/images/certificates/js-recent-parts-assessment.png',
     },
     {
       pdf: '/certificates/javascript-new-hard-parts.pdf',
       preview: '/images/certificates/javascript-new-hard-parts.png',
     },
     {
-      pdf: '/certificates/js-recent-parts-assessment.pdf',
-      preview: '/images/certificates/js-recent-parts-assessment.png',
+      pdf: '/certificates/deep-javascript-v3.pdf',
+      preview: '/images/certificates/deep-javascript-v3.png',
+    },
+    {
+      pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+      preview: '/images/certificates/vanilla-javascript-no-framework.png',
+    },
+    {
+      pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+      preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+    },
+    {
+      pdf: '/certificates/claudo_ant_api.pdf',
+      preview: '/images/certificates/claudo_ant_api.png',
+    },
+    {
+      pdf: '/certificates/agentic_codex.pdf',
+      preview: '/images/certificates/agentic_codex.png',
+    },
+    {
+      pdf: '/certificates/claude_fluency.pdf',
+      preview: '/images/certificates/claude_fluency.png',
     },
   ];
 
@@ -219,6 +235,13 @@ test.describe('professional certificates', () => {
 
       const cards = page.locator('[data-certificate]');
       await expect(cards).toHaveCount(certificates.length);
+      await expect(page.locator('[data-certificate-group]')).toHaveCount(2);
+      await expect(
+        page.locator('[data-certificate-group]').first().locator('[data-certificate]'),
+      ).toHaveCount(6);
+      await expect(
+        page.locator('[data-certificate-group]').last().locator('[data-certificate]'),
+      ).toHaveCount(3);
 
       for (const [index, certificate] of certificates.entries()) {
         const card = cards.nth(index);
@@ -236,6 +259,22 @@ test.describe('professional certificates', () => {
       }
     });
   }
+
+  test('certificate controls advance the JavaScript rail', async ({ page }) => {
+    await page.goto('/profesional');
+
+    const group = page.locator('[data-certificate-group]').first();
+    const rail = group.locator('[data-certificate-rail]');
+    const next = group.locator('[data-certificate-next]');
+    await expect(next).toBeVisible();
+
+    const initialScroll = await rail.evaluate((element) => element.scrollLeft);
+    await next.click();
+    await expect
+      .poll(() => rail.evaluate((element) => element.scrollLeft))
+      .toBeGreaterThan(initialScroll);
+    await expect(group.locator('[data-certificate-prev]')).toBeEnabled();
+  });
 });
 
 test.describe('localized professional résumé', () => {

@@ -200,59 +200,100 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
           <p>{copy.certificates.intro}</p>
         </div>
 
-        <div class="certificate-grid">
+        <div class="certificate-groups">
           {
-            copy.certificates.items.map((certificate, index) => (
-              <article
-                class="certificate-card reveal"
-                data-reveal="scale"
-                data-certificate
-                style={`--reveal-delay: ${index * 70}ms`}
-              >
-                <a
-                  class="certificate-preview"
-                  href={certificate.pdf}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`${copy.certificates.previewLabel} ${certificate.title}`}
-                >
-                  <AssetImage
-                    src={certificate.preview}
-                    alt={certificate.previewAlt}
-                    width={842}
-                    height={595}
-                    sizes="(max-width: 64rem) calc(100vw - 40px), 40vw"
-                    class="certificate-preview-image"
-                  />
-                  <span class="certificate-preview-action" aria-hidden="true">
-                    <Icon name="ExternalLink" size={16} />
-                  </span>
-                </a>
-
-                <div class="certificate-body">
-                  <dl class="certificate-meta">
-                    <div>
-                      <dt>{copy.certificates.issuerLabel}</dt>
-                      <dd>{certificate.issuer}</dd>
-                    </div>
-                    <div>
-                      <dt>{copy.certificates.completedLabel}</dt>
-                      <dd>{certificate.completed}</dd>
-                    </div>
-                  </dl>
-                  <h3>{certificate.title}</h3>
-                  <p>{certificate.description}</p>
-                  <a
-                    class="certificate-link"
-                    href={certificate.pdf}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {copy.certificates.openLabel}
-                    <Icon name="ExternalLink" size={15} />
-                  </a>
+            copy.certificates.groups.map((group) => (
+              <div class="certificate-group" data-certificate-group>
+                <div class="certificate-group-heading">
+                  <div>
+                    <p class="certificate-group-index" aria-hidden="true">
+                      {group.id === 'javascript' ? '01 / JS' : '02 / AI'}
+                    </p>
+                    <h3 id={`certificate-group-${group.id}`}>{group.title}</h3>
+                    <p>{group.intro}</p>
+                  </div>
+                  <div class="certificate-controls" data-certificate-controls hidden>
+                    <button
+                      type="button"
+                      aria-label={`${copy.certificates.previousLabel} ${group.title}`}
+                      aria-controls={`certificate-rail-${group.id}`}
+                      data-certificate-prev
+                      disabled
+                    >
+                      <Icon name="ArrowRight" size={19} />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`${copy.certificates.nextLabel} ${group.title}`}
+                      aria-controls={`certificate-rail-${group.id}`}
+                      data-certificate-next
+                    >
+                      <Icon name="ArrowRight" size={19} />
+                    </button>
+                  </div>
                 </div>
-              </article>
+
+                <div
+                  class="certificate-rail"
+                  id={`certificate-rail-${group.id}`}
+                  role="region"
+                  aria-labelledby={`certificate-group-${group.id}`}
+                  tabindex="0"
+                  data-certificate-rail
+                >
+                  {[...group.items]
+                    .sort((first, second) => second.sortDate.localeCompare(first.sortDate))
+                    .map((certificate) => (
+                      <article class="certificate-card" data-certificate>
+                        <a
+                          class="certificate-preview"
+                          href={certificate.pdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${copy.certificates.previewLabel} ${certificate.title}`}
+                        >
+                          <AssetImage
+                            src={certificate.preview}
+                            alt={certificate.previewAlt}
+                            width={842}
+                            height={595}
+                            sizes="(max-width: 42rem) 78vw, 22rem"
+                            class="certificate-preview-image"
+                          />
+                          <span class="certificate-preview-action" aria-hidden="true">
+                            <Icon name="ExternalLink" size={16} />
+                          </span>
+                        </a>
+
+                        <div class="certificate-body">
+                          <dl class="certificate-meta">
+                            <div>
+                              <dt>{copy.certificates.issuerLabel}</dt>
+                              <dd>{certificate.issuer}</dd>
+                            </div>
+                            {certificate.completed && (
+                              <div>
+                                <dt>{copy.certificates.completedLabel}</dt>
+                                <dd>{certificate.completed}</dd>
+                              </div>
+                            )}
+                          </dl>
+                          <h4>{certificate.title}</h4>
+                          <p>{certificate.description}</p>
+                          <a
+                            class="certificate-link"
+                            href={certificate.pdf}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {copy.certificates.openLabel}
+                            <Icon name="ExternalLink" size={15} />
+                          </a>
+                        </div>
+                      </article>
+                    ))}
+                </div>
+              </div>
             ))
           }
         </div>
@@ -350,6 +391,56 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     </section>
   </main>
 </BaseLayout>
+
+<script>
+  let certificateObservers: ResizeObserver[] = [];
+
+  function initializeCertificateRails() {
+    document.querySelectorAll<HTMLElement>('[data-certificate-group]').forEach((group) => {
+      if (group.dataset.certificateReady) return;
+      group.dataset.certificateReady = 'true';
+
+      const rail = group.querySelector<HTMLElement>('[data-certificate-rail]');
+      const controls = group.querySelector<HTMLElement>('[data-certificate-controls]');
+      const previous = group.querySelector<HTMLButtonElement>('[data-certificate-prev]');
+      const next = group.querySelector<HTMLButtonElement>('[data-certificate-next]');
+      if (!rail || !controls || !previous || !next) return;
+
+      const updateControls = () => {
+        const end = rail.scrollWidth - rail.clientWidth;
+        controls.hidden = end <= 2;
+        previous.disabled = rail.scrollLeft <= 2;
+        next.disabled = rail.scrollLeft >= end - 2;
+      };
+
+      const move = (direction: number) => {
+        const card = rail.querySelector<HTMLElement>('[data-certificate]');
+        if (!card) return;
+        const gap = Number.parseFloat(getComputedStyle(rail).columnGap) || 0;
+        rail.scrollBy({
+          left: direction * (card.getBoundingClientRect().width + gap),
+          behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        });
+      };
+
+      previous.addEventListener('click', () => move(-1));
+      next.addEventListener('click', () => move(1));
+      rail.addEventListener('scroll', updateControls, { passive: true });
+
+      const observer = new ResizeObserver(updateControls);
+      observer.observe(rail);
+      certificateObservers.push(observer);
+      updateControls();
+    });
+  }
+
+  document.addEventListener('astro:page-load', initializeCertificateRails);
+  document.addEventListener('astro:before-swap', () => {
+    certificateObservers.forEach((observer) => observer.disconnect());
+    certificateObservers = [];
+  });
+  initializeCertificateRails();
+</script>
 
 <style>
   .professional-page {
@@ -696,16 +787,118 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
       linear-gradient(180deg, rgb(56 189 248 / 2%), transparent 34%);
   }
 
-  .certificate-grid {
+  .certificate-groups {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(1rem, 2vw, 1.5rem);
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(3rem, 5vw, 4.5rem);
     margin-top: clamp(2.5rem, 5vw, 4rem);
   }
 
+  .certificate-group {
+    min-width: 0;
+  }
+
+  .certificate-group + .certificate-group {
+    border-top: 1px solid var(--professional-line);
+    padding-top: clamp(2.5rem, 4vw, 3.5rem);
+  }
+
+  .certificate-group-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .certificate-group-index {
+    color: var(--professional-accent);
+    font-family: var(--font-mono);
+    font-size: 0.69rem;
+    font-weight: 650;
+    letter-spacing: 0.12em;
+  }
+
+  .certificate-group-heading h3 {
+    margin-top: 0.55rem;
+    font-size: clamp(1.55rem, 2.3vw, 2.3rem);
+    font-weight: 610;
+    letter-spacing: -0.045em;
+    line-height: 1.15;
+  }
+
+  .certificate-group-heading p:last-child {
+    max-width: 48rem;
+    margin-top: 0.45rem;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .certificate-controls {
+    display: flex;
+    flex: none;
+    gap: 0.5rem;
+  }
+
+  .certificate-controls[hidden] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .certificate-controls button {
+    display: grid;
+    width: 2.8rem;
+    aspect-ratio: 1;
+    place-items: center;
+    border: 1px solid var(--professional-line);
+    border-radius: 50%;
+    background: var(--professional-surface);
+    color: var(--color-text-soft);
+    cursor: pointer;
+    transition:
+      border-color var(--duration-fast) ease,
+      background-color var(--duration-fast) ease,
+      color var(--duration-fast) ease;
+  }
+
+  .certificate-controls button:first-child :global(svg) {
+    rotate: 180deg;
+  }
+
+  .certificate-controls button:hover:not(:disabled) {
+    border-color: var(--professional-accent);
+    background: var(--professional-soft);
+    color: var(--professional-accent-strong);
+  }
+
+  .certificate-controls button:disabled {
+    opacity: 0.38;
+    cursor: default;
+  }
+
+  .certificate-rail {
+    display: flex;
+    min-width: 0;
+    gap: clamp(1rem, 2vw, 1.5rem);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0.15rem;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .certificate-rail::-webkit-scrollbar {
+    display: none;
+  }
+
   .certificate-card {
+    display: flex;
+    flex: 0 0 clamp(19rem, 29vw, 23.5rem);
+    flex-direction: column;
     overflow: hidden;
     border-radius: var(--radius-xl);
+    scroll-snap-align: start;
     transition:
       border-color var(--duration-fast) ease,
       translate var(--duration-fast) var(--ease-standard),
@@ -716,7 +909,7 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     position: relative;
     display: block;
     overflow: hidden;
-    aspect-ratio: 841.89 / 595.28;
+    aspect-ratio: 16 / 9;
     border-bottom: 1px solid var(--professional-line);
     background: #f5f5f3;
   }
@@ -724,7 +917,7 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
   :global(.certificate-preview-image) {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     transition: scale 500ms var(--ease-out);
   }
 
@@ -754,21 +947,22 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
 
   .certificate-body {
     display: flex;
-    min-height: 24rem;
+    flex: 1;
     flex-direction: column;
-    padding: clamp(1.3rem, 2.6vw, 2rem);
+    padding: clamp(1.2rem, 2vw, 1.6rem);
   }
 
   .certificate-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem 1.8rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
   }
 
   .certificate-meta div {
-    display: flex;
-    align-items: baseline;
-    gap: 0.45rem;
+    display: grid;
+    min-width: 0;
+    align-content: start;
+    gap: 0.2rem;
   }
 
   .certificate-meta dt {
@@ -785,18 +979,17 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     font-weight: 650;
   }
 
-  .certificate-body h3 {
-    max-width: 19ch;
-    margin-top: 1.2rem;
-    font-size: clamp(1.45rem, 2.5vw, 2.2rem);
+  .certificate-body h4 {
+    margin-top: 1rem;
+    font-size: clamp(1.2rem, 1.55vw, 1.5rem);
     font-weight: 610;
-    letter-spacing: -0.05em;
-    line-height: 1.08;
+    letter-spacing: -0.04em;
+    line-height: 1.18;
     text-wrap: balance;
   }
 
   .certificate-body > p {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
     color: var(--color-text-muted);
     font-size: var(--text-sm);
   }
@@ -807,7 +1000,7 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     align-items: center;
     gap: 0.48rem;
     margin-top: auto;
-    padding-top: 1.6rem;
+    padding-top: 1.25rem;
     color: var(--color-text-soft);
     font-size: var(--text-sm);
     font-weight: 680;
@@ -1141,10 +1334,6 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
     .expertise-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
-    .certificate-body {
-      min-height: 0;
-    }
   }
 
   @media (max-width: 42rem) {
@@ -1164,8 +1353,13 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
       grid-template-columns: 1fr;
     }
 
-    .certificate-grid {
-      grid-template-columns: 1fr;
+    .certificate-group-heading {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .certificate-card {
+      flex-basis: min(82vw, 21rem);
     }
 
     .professional-portrait {

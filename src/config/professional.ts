@@ -64,68 +64,139 @@ export const professionalCopy = {
     },
     certificates: {
       eyebrow: 'Continuous learning',
-      title: 'Recent training, grounded in the fundamentals.',
+      title: 'Learning that connects fundamentals with new tools.',
       intro:
-        'I keep sharpening the technical foundations behind my day-to-day work. These recent courses reflect a deliberate focus on understanding the platform deeply, from the JavaScript runtime to the browser itself.',
+        'I keep building on my JavaScript foundations while exploring practical ways to work with AI, integrate models into applications, and guide coding agents.',
       issuerLabel: 'Issued by',
       completedLabel: 'Completed',
       openLabel: 'Open certificate',
       previewLabel: 'View full certificate for',
-      items: [
+      previousLabel: 'Previous certificates in',
+      nextLabel: 'Next certificates in',
+      groups: [
         {
-          title: 'Advanced JavaScript — The Hard Parts v3',
-          issuer: 'Master.dev',
-          completed: 'August 2026',
-          description:
-            'Advanced JavaScript course focused on the language fundamentals and runtime concepts behind modern frontend development. Strengthened my understanding of execution context, closures, asynchronous programming, promises, and JavaScript internals.',
-          pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
-          preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
-          previewAlt:
-            'Master.dev certificate for Advanced JavaScript — The Hard Parts v3 awarded to Leandro Alonso',
+          id: 'javascript',
+          title: 'JavaScript & the web platform',
+          intro:
+            'Language fundamentals, browser APIs, and the runtime behind modern frontend work.',
+          items: [
+            {
+              title: 'The Hard Parts of UI Development',
+              issuer: 'Master.dev',
+              completed: 'October 2026',
+              sortDate: '2026-10-03',
+              description:
+                'Advanced course focused on understanding the fundamental mechanisms behind modern user interface development. Explored UI architecture and the underlying JavaScript concepts that make interactive interfaces work, with an emphasis on reasoning from first principles and building a stronger mental model of frontend development.',
+              pdf: '/certificates/hard-parts-ui-dev.pdf',
+              preview: '/images/certificates/hard-parts-ui-dev.png',
+              previewAlt:
+                'Master.dev certificate for The Hard Parts of UI Development awarded to Leandro Alonso',
+            },
+            {
+              title: 'Advanced JavaScript — The Hard Parts v3',
+              issuer: 'Master.dev',
+              completed: 'August 2026',
+              sortDate: '2026-08-13',
+              description:
+                'Advanced JavaScript course focused on the language fundamentals and runtime concepts behind modern frontend development. Strengthened my understanding of execution context, closures, asynchronous programming, promises, and JavaScript internals.',
+              pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+              preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+              previewAlt:
+                'Master.dev certificate for Advanced JavaScript — The Hard Parts v3 awarded to Leandro Alonso',
+            },
+            {
+              title: 'Vanilla JavaScript — You Might Not Need a Framework',
+              issuer: 'Master.dev',
+              completed: 'August 2026',
+              sortDate: '2026-08-20',
+              description:
+                'Advanced JavaScript course focused on building robust web applications with native browser APIs and modern Vanilla JS. Covered DOM APIs, Web Components, browser capabilities, performance, and architectural decisions around when a framework is — and isn’t — necessary.',
+              pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+              preview: '/images/certificates/vanilla-javascript-no-framework.png',
+              previewAlt:
+                'Master.dev certificate for Vanilla JavaScript — You Might Not Need a Framework awarded to Leandro Alonso',
+            },
+            {
+              title: 'Deep JavaScript — Foundations v3',
+              issuer: 'Master.dev',
+              completed: 'September 2026',
+              sortDate: '2026-09-03',
+              description:
+                "Advanced training focused on understanding JavaScript from first principles. I deepened my knowledge of types and coercion, scope and closures, this, prototypes, and the language's object model, with a focus on how JavaScript interprets and executes code.",
+              pdf: '/certificates/deep-javascript-v3.pdf',
+              preview: '/images/certificates/deep-javascript-v3.png',
+              previewAlt:
+                'Master.dev certificate for Deep JavaScript Foundations v3 awarded to Leandro Alonso',
+            },
+            {
+              title: 'Asynchronous JavaScript — The Hard Parts',
+              issuer: 'Master.dev',
+              completed: 'September 2026',
+              sortDate: '2026-09-08',
+              description:
+                'Advanced JavaScript course focused on understanding asynchronous execution from first principles. Strengthened my understanding of the event loop, callbacks, promises, browser APIs, and execution order, with a focus on how JavaScript coordinates synchronous and asynchronous work under the hood.',
+              pdf: '/certificates/javascript-new-hard-parts.pdf',
+              preview: '/images/certificates/javascript-new-hard-parts.png',
+              previewAlt:
+                'Master.dev certificate for Asynchronous JavaScript — The Hard Parts awarded to Leandro Alonso',
+            },
+            {
+              title: 'JavaScript: The Recent Parts',
+              issuer: 'Master.dev',
+              completed: 'September 2026',
+              sortDate: '2026-09-17',
+              description:
+                'Advanced JavaScript course focused on modern language features introduced in recent ECMAScript versions. Covered ES Modules, generators, destructuring, tagged template literals, advanced regular expressions, and other language enhancements, with an emphasis on understanding how these features work and when to use them effectively.',
+              pdf: '/certificates/js-recent-parts-assessment.pdf',
+              preview: '/images/certificates/js-recent-parts-assessment.png',
+              previewAlt:
+                'Master.dev certificate for JavaScript: The Recent Parts awarded to Leandro Alonso',
+            },
+          ],
         },
         {
-          title: 'Vanilla JavaScript — You Might Not Need a Framework',
-          issuer: 'Master.dev',
-          completed: 'August 2026',
-          description:
-            'Advanced JavaScript course focused on building robust web applications with native browser APIs and modern Vanilla JS. Covered DOM APIs, Web Components, browser capabilities, performance, and architectural decisions around when a framework is — and isn’t — necessary.',
-          pdf: '/certificates/vanilla-javascript-no-framework.pdf',
-          preview: '/images/certificates/vanilla-javascript-no-framework.png',
-          previewAlt:
-            'Master.dev certificate for Vanilla JavaScript — You Might Not Need a Framework awarded to Leandro Alonso',
-        },
-        {
-          title: 'Deep JavaScript — Foundations v3',
-          issuer: 'Master.dev',
-          completed: 'September 2026',
-          description:
-            "Advanced training focused on understanding JavaScript from first principles. I deepened my knowledge of types and coercion, scope and closures, this, prototypes, and the language's object model, with a focus on how JavaScript interprets and executes code.",
-          pdf: '/certificates/deep-javascript-v3.pdf',
-          preview: '/images/certificates/deep-javascript-v3.png',
-          previewAlt:
-            'Master.dev certificate for Deep JavaScript Foundations v3 awarded to Leandro Alonso',
-        },
-        {
-          title: 'Asynchronous JavaScript — The Hard Parts',
-          issuer: 'Master.dev',
-          completed: 'September 2026',
-          description:
-            'Advanced JavaScript course focused on understanding asynchronous execution from first principles. Strengthened my understanding of the event loop, callbacks, promises, browser APIs, and execution order, with a focus on how JavaScript coordinates synchronous and asynchronous work under the hood.',
-          pdf: '/certificates/javascript-new-hard-parts.pdf',
-          preview: '/images/certificates/javascript-new-hard-parts.png',
-          previewAlt:
-            'Master.dev certificate for Asynchronous JavaScript — The Hard Parts awarded to Leandro Alonso',
-        },
-        {
-          title: 'JavaScript: The Recent Parts',
-          issuer: 'Master.dev',
-          completed: 'September 2026',
-          description:
-            'Advanced JavaScript course focused on modern language features introduced in recent ECMAScript versions. Covered ES Modules, generators, destructuring, tagged template literals, advanced regular expressions, and other language enhancements, with an emphasis on understanding how these features work and when to use them effectively.',
-          pdf: '/certificates/js-recent-parts-assessment.pdf',
-          preview: '/images/certificates/js-recent-parts-assessment.png',
-          previewAlt:
-            'Master.dev certificate for JavaScript: The Recent Parts awarded to Leandro Alonso',
+          id: 'ai',
+          title: 'Applied AI & agents',
+          intro:
+            'Working with AI systems, integrating Claude, and directing coding agents in frontend development.',
+          items: [
+            {
+              title: 'AI Fluency: Framework & Foundations',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-08-24',
+              description:
+                'Course focused on developing practical AI fluency and a structured approach to working effectively with AI systems. Covered foundational frameworks for delegating tasks, providing context, evaluating outputs, and collaborating with AI while maintaining human judgment and control throughout the process.',
+              pdf: '/certificates/claude_fluency.pdf',
+              preview: '/images/certificates/claude_fluency.png',
+              previewAlt:
+                'Anthropic certificate for AI Fluency: Framework & Foundations awarded to Leandro Alonso',
+            },
+            {
+              title: 'Claude with the Anthropic API',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-09-27',
+              description:
+                'Practical course focused on integrating Claude into applications through the Anthropic API. Covered core API interaction patterns, structuring model inputs and outputs, and building reliable AI-powered workflows with a focus on effective implementation and application integration.',
+              pdf: '/certificates/claudo_ant_api.pdf',
+              preview: '/images/certificates/claudo_ant_api.png',
+              previewAlt:
+                'Anthropic certificate for Claude with the Anthropic API awarded to Leandro Alonso',
+            },
+            {
+              title: 'Agentic Frontend Development with Codex',
+              issuer: 'Master.dev',
+              completed: 'September 2026',
+              sortDate: '2026-09-19',
+              description:
+                'Practical course focused on agentic frontend development with Codex. Explored AI-assisted development workflows for planning, implementing, iterating, and refining frontend tasks, with an emphasis on using coding agents effectively while maintaining control over code quality and technical decisions.',
+              pdf: '/certificates/agentic_codex.pdf',
+              preview: '/images/certificates/agentic_codex.png',
+              previewAlt:
+                'Master.dev certificate for Agentic Frontend Development with Codex awarded to Leandro Alonso',
+            },
+          ],
         },
       ],
     },
@@ -293,68 +364,139 @@ export const professionalCopy = {
     },
     certificates: {
       eyebrow: 'Aprendizaje continuo',
-      title: 'Formación reciente, con foco en los fundamentos.',
+      title: 'Aprendizaje que une fundamentos y nuevas herramientas.',
       intro:
-        'Sigo profundizando las bases técnicas que sostienen mi trabajo cotidiano. Estas formaciones reflejan una búsqueda intencional por comprender la plataforma en profundidad: desde el runtime de JavaScript hasta las capacidades nativas del navegador.',
+        'Sigo profundizando mis bases en JavaScript y explorando formas prácticas de trabajar con IA, integrar modelos en aplicaciones y dirigir agentes de programación.',
       issuerLabel: 'Emitido por',
       completedLabel: 'Completado',
       openLabel: 'Abrir certificado',
       previewLabel: 'Ver certificado completo de',
-      items: [
+      previousLabel: 'Certificados anteriores de',
+      nextLabel: 'Certificados siguientes de',
+      groups: [
         {
-          title: 'Advanced JavaScript — The Hard Parts v3',
-          issuer: 'Master.dev',
-          completed: 'Agosto de 2026',
-          description:
-            'Formación avanzada en JavaScript centrada en los fundamentos del lenguaje y los conceptos de runtime que sostienen el desarrollo frontend moderno. Profundicé en contexto de ejecución, closures, programación asincrónica, promesas y funcionamiento interno de JavaScript.',
-          pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
-          preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
-          previewAlt:
-            'Certificado de Master.dev de Advanced JavaScript — The Hard Parts v3 otorgado a Leandro Alonso',
+          id: 'javascript',
+          title: 'JavaScript y plataforma web',
+          intro:
+            'Fundamentos del lenguaje, APIs del navegador y el runtime detrás del desarrollo frontend.',
+          items: [
+            {
+              title: 'The Hard Parts of UI Development',
+              issuer: 'Master.dev',
+              completed: 'Octubre de 2026',
+              sortDate: '2026-10-03',
+              description:
+                'Curso avanzado centrado en comprender los mecanismos fundamentales del desarrollo de interfaces de usuario modernas. Exploré la arquitectura de interfaces y los conceptos de JavaScript que hacen funcionar las interfaces interactivas, con énfasis en razonar a partir de principios fundamentales y construir un modelo mental más sólido del desarrollo frontend.',
+              pdf: '/certificates/hard-parts-ui-dev.pdf',
+              preview: '/images/certificates/hard-parts-ui-dev.png',
+              previewAlt:
+                'Certificado de Master.dev de The Hard Parts of UI Development otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Advanced JavaScript — The Hard Parts v3',
+              issuer: 'Master.dev',
+              completed: 'Agosto de 2026',
+              sortDate: '2026-08-13',
+              description:
+                'Formación avanzada en JavaScript centrada en los fundamentos del lenguaje y los conceptos de runtime que sostienen el desarrollo frontend moderno. Profundicé en contexto de ejecución, closures, programación asincrónica, promesas y funcionamiento interno de JavaScript.',
+              pdf: '/certificates/advanced-javascript-hard-parts-v3.pdf',
+              preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
+              previewAlt:
+                'Certificado de Master.dev de Advanced JavaScript — The Hard Parts v3 otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Vanilla JavaScript — You Might Not Need a Framework',
+              issuer: 'Master.dev',
+              completed: 'Agosto de 2026',
+              sortDate: '2026-08-20',
+              description:
+                'Formación avanzada orientada a construir aplicaciones web robustas con APIs nativas del navegador y JavaScript moderno. Abordé DOM APIs, Web Components, capacidades del navegador, rendimiento y decisiones de arquitectura sobre cuándo un framework es —y cuándo no es— necesario.',
+              pdf: '/certificates/vanilla-javascript-no-framework.pdf',
+              preview: '/images/certificates/vanilla-javascript-no-framework.png',
+              previewAlt:
+                'Certificado de Master.dev de Vanilla JavaScript — You Might Not Need a Framework otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Deep JavaScript — Foundations v3',
+              issuer: 'Master.dev',
+              completed: 'Septiembre de 2026',
+              sortDate: '2026-09-03',
+              description:
+                'Formación avanzada enfocada en comprender JavaScript desde sus fundamentos. Profundicé en tipos y coerción, scope y closures, this, prototypes y el modelo de objetos del lenguaje, con foco en entender cómo JavaScript interpreta y ejecuta el código.',
+              pdf: '/certificates/deep-javascript-v3.pdf',
+              preview: '/images/certificates/deep-javascript-v3.png',
+              previewAlt:
+                'Certificado de Master.dev de Deep JavaScript Foundations v3 otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Asynchronous JavaScript — The Hard Parts',
+              issuer: 'Master.dev',
+              completed: 'Septiembre de 2026',
+              sortDate: '2026-09-08',
+              description:
+                'Formación avanzada en JavaScript enfocada en comprender la ejecución asincrónica desde sus fundamentos. Profundicé en el event loop, callbacks, promesas, APIs del navegador y orden de ejecución, con foco en cómo JavaScript coordina internamente el trabajo sincrónico y asincrónico.',
+              pdf: '/certificates/javascript-new-hard-parts.pdf',
+              preview: '/images/certificates/javascript-new-hard-parts.png',
+              previewAlt:
+                'Certificado de Master.dev de Asynchronous JavaScript — The Hard Parts otorgado a Leandro Alonso',
+            },
+            {
+              title: 'JavaScript: Las funcionalidades recientes',
+              issuer: 'Master.dev',
+              completed: 'Septiembre de 2026',
+              sortDate: '2026-09-17',
+              description:
+                'Curso avanzado de JavaScript enfocado en funcionalidades modernas incorporadas en versiones recientes de ECMAScript. Profundicé en ES Modules, generadores, destructuring, tagged template literals, expresiones regulares avanzadas y otras mejoras del lenguaje, con foco en comprender cómo funcionan y cuándo utilizarlas de forma efectiva.',
+              pdf: '/certificates/js-recent-parts-assessment.pdf',
+              preview: '/images/certificates/js-recent-parts-assessment.png',
+              previewAlt:
+                'Certificado de Master.dev de JavaScript: Las funcionalidades recientes otorgado a Leandro Alonso',
+            },
+          ],
         },
         {
-          title: 'Vanilla JavaScript — You Might Not Need a Framework',
-          issuer: 'Master.dev',
-          completed: 'Agosto de 2026',
-          description:
-            'Formación avanzada orientada a construir aplicaciones web robustas con APIs nativas del navegador y JavaScript moderno. Abordé DOM APIs, Web Components, capacidades del navegador, rendimiento y decisiones de arquitectura sobre cuándo un framework es —y cuándo no es— necesario.',
-          pdf: '/certificates/vanilla-javascript-no-framework.pdf',
-          preview: '/images/certificates/vanilla-javascript-no-framework.png',
-          previewAlt:
-            'Certificado de Master.dev de Vanilla JavaScript — You Might Not Need a Framework otorgado a Leandro Alonso',
-        },
-        {
-          title: 'Deep JavaScript — Foundations v3',
-          issuer: 'Master.dev',
-          completed: 'Septiembre de 2026',
-          description:
-            'Formación avanzada enfocada en comprender JavaScript desde sus fundamentos. Profundicé en tipos y coerción, scope y closures, this, prototypes y el modelo de objetos del lenguaje, con foco en entender cómo JavaScript interpreta y ejecuta el código.',
-          pdf: '/certificates/deep-javascript-v3.pdf',
-          preview: '/images/certificates/deep-javascript-v3.png',
-          previewAlt:
-            'Certificado de Master.dev de Deep JavaScript Foundations v3 otorgado a Leandro Alonso',
-        },
-        {
-          title: 'Asynchronous JavaScript — The Hard Parts',
-          issuer: 'Master.dev',
-          completed: 'Septiembre de 2026',
-          description:
-            'Formación avanzada en JavaScript enfocada en comprender la ejecución asincrónica desde sus fundamentos. Profundicé en el event loop, callbacks, promesas, APIs del navegador y orden de ejecución, con foco en cómo JavaScript coordina internamente el trabajo sincrónico y asincrónico.',
-          pdf: '/certificates/javascript-new-hard-parts.pdf',
-          preview: '/images/certificates/javascript-new-hard-parts.png',
-          previewAlt:
-            'Certificado de Master.dev de Asynchronous JavaScript — The Hard Parts otorgado a Leandro Alonso',
-        },
-        {
-          title: 'JavaScript: Las funcionalidades recientes',
-          issuer: 'Master.dev',
-          completed: 'Septiembre de 2026',
-          description:
-            'Curso avanzado de JavaScript enfocado en funcionalidades modernas incorporadas en versiones recientes de ECMAScript. Profundicé en ES Modules, generadores, destructuring, tagged template literals, expresiones regulares avanzadas y otras mejoras del lenguaje, con foco en comprender cómo funcionan y cuándo utilizarlas de forma efectiva.',
-          pdf: '/certificates/js-recent-parts-assessment.pdf',
-          preview: '/images/certificates/js-recent-parts-assessment.png',
-          previewAlt:
-            'Certificado de Master.dev de JavaScript: Las funcionalidades recientes otorgado a Leandro Alonso',
+          id: 'ai',
+          title: 'IA aplicada y agentes',
+          intro:
+            'Trabajo con sistemas de IA, integración de Claude y dirección de agentes de programación en frontend.',
+          items: [
+            {
+              title: 'AI Fluency: Framework & Foundations',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-08-24',
+              description:
+                'Curso centrado en desarrollar competencias prácticas en IA y un enfoque estructurado para trabajar eficazmente con estos sistemas. Abordé marcos fundamentales para delegar tareas, aportar contexto, evaluar resultados y colaborar con la IA, manteniendo el criterio y el control humanos durante todo el proceso.',
+              pdf: '/certificates/claude_fluency.pdf',
+              preview: '/images/certificates/claude_fluency.png',
+              previewAlt:
+                'Certificado de Anthropic de AI Fluency: Framework & Foundations otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Claude with the Anthropic API',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-09-27',
+              description:
+                'Curso práctico centrado en integrar Claude en aplicaciones mediante la API de Anthropic. Abordé los principales patrones de interacción con la API, la estructuración de entradas y salidas del modelo y la creación de flujos de trabajo fiables basados en IA, con foco en una implementación eficaz y su integración en aplicaciones.',
+              pdf: '/certificates/claudo_ant_api.pdf',
+              preview: '/images/certificates/claudo_ant_api.png',
+              previewAlt:
+                'Certificado de Anthropic de Claude with the Anthropic API otorgado a Leandro Alonso',
+            },
+            {
+              title: 'Agentic Frontend Development with Codex',
+              issuer: 'Master.dev',
+              completed: 'Septiembre de 2026',
+              sortDate: '2026-09-19',
+              description:
+                'Curso práctico centrado en el desarrollo frontend con agentes y Codex. Exploré flujos de trabajo asistidos por IA para planificar, implementar, iterar y refinar tareas frontend, con énfasis en usar agentes de programación eficazmente sin perder el control sobre la calidad del código y las decisiones técnicas.',
+              pdf: '/certificates/agentic_codex.pdf',
+              preview: '/images/certificates/agentic_codex.png',
+              previewAlt:
+                'Certificado de Master.dev de Agentic Frontend Development with Codex otorgado a Leandro Alonso',
+            },
+          ],
         },
       ],
     },
