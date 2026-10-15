@@ -216,6 +216,14 @@ test.describe('professional certificates', () => {
       preview: '/images/certificates/advanced-javascript-hard-parts-v3.png',
     },
     {
+      pdf: '/certificates/react-performance-v2.pdf',
+      preview: '/images/certificates/react-performance-v2.png',
+    },
+    {
+      pdf: '/certificates/mcp_advanced.pdf',
+      preview: '/images/certificates/mcp_advanced.png',
+    },
+    {
       pdf: '/certificates/claudo_ant_api.pdf',
       preview: '/images/certificates/claudo_ant_api.png',
     },
@@ -235,13 +243,16 @@ test.describe('professional certificates', () => {
 
       const cards = page.locator('[data-certificate]');
       await expect(cards).toHaveCount(certificates.length);
-      await expect(page.locator('[data-certificate-group]')).toHaveCount(2);
+      await expect(page.locator('[data-certificate-group]')).toHaveCount(3);
       await expect(
         page.locator('[data-certificate-group]').first().locator('[data-certificate]'),
       ).toHaveCount(6);
       await expect(
+        page.locator('[data-certificate-group]').nth(1).locator('[data-certificate]'),
+      ).toHaveCount(1);
+      await expect(
         page.locator('[data-certificate-group]').last().locator('[data-certificate]'),
-      ).toHaveCount(3);
+      ).toHaveCount(4);
 
       for (const [index, certificate] of certificates.entries()) {
         const card = cards.nth(index);

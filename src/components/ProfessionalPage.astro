@@ -202,12 +202,12 @@ const emailHref = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
 
         <div class="certificate-groups">
           {
-            copy.certificates.groups.map((group) => (
+            copy.certificates.groups.map((group, index) => (
               <div class="certificate-group" data-certificate-group>
                 <div class="certificate-group-heading">
                   <div>
                     <p class="certificate-group-index" aria-hidden="true">
-                      {group.id === 'javascript' ? '01 / JS' : '02 / AI'}
+                      {`${String(index + 1).padStart(2, '0')} / ${group.id === 'javascript' ? 'JS' : group.id.toUpperCase()}`}
                     </p>
                     <h3 id={`certificate-group-${group.id}`}>{group.title}</h3>
                     <p>{group.intro}</p>

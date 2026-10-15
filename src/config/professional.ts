@@ -66,7 +66,7 @@ export const professionalCopy = {
       eyebrow: 'Continuous learning',
       title: 'Learning that connects fundamentals with new tools.',
       intro:
-        'I keep building on my JavaScript foundations while exploring practical ways to work with AI, integrate models into applications, and guide coding agents.',
+        'I keep building on my JavaScript foundations, sharpening how I build performant React interfaces, and exploring practical ways to work with AI and coding agents.',
       issuerLabel: 'Issued by',
       completedLabel: 'Completed',
       openLabel: 'Open certificate',
@@ -155,11 +155,43 @@ export const professionalCopy = {
           ],
         },
         {
+          id: 'react',
+          title: 'React & performance',
+          intro:
+            'Rendering behavior, modern React features, and the techniques behind responsive applications.',
+          items: [
+            {
+              title: 'React Performance, v2',
+              issuer: 'Master.dev',
+              completed: 'October 2026',
+              sortDate: '2026-10-10',
+              description:
+                'Advanced course focused on building high-performance React applications. Covered React 19 performance strategies including hydration, Suspense, resource loading, and Server Actions, along with established techniques such as memoization, virtualization, and code splitting. Also focused on diagnosing costly re-renders and performance bottlenecks to build faster, more responsive user experiences.',
+              pdf: '/certificates/react-performance-v2.pdf',
+              preview: '/images/certificates/react-performance-v2.png',
+              previewAlt:
+                'Master.dev certificate for React Performance, v2 awarded to Leandro Alonso',
+            },
+          ],
+        },
+        {
           id: 'ai',
           title: 'Applied AI & agents',
           intro:
-            'Working with AI systems, integrating Claude, and directing coding agents in frontend development.',
+            'Working with AI systems, connecting tools through MCP, integrating Claude, and directing coding agents.',
           items: [
+            {
+              title: 'Model Context Protocol: Advanced Topics',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-10-13',
+              description:
+                'Advanced course focused on deeper concepts and implementation patterns around the Model Context Protocol (MCP). Expanded my understanding of how MCP can be used to build more capable and structured integrations between AI systems, external tools, and contextual data.',
+              pdf: '/certificates/mcp_advanced.pdf',
+              preview: '/images/certificates/mcp_advanced.png',
+              previewAlt:
+                'Anthropic certificate for Model Context Protocol: Advanced Topics awarded to Leandro Alonso',
+            },
             {
               title: 'AI Fluency: Framework & Foundations',
               issuer: 'Anthropic',
@@ -366,7 +398,7 @@ export const professionalCopy = {
       eyebrow: 'Aprendizaje continuo',
       title: 'Aprendizaje que une fundamentos y nuevas herramientas.',
       intro:
-        'Sigo profundizando mis bases en JavaScript y explorando formas prácticas de trabajar con IA, integrar modelos en aplicaciones y dirigir agentes de programación.',
+        'Sigo profundizando mis bases en JavaScript, mejorando el rendimiento de las interfaces que construyo con React y explorando formas prácticas de trabajar con IA y agentes de programación.',
       issuerLabel: 'Emitido por',
       completedLabel: 'Completado',
       openLabel: 'Abrir certificado',
@@ -455,11 +487,43 @@ export const professionalCopy = {
           ],
         },
         {
+          id: 'react',
+          title: 'React y rendimiento',
+          intro:
+            'Renderizado, funciones modernas de React y técnicas para construir aplicaciones ágiles.',
+          items: [
+            {
+              title: 'React Performance, v2',
+              issuer: 'Master.dev',
+              completed: 'Octubre de 2026',
+              sortDate: '2026-10-10',
+              description:
+                'Curso avanzado centrado en crear aplicaciones React de alto rendimiento. Abordé estrategias de rendimiento en React 19, como hidratación, Suspense, carga de recursos y Server Actions, junto con técnicas consolidadas como memoización, virtualización y división del código. También trabajé en el diagnóstico de renderizados costosos y cuellos de botella para crear experiencias más rápidas y ágiles.',
+              pdf: '/certificates/react-performance-v2.pdf',
+              preview: '/images/certificates/react-performance-v2.png',
+              previewAlt:
+                'Certificado de Master.dev de React Performance, v2 otorgado a Leandro Alonso',
+            },
+          ],
+        },
+        {
           id: 'ai',
           title: 'IA aplicada y agentes',
           intro:
-            'Trabajo con sistemas de IA, integración de Claude y dirección de agentes de programación en frontend.',
+            'Trabajo con sistemas de IA, conexión de herramientas mediante MCP, integración de Claude y dirección de agentes de programación.',
           items: [
+            {
+              title: 'Model Context Protocol: Advanced Topics',
+              issuer: 'Anthropic',
+              completed: '',
+              sortDate: '2026-10-13',
+              description:
+                'Curso avanzado centrado en conceptos y patrones de implementación del Model Context Protocol (MCP). Profundicé en cómo utilizar MCP para crear integraciones más completas y estructuradas entre sistemas de IA, herramientas externas y datos contextuales.',
+              pdf: '/certificates/mcp_advanced.pdf',
+              preview: '/images/certificates/mcp_advanced.png',
+              previewAlt:
+                'Certificado de Anthropic de Model Context Protocol: Advanced Topics otorgado a Leandro Alonso',
+            },
             {
               title: 'AI Fluency: Framework & Foundations',
               issuer: 'Anthropic',
