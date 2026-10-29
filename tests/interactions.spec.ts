@@ -220,6 +220,10 @@ test.describe('professional certificates', () => {
       preview: '/images/certificates/react-performance-v2.png',
     },
     {
+      pdf: '/certificates/ai-engineering.pdf',
+      preview: '/images/certificates/ai-engineering.png',
+    },
+    {
       pdf: '/certificates/mcp_advanced.pdf',
       preview: '/images/certificates/mcp_advanced.png',
     },
@@ -252,7 +256,7 @@ test.describe('professional certificates', () => {
       ).toHaveCount(1);
       await expect(
         page.locator('[data-certificate-group]').last().locator('[data-certificate]'),
-      ).toHaveCount(4);
+      ).toHaveCount(5);
 
       for (const [index, certificate] of certificates.entries()) {
         const card = cards.nth(index);

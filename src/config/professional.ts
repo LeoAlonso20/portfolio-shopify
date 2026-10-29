@@ -181,6 +181,18 @@ export const professionalCopy = {
             'Working with AI systems, connecting tools through MCP, integrating Claude, and directing coding agents.',
           items: [
             {
+              title: 'Applied AI Engineering Fundamentals',
+              issuer: 'Master.dev',
+              completed: 'October 2026',
+              sortDate: '2026-10-27',
+              description:
+                'Practical course focused on the core concepts and engineering patterns behind building AI-powered applications. Strengthened my understanding of how to integrate language models into products, structure AI workflows, work with model inputs and outputs, and make sound engineering decisions when designing reliable AI features.',
+              pdf: '/certificates/ai-engineering.pdf',
+              preview: '/images/certificates/ai-engineering.png',
+              previewAlt:
+                'Master.dev certificate for Applied AI Engineering Fundamentals awarded to Leandro Alonso',
+            },
+            {
               title: 'Model Context Protocol: Advanced Topics',
               issuer: 'Anthropic',
               completed: '',
@@ -512,6 +524,18 @@ export const professionalCopy = {
           intro:
             'Trabajo con sistemas de IA, conexión de herramientas mediante MCP, integración de Claude y dirección de agentes de programación.',
           items: [
+            {
+              title: 'Applied AI Engineering Fundamentals',
+              issuer: 'Master.dev',
+              completed: 'Octubre de 2026',
+              sortDate: '2026-10-27',
+              description:
+                'Curso práctico centrado en los conceptos fundamentales y patrones de ingeniería para crear aplicaciones basadas en IA. Profundicé en la integración de modelos de lenguaje en productos, la organización de flujos de trabajo con IA y el manejo de entradas y salidas de los modelos. También abordé cómo tomar decisiones técnicas acertadas al diseñar funcionalidades de IA confiables.',
+              pdf: '/certificates/ai-engineering.pdf',
+              preview: '/images/certificates/ai-engineering.png',
+              previewAlt:
+                'Certificado de Master.dev de Applied AI Engineering Fundamentals otorgado a Leandro Alonso',
+            },
             {
               title: 'Model Context Protocol: Advanced Topics',
               issuer: 'Anthropic',
